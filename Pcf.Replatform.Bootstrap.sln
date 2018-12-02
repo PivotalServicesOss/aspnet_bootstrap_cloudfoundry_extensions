@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4A1A9078-D16
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F2AE3FB3-B981-4297-83A9-DF795EE76B2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcf.Replatform.Bootstrap.Base", "src\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj", "{D2B1D74A-734D-432C-A12B-1471EF2E7308}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Bootstrap.Base", "src\Pcf.Replatform.Bootstrap.Base\PCF.Bootstrap.Base.csproj", "{D2B1D74A-734D-432C-A12B-1471EF2E7308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcf.Replatform.Bootstrap.Autofac", "src\Pcf.Replatform.Bootstrap.Autofac\Pcf.Replatform.Bootstrap.Autofac.csproj", "{E07FD8E9-EE10-446D-A9FF-5B0AE5BD8605}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Autofac", "src\Pcf.Replatform.Bootstrap.Autofac\PCF.Replatform.Bootstrap.Autofac.csproj", "{E07FD8E9-EE10-446D-A9FF-5B0AE5BD8605}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcf.Replatform.Bootstrap.Base.Tests", "test\Pcf.Replatform.Bootstrap.Base.Tests\Pcf.Replatform.Bootstrap.Base.Tests.csproj", "{82A7B1F3-6B23-489F-8C58-321586917E2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Base.Tests", "test\Pcf.Replatform.Bootstrap.Base.Tests\PCF.Replatform.Bootstrap.Base.Tests.csproj", "{82A7B1F3-6B23-489F-8C58-321586917E2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcf.Replatform.Bootstrap.Autofac.Tests", "test\Pcf.Replatform.Bootstrap.Autofac.Tests\Pcf.Replatform.Bootstrap.Autofac.Tests.csproj", "{DE4DAEB9-A103-4122-AC83-28AC45726CDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Autofac.Tests", "test\Pcf.Replatform.Bootstrap.Autofac.Tests\PCF.Replatform.Bootstrap.Autofac.Tests.csproj", "{DE4DAEB9-A103-4122-AC83-28AC45726CDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

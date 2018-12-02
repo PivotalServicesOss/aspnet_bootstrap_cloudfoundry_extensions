@@ -3,7 +3,7 @@ using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Tracing;
 using Steeltoe.Management.Tracing.Observer;
 
-namespace Pcf.Replatform.Bootstrap.Diagnostics
+namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 {
     public class OutboundRequestObserver : HttpClientDesktopObserver
     {

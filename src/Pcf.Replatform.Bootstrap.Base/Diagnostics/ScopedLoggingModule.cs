@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Pcf.Replatform.Bootstrap.Diagnostics
+namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 {
     public class ScopedLoggingModule : IHttpModule
     {
@@ -18,11 +18,11 @@ namespace Pcf.Replatform.Bootstrap.Diagnostics
 
         public ScopedLoggingModule()
         {
-            logger = (CoreServiceConfig.GetService<ILoggerFactory>()
+            logger = (AppConfig.GetService<ILoggerFactory>()
                         ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
                         .CreateLogger<ScopedLoggingModule>();
 
-            messageProcessors = CoreServiceConfig.GetService<IEnumerable<IDynamicMessageProcessor>>() 
+            messageProcessors = AppConfig.GetService<IEnumerable<IDynamicMessageProcessor>>() 
                 ?? throw new ArgumentNullException(nameof(IEnumerable<IDynamicMessageProcessor>));
         }
 

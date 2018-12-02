@@ -4,14 +4,14 @@ using System.Diagnostics;
 using System.Web;
 using System.Web.Hosting;
 
-namespace Pcf.Replatform.Bootstrap.Diagnostics
+namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 {
     public class GlobalErrorHandlerModule : IHttpModule
     {
         ILogger<GlobalErrorHandlerModule> logger;
         public GlobalErrorHandlerModule()
         {
-            logger = (CoreServiceConfig.GetService<ILoggerFactory>() 
+            logger = (AppConfig.GetService<ILoggerFactory>() 
                         ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
                         .CreateLogger<GlobalErrorHandlerModule>();
         }

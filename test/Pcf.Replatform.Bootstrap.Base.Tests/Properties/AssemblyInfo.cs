@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Pcf.Replatform.Bootstrap.Base.Tests")]
+[assembly: AssemblyTitle("Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Pcf.Replatform.Bootstrap.Base.Tests")]
+[assembly: AssemblyProduct("Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

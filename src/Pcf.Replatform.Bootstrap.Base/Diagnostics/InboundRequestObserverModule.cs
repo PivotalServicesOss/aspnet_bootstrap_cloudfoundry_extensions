@@ -9,7 +9,7 @@ using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace Pcf.Replatform.Bootstrap.Diagnostics
+namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 {
     public class InboundRequestObserverModule : IHttpModule
     {
@@ -18,7 +18,7 @@ namespace Pcf.Replatform.Bootstrap.Diagnostics
 
         public InboundRequestObserverModule()
         {
-            logger = (CoreServiceConfig.GetService<ILoggerFactory>()
+            logger = (AppConfig.GetService<ILoggerFactory>()
                         ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
                         .CreateLogger<InboundRequestObserverModule>();
         }
@@ -55,8 +55,8 @@ namespace Pcf.Replatform.Bootstrap.Diagnostics
 
         private void HandleBeginEvent(HttpRequest request)
         {
-            var tracing = CoreServiceConfig.GetService<ITracing>() ?? throw new ArgumentNullException(nameof(ITracing));
-            var tracingOptions = CoreServiceConfig.GetService<ITracingOptions>() ?? throw new ArgumentNullException(nameof(ITracingOptions));
+            var tracing = AppConfig.GetService<ITracing>() ?? throw new ArgumentNullException(nameof(ITracing));
+            var tracingOptions = AppConfig.GetService<ITracingOptions>() ?? throw new ArgumentNullException(nameof(ITracingOptions));
 
             if (ShouldIgnoreRequest(request.Url.AbsolutePath, tracingOptions))
             {
