@@ -119,7 +119,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Pivotal.CloudFoundry.Replatform.Bootstrap.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Pivotal.CloudFoundry.Replatform.Bootstrap.Base.1.0.5\lib\net462\Pivotal.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
+      <HintPath>..\..\packages\Pivotal.CloudFoundry.Replatform.Bootstrap.Base.1.0.0\lib\net462\Pivotal.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Serilog.2.7.1\lib\net46\Serilog.dll</HintPath>
@@ -208,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="appsettings_template.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
