@@ -10,10 +10,6 @@ using Steeltoe.CloudFoundry.Connector.Redis;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
-using System.Web.Configuration;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 {
@@ -25,10 +21,10 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         public static void Configure(Action<HostBuilderContext, IConfigurationBuilder> configureAppConfigurationDelegate,
                                      Action<HostBuilderContext, IServiceCollection> configureServicesDelegate,
                                      Action<ILoggingBuilder> configureLoggingDelegate,
+                                     Dictionary<string, string> inMemoryConfigurationStore = null,
                                      bool persistSessionToRedis = false,
                                      bool addRedisDistributedCache = false,
-                                     bool addConfigServer = false,
-                                     Dictionary<string, string> inMemoryConfigurationStore = null)
+                                     bool addConfigServer = false)
         {
             host = new HostBuilder()
                 .ConfigureAppConfiguration((builderContext, configBuilder) =>
