@@ -1,7 +1,11 @@
 ﻿using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Pivotal.CloudFoundry.Replatform.Bootstrap.Base;
 using Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics;
 using System;
 using System.Collections.Generic;
+using System.Web;
+
+[assembly: PreApplicationStartMethod(typeof(HttpModuleConfig), "ConfigureModules")]
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 {
@@ -22,6 +26,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
                 typeof(InboundRequestObserverModule),
                 typeof(ScopedLoggingModule),
                 typeof(GlobalErrorHandlerModule),
+                typeof(RequestLoggerModule),
             };
         }
     }

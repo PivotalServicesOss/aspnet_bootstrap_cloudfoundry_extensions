@@ -16,13 +16,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
         ILogger<InboundRequestObserverModule> logger;
         internal ConcurrentDictionary<HttpRequest, ISpan> Pending = new ConcurrentDictionary<HttpRequest, ISpan>();
 
-        public InboundRequestObserverModule()
-        {
-            logger = (AppConfig.GetService<ILoggerFactory>()
-                        ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
-                        .CreateLogger<InboundRequestObserverModule>();
-        }
-
         public void Dispose()
         {
             //Nothing to dispose here
@@ -36,6 +29,11 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void Context_EndRequest(object sender, EventArgs e)
         {
+            if (logger == null)
+                logger = (AppConfig.GetService<ILoggerFactory>()
+                            ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
+                            .CreateLogger<InboundRequestObserverModule>();
+
             var context = ((HttpApplication)sender).Context;
             var request = DiagnosticHelpers.GetProperty<HttpRequest>(context, "Request");
             var response = DiagnosticHelpers.GetProperty<HttpResponse>(context, "Response");
@@ -45,6 +43,11 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void Context_BeginRequest(object sender, EventArgs e)
         {
+            if (logger == null)
+                logger = (AppConfig.GetService<ILoggerFactory>()
+                            ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
+                            .CreateLogger<InboundRequestObserverModule>();
+
             var context = ((HttpApplication)sender).Context;
             var request = DiagnosticHelpers.GetProperty<HttpRequest>(context, "Request");
 
@@ -74,7 +77,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
             var parentspanContext = GetParentSpanContext(request);
 
             ISpan started;
-            if(parentspanContext != null)
+            if (parentspanContext != null)
             {
                 started = tracing.Tracer.SpanBuilderWithRemoteParent(spanName, parentspanContext).StartSpan();
             }
@@ -99,17 +102,17 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void HandleEndEvent(HttpRequest request, HttpResponse response)
         {
-            if(!Pending.TryRemove(request, out ISpan span))
+            if (!Pending.TryRemove(request, out ISpan span))
             {
                 logger.LogDebug($"HandleEndEvent: Missing span context");
                 return;
             }
 
-            if(span != null)
+            if (span != null)
             {
                 span.PutHttpStatusCodeAttribute(response.StatusCode);
-                
-                if(response.Headers != null)
+
+                if (response.Headers != null)
                 {
                     span.PutHttpResponseHeadersAttribute(response.Headers);
                 }
@@ -123,8 +126,8 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
         private void InjectTraceContext(HttpRequest request, ISpanContext parentspanContext, ITracer tracer, ITracingOptions tracingOptions)
         {
             var traceId = tracer.CurrentSpan.Context.TraceId.ToLowerBase16();
-            
-            if(traceId.Length > 16 && tracingOptions.UseShortTraceIds)
+
+            if (traceId.Length > 16 && tracingOptions.UseShortTraceIds)
             {
                 traceId = traceId.Substring(traceId.Length - 16, 16);
             }
@@ -132,12 +135,12 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
             request.Headers.Add(B3Format.X_B3_TRACE_ID, traceId);
             request.Headers.Add(B3Format.X_B3_SPAN_ID, tracer.CurrentSpan.Context.SpanId.ToLowerBase16());
 
-            if(tracer.CurrentSpan.Context.TraceOptions.IsSampled)
+            if (tracer.CurrentSpan.Context.TraceOptions.IsSampled)
             {
                 request.Headers.Add(B3Format.X_B3_SAMPLED, "1");
             }
 
-            if(parentspanContext != null)
+            if (parentspanContext != null)
             {
                 request.Headers.Add(B3Format.X_B3_PARENT_SPAN_ID, parentspanContext.SpanId.ToLowerBase16());
             }

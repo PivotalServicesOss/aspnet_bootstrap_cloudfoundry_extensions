@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Logging
 {
-    public class ILoggerProvider
+    public class LoggerProvider
     {
         readonly static ILoggerFactory loggerFactory = AppConfig.GetService<ILoggerFactory>() 
                                                         ?? throw new ArgumentNullException(nameof(ILoggerFactory));

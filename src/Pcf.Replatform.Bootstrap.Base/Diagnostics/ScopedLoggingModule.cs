@@ -16,16 +16,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
         const string CORR_CONTXT = "CorelationContext";
         const string REQ_PATH_LOG_PROP_NM = "RequestPath";
 
-        public ScopedLoggingModule()
-        {
-            logger = (AppConfig.GetService<ILoggerFactory>()
-                        ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
-                        .CreateLogger<ScopedLoggingModule>();
-
-            messageProcessors = AppConfig.GetService<IEnumerable<IDynamicMessageProcessor>>() 
-                ?? throw new ArgumentNullException(nameof(IEnumerable<IDynamicMessageProcessor>));
-        }
-
         public void Dispose()
         {
             //Nothing to dispose here
@@ -38,6 +28,20 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void Context_BeginRequest(object sender, EventArgs e)
         {
+            if (logger == null)
+                logger = (AppConfig.GetService<ILoggerFactory>()
+                            ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
+                            .CreateLogger<ScopedLoggingModule>();
+
+            if (messageProcessors == null)
+            {
+                messageProcessors = AppConfig.GetService<IEnumerable<IDynamicMessageProcessor>>()
+                   ?? throw new ArgumentNullException(nameof(IEnumerable<IDynamicMessageProcessor>));
+
+                if (!messageProcessors.Any())
+                    throw new Exception("No message procesors of type 'IDynamicMessageProcessor' found");
+            }
+
             var context = ((HttpApplication)sender).Context;
             var request = DiagnosticHelpers.GetProperty<HttpRequest>(context, "Request");
 

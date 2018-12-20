@@ -9,12 +9,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
     public class GlobalErrorHandlerModule : IHttpModule
     {
         ILogger<GlobalErrorHandlerModule> logger;
-        public GlobalErrorHandlerModule()
-        {
-            logger = (AppConfig.GetService<ILoggerFactory>() 
-                        ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
-                        .CreateLogger<GlobalErrorHandlerModule>();
-        }
 
         public void Dispose()
         {
@@ -28,6 +22,11 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void Context_Error(object sender, EventArgs e)
         {
+            if(logger == null)
+                logger = (AppConfig.GetService<ILoggerFactory>()
+                        ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
+                        .CreateLogger<GlobalErrorHandlerModule>();
+
             var context = ((HttpApplication)sender).Context;
             try
             {
