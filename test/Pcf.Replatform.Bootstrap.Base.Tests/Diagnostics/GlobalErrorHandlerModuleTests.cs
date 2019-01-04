@@ -39,7 +39,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Tests.Diagnostics
         [ExpectedException(typeof(ArgumentNullException))]
         public void Test_ThrowsExceptionIfLoggerFactoryIsNull()
         {
-            Assert.IsTrue(new GlobalErrorHandlerModule() is IHttpModule);
+            new GlobalErrorHandlerModule().InvokeNonPublicInstanceMethod("Context_Error", null, null);
         }
     }
 }
