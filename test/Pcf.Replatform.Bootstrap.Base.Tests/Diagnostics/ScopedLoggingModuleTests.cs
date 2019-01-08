@@ -11,32 +11,32 @@ using System.Web;
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Tests.Diagnostics
 {
     [TestClass]
-    public class GlobalErrorHandlerModuleTests
+    public class ScopedLoggingModuleTests
     {
         Mock<ILoggerFactory> loggerFactory;
         Mock<IHost> host;
 
-        public GlobalErrorHandlerModuleTests()
+        public ScopedLoggingModuleTests()
         {
             loggerFactory = new Mock<ILoggerFactory>();
-            loggerFactory.Setup(l => l.CreateLogger(nameof(GlobalErrorHandlerModule))).Returns(new Mock<ILogger<GlobalErrorHandlerModule>>().Object);
+            loggerFactory.Setup(l => l.CreateLogger(nameof(ScopedLoggingModule))).Returns(new Mock<ILogger<ScopedLoggingModule>>().Object);
         }
 
         [TestMethod]
         public void Test_IsTypeOfHttpModule()
         {
-            Assert.IsTrue(new GlobalErrorHandlerModule() is IHttpModule);
+            Assert.IsTrue(new ScopedLoggingModule() is IHttpModule);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Test_ThrowsExceptionIfLoggerFactoryIsNull()
+        public void Test_ThrowsExceptionIfLoggerFactoryIsNull_Context_BeginRequest()
         {
             host = new Mock<IHost>();
             var services = new ServiceCollection();
             host.SetupGet(h => h.Services).Returns(services.BuildServiceProvider());
             TestHelper.SetNonPublicStaticFieldValue(typeof(AppConfig), "host", host.Object);
-            new GlobalErrorHandlerModule().InvokeNonPublicInstanceMethod("Context_Error", null, null);
+            new ScopedLoggingModule().InvokeNonPublicInstanceMethod("Context_BeginRequest", null, null);
         }
     }
 }

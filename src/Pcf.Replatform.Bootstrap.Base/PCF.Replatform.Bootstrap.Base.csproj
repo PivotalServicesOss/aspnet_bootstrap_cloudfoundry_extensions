@@ -257,7 +257,7 @@
     <Compile Include="AppBuilder.cs" />
     <Compile Include="Configuration\InMemoryConfigurationProvider.cs" />
     <Compile Include="Configuration\InMemoryConfigurationSource.cs" />
-    <Compile Include="Diagnostics\InboundRequestObserverModule - Copy.cs" />
+    <Compile Include="Diagnostics\InboundRequestObserverModule.cs" />
     <Compile Include="Configuration\WebConfigurationProvider.cs" />
     <Compile Include="Configuration\WebConfigurationSource.cs" />
     <Compile Include="Helpers\WebConfigurationHelper.cs" />

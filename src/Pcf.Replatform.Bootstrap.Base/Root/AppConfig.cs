@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 {
-    internal class AppConfig
+    public class AppConfig
     {
         const string ASPNET_ENV_VAR = "ASPNET_ENVIRONMENT";
         static IHost host;
