@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <system.web>
+    <machineKey validationKey="placeholder: Generated validation key" decryptionKey="placeholder: Generated validation key" validation="SHA1" decryption="AES"/>
+    <!--You can generate using any tools, for e.g 'https://www.developerfusion.com/tools/generatemachinekey'-->
+
+    <sessionState mode="Custom" customProvider="RedisSessionStateStore">
+      <providers>
+        <add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName = "Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Helpers" settingsMethodName = "GetConnectionString"/>
+      </providers>
+    </sessionState>
+  </system.web>
+</configuration>
