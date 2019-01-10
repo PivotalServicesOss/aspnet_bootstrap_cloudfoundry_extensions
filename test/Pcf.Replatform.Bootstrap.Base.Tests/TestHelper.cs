@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -79,6 +80,24 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Tests
                 throw new MissingMemberException(parentObject.GetType().FullName, fieldName);
 
             field.SetValue(parentObject, value);
+        }
+    }
+
+    internal class ConfigBuilderStub : IConfigurationBuilder
+    {
+        public IDictionary<string, object> Properties => throw new NotImplementedException();
+
+        public IList<IConfigurationSource> Sources { get; private set; } = new List<IConfigurationSource>();
+
+        public IConfigurationBuilder Add(IConfigurationSource source)
+        {
+            Sources.Add(source);
+            return this;
+        }
+
+        public IConfigurationRoot Build()
+        {
+            throw new NotImplementedException();
         }
     }
 }
