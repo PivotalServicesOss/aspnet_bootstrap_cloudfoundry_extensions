@@ -14,6 +14,9 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         private static Action<HostBuilderContext, IConfigurationBuilder> configureAppConfiguration;
         private static Action<HostBuilderContext, IServiceCollection> configureServices;
         private static Action<ILoggingBuilder> configureLogging;
+        private static bool persistSessionToRedis;
+        private static bool addRedisDistributedCache;
+        private static bool addConfigServer;
 
         public static readonly AppBuilder Instance = new AppBuilder();
 
@@ -37,9 +40,33 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
             return Instance;
         }
 
+        public AppBuilder PersistSessionToRedis()
+        {
+            persistSessionToRedis = true;
+            return Instance;
+        }
+
+        public AppBuilder AddRedisDistributedCache()
+        {
+            addRedisDistributedCache = true;
+            return Instance;
+        }
+
+        public AppBuilder AddConfigServer()
+        {
+            addConfigServer = true;
+            return Instance;
+        }
+
         public void Build()
         {
-            AppConfig.Configure(configureAppConfiguration, configureServices, configureLogging, InMemoryConfigStore);
+            AppConfig.Configure(configureAppConfiguration, 
+                                configureServices, 
+                                configureLogging, 
+                                persistSessionToRedis,
+                                addRedisDistributedCache,
+                                addConfigServer,
+                                InMemoryConfigStore);
         }
 
         public static T GetService<T>()

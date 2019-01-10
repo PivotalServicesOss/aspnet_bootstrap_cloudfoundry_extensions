@@ -21,10 +21,10 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         public static void Configure(Action<HostBuilderContext, IConfigurationBuilder> configureAppConfigurationDelegate,
                                      Action<HostBuilderContext, IServiceCollection> configureServicesDelegate,
                                      Action<ILoggingBuilder> configureLoggingDelegate,
-                                     Dictionary<string, string> inMemoryConfigurationStore = null,
-                                     bool persistSessionToRedis = false,
-                                     bool addRedisDistributedCache = false,
-                                     bool addConfigServer = false)
+                                     bool persistSessionToRedis,
+                                     bool addRedisDistributedCache,
+                                     bool addConfigServer,
+                                     Dictionary<string, string> inMemoryConfigurationStore = null)
         {
             host = new HostBuilder()
                 .ConfigureAppConfiguration((builderContext, configBuilder) =>
@@ -75,7 +75,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         {
             configBuilder.AddWebConfiguration();
             configBuilder.AddJsonFile("appSettings.json", false, false);
-            configBuilder.AddJsonFile($"appSettings.{environment}.json", true, false);
+            configBuilder.AddJsonFile($"appSettings.{environment?.ToLower()}.json", true, false);
             configBuilder.AddEnvironmentVariables();
             configBuilder.AddCloudFoundry();
 

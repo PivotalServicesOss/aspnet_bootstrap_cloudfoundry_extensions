@@ -1,7 +1,7 @@
 IF "%1"=="" @GOTO NO_ARG_PROVIDED
 %INFO% Argument is the minor version of the publising package
 
-nuget pack PCF.Bootstrap.Base.csproj -Version 1.0.%1 -OutputDirectory _publish
+nuget pack PCF.Replatform.Bootstrap.Base.csproj -Version 1.0.%1 -OutputDirectory _publish
 
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 

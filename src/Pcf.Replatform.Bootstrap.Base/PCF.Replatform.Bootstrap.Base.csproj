@@ -300,13 +300,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="appsettings.development_template.json" />
     <None Include="appsettings_template.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web.config.transform">
+    <Content Include="Web.config.transform">
       <SubType>Designer</SubType>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
