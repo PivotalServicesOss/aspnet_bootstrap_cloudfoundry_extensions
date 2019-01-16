@@ -295,7 +295,7 @@
     <Compile Include="Extensions\ConfigurationBuilderExtensions.cs" />
     <Compile Include="Extensions\ServiceCollectionExtensions.cs" />
     <Compile Include="Root\HttpModuleConfig.cs" />
-    <Compile Include="Logging\LoggerProvider.cs" />
+    <Compile Include="Extensions\GeneralExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Extensions;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Census.Trace.Propagation;
@@ -13,7 +14,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 {
     public class InboundRequestObserverModule : IHttpModule
     {
-        ILogger<InboundRequestObserverModule> logger;
         internal ConcurrentDictionary<HttpRequest, ISpan> Pending = new ConcurrentDictionary<HttpRequest, ISpan>();
 
         public void Dispose()
@@ -29,11 +29,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void Context_EndRequest(object sender, EventArgs e)
         {
-            if (logger == null)
-                logger = (AppConfig.GetService<ILoggerFactory>()
-                            ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
-                            .CreateLogger<InboundRequestObserverModule>();
-
             var context = ((HttpApplication)sender).Context;
             var request = DiagnosticHelpers.GetProperty<HttpRequest>(context, "Request");
             var response = DiagnosticHelpers.GetProperty<HttpResponse>(context, "Response");
@@ -43,11 +38,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void Context_BeginRequest(object sender, EventArgs e)
         {
-            if (logger == null)
-                logger = (AppConfig.GetService<ILoggerFactory>()
-                            ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
-                            .CreateLogger<InboundRequestObserverModule>();
-
             var context = ((HttpApplication)sender).Context;
             var request = DiagnosticHelpers.GetProperty<HttpRequest>(context, "Request");
 
@@ -63,13 +53,13 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
             if (ShouldIgnoreRequest(request.Url.AbsolutePath, tracingOptions))
             {
-                logger.LogDebug($"HandleBeginEvent: Ignoring path {request.Url.AbsolutePath}");
+                this.Logger().LogDebug($"HandleBeginEvent: Ignoring path {request.Url.AbsolutePath}");
                 return;
             }
 
             if (Pending.TryGetValue(request, out ISpan span))
             {
-                logger.LogDebug($"HandleBeginEvent: Continuing existing span!");
+                this.Logger().LogDebug($"HandleBeginEvent: Continuing existing span!");
                 return;
             }
 
@@ -104,7 +94,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
         {
             if (!Pending.TryRemove(request, out ISpan span))
             {
-                logger.LogDebug($"HandleEndEvent: Missing span context");
+                this.Logger().LogDebug($"HandleEndEvent: Missing span context");
                 return;
             }
 

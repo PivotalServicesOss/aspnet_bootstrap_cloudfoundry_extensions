@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Serilog.Context;
+﻿using Serilog.Context;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Extensions.Logging;
 using System;
@@ -11,7 +10,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 {
     public class ScopedLoggingModule : IHttpModule
     {
-        ILogger<ScopedLoggingModule> logger;
         IEnumerable<IDynamicMessageProcessor> messageProcessors;
         const string CORR_CONTXT = "CorrelationContext";
         const string REQ_PATH_LOG_PROP_NM = "RequestPath";
@@ -28,11 +26,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void Context_BeginRequest(object sender, EventArgs e)
         {
-            if (logger == null)
-                logger = (AppConfig.GetService<ILoggerFactory>()
-                            ?? throw new ArgumentNullException(nameof(ILoggerFactory)))
-                            .CreateLogger<ScopedLoggingModule>();
-
             if (messageProcessors == null)
             {
                 messageProcessors = AppConfig.GetService<IEnumerable<IDynamicMessageProcessor>>()
