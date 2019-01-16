@@ -31,7 +31,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
             var request = DiagnosticHelpers.GetProperty<HttpRequest>(context, "Request");
             var response = DiagnosticHelpers.GetProperty<HttpResponse>(context, "Response");
 
-            logger.LogInformation($"End processing request, url '{request.Url}', response status '{response.Status}'");
+            logger.LogDebug($"End processing request, url '{request.Url}', response status '{response.Status}'");
         }
 
         private void Context_BeginRequest(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
             if (request == null || request.Url.ToString() == "/") return;
 
-            logger.LogInformation($"Begin processing request, url '{request.Url}'");
+            logger.LogDebug($"Begin processing request, url '{request.Url}'");
         }
     }
 }

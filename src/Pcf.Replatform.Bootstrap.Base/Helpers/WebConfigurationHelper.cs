@@ -50,6 +50,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Helpers
 
             var element = typeof(ConfigurationElement).GetField("_bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
             var collection = typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+            collection.SetValue(ConfigurationManager.ConnectionStrings, false);
 
             foreach (var item in connectionStrings)
             {

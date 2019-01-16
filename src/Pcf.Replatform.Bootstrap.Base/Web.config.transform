@@ -6,7 +6,7 @@
 
     <sessionState mode="Custom" customProvider="RedisSessionStateStore">
       <providers>
-        <add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName = "Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Helpers" settingsMethodName = "GetConnectionString"/>
+        <add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName = "Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Helpers.RedisConnectionHelper" settingsMethodName = "GetConnectionString"/>
       </providers>
     </sessionState>
   </system.web>

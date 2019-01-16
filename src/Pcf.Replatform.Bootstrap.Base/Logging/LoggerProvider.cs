@@ -16,8 +16,8 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Logging
         {
             get
             {
-                var callerName = new StackTrace().GetFrame(3).GetMethod().ReflectedType.FullName 
-                                    ?? new StackTrace().GetFrame(2).GetMethod().ReflectedType.FullName
+                var callerName = new StackTrace().GetFrame(2).GetMethod().ReflectedType.FullName 
+                                    ?? new StackTrace().GetFrame(1).GetMethod().ReflectedType.FullName
                                     ?? UNKNOWN_TYP_NM;
 
                 if (loggers.TryGetValue(callerName, out ILogger logger))

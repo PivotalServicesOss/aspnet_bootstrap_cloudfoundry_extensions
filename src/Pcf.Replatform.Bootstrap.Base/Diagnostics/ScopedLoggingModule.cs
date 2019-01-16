@@ -13,7 +13,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
     {
         ILogger<ScopedLoggingModule> logger;
         IEnumerable<IDynamicMessageProcessor> messageProcessors;
-        const string CORR_CONTXT = "CorelationContext";
+        const string CORR_CONTXT = "CorrelationContext";
         const string REQ_PATH_LOG_PROP_NM = "RequestPath";
 
         public void Dispose()
@@ -52,9 +52,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
         private void PushCorelationProperties(HttpRequest request)
         {
-            if (messageProcessors.Any())
-                throw new Exception("No processors of type 'IDynamicMessageProcessor' is registered");
-
             var correlationContextInfo = string.Empty;
 
             foreach (var processor in messageProcessors)
@@ -63,7 +60,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
             }
 
             LogContext.PushProperty(CORR_CONTXT, correlationContextInfo, true);
-            LogContext.PushProperty(REQ_PATH_LOG_PROP_NM, request, true);
+            LogContext.PushProperty(REQ_PATH_LOG_PROP_NM, request.Url, true);
         }
     }
 }

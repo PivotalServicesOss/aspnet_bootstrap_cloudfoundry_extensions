@@ -35,9 +35,10 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
                 })
                 .ConfigureServices((builderContext, services) =>
                 {
+                    services.AddOptions();
+
                     InitializeSerilog(builderContext.Configuration);
 
-                    services.AddOptions();
                     services.AddLogging((builder) =>
                     {
                         builder.AddSerilog(dispose: true);
@@ -96,6 +97,8 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         {
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
+                .Enrich.FromLogContext()
+                .Filter.ByExcluding("Contains(@Message, 'cloudfoundryapplication')")
                 .CreateLogger();
         }
 
