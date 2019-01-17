@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 {
-    public class AppConfig
+    internal class AppConfig
     {
         const string ASPNET_ENV_VAR = "ASPNET_ENVIRONMENT";
         static IHost host;
@@ -21,6 +21,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         public static void Configure(Action<HostBuilderContext, IConfigurationBuilder> configureAppConfigurationDelegate,
                                      Action<HostBuilderContext, IServiceCollection> configureServicesDelegate,
                                      Action<HostBuilderContext, ILoggingBuilder> configureLoggingDelegate,
+                                     Action<IServiceCollection> configureIoCDelegate,
                                      bool persistSessionToRedis,
                                      bool addRedisDistributedCache,
                                      bool addConfigServer,
@@ -59,6 +60,8 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
                     WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
 
                     services.AddControllers();
+
+                    configureIoCDelegate?.Invoke(services);
                 })
                 .ConfigureLogging((builder, logBuilder) =>
                 {

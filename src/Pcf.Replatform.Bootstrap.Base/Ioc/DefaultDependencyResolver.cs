@@ -2,21 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http.Dependencies;
+using System.Web.Mvc;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Ioc
 {
-    public class WebDependencyResolver : IDependencyResolver
+    internal class DefaultDependencyResolver : System.Web.Mvc.IDependencyResolver, System.Web.Http.Dependencies.IDependencyResolver
     {
         private IServiceProvider serviceProvider;
 
-        public WebDependencyResolver(IServiceProvider serviceProvider)
+        public DefaultDependencyResolver(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }
 
         public IDependencyScope BeginScope()
         {
-            return new WebDependencyResolver(serviceProvider.CreateScope().ServiceProvider);
+            return new DefaultDependencyResolver(serviceProvider.CreateScope().ServiceProvider);
         }
 
         public object GetService(Type serviceType)
@@ -38,6 +39,5 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Ioc
         {
             serviceProvider = null;
         }
-
     }
 }

@@ -31,7 +31,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
 
                 LogError(lastError);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 LogError(exception);
             }
@@ -41,7 +41,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Diagnostics
         {
             this.Logger().Log(LogLevel.Error, exception, exception.ToString());
 
-            EventLog.WriteEntry(HostingEnvironment.ApplicationHost.GetSiteName(), exception.ToString());
+            try { EventLog.WriteEntry(HostingEnvironment.ApplicationHost.GetSiteName(), exception.ToString()); } catch { }
         }
     }
 }
