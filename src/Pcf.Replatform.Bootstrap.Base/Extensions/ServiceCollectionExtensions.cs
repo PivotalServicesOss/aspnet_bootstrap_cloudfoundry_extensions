@@ -6,6 +6,9 @@ using Steeltoe.Common.Diagnostics;
 using Steeltoe.Extensions.Logging;
 using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Tracing;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Extensions
 {
@@ -23,5 +26,22 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Extensions
             services.TryAddSingleton<IDynamicMessageProcessor, TracingLogProcessor>();
             services.TryAddSingleton<IDiagnosticsManager>(DiagnosticsManager.Instance);
         }
+
+        public static IServiceCollection AddControllers(this IServiceCollection services)
+        {
+            var allTypes = from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                           from type in assembly.GetTypes()
+                           select type;
+
+            var controllerTypes = allTypes.Where(type => !type.IsAbstract && !type.IsGenericTypeDefinition)
+                                    .Where(type => typeof(IController).IsAssignableFrom(type)
+                                    || type.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase));
+
+            foreach (var type in controllerTypes)
+                services.AddTransient(type);
+
+            return services;
+        }
+
     }
 }

@@ -7,7 +7,7 @@
     <authors>ajaganathan, Pivotal</authors>
     <owners>ajaganathan, Pivotal</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package helps to bootstrap a full framework application to PCF(Basic support, without DI)</description>
+    <description>Package helps to bootstrap a full framework application to PCF(Basic support, with basic DI)</description>
     <copyright>Copyright ©  2018</copyright>
     <dependencies>
       <dependency id="GitInfo" version="2.0.20" />

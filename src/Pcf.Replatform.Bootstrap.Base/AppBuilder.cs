@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+using Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Common.HealthChecks;
 using Steeltoe.Extensions.Logging;
@@ -15,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 {
@@ -101,6 +103,21 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 
             if (useCloudFoundryMerticsForwarder)
                 ConfigureMetricsForwarder();
+
+            return Instance;
+        }
+
+        public AppBuilder InstallWeb()
+        {
+            var resolver = new WebDependencyResolver(AppConfig.ServiceProvider);
+            GlobalConfiguration.Configuration.DependencyResolver = resolver;
+            return Instance;
+        }
+
+        public AppBuilder InstallMvc()
+        {
+            var resolver = new MvcDependencyResolver(AppConfig.ServiceProvider);
+            DependencyResolver.SetResolver(resolver);
 
             return Instance;
         }

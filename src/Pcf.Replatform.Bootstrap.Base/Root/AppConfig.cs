@@ -57,6 +57,8 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
                     configureServicesDelegate?.Invoke(builderContext, services);
 
                     WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
+
+                    services.AddControllers();
                 })
                 .ConfigureLogging((builder, logBuilder) =>
                 {
@@ -68,6 +70,11 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         public static T GetService<T>()
         {
             return host.Services.GetService<T>();
+        }
+
+        public static IServiceProvider ServiceProvider
+        {
+            get{ return host.Services; }
         }
 
         private static void AddDefaultConfigurationSources(IConfigurationBuilder configBuilder, string environment,

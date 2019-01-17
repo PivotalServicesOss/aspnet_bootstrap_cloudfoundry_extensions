@@ -355,6 +355,8 @@
     <Compile Include="Configuration\WebConfigurationSource.cs" />
     <Compile Include="Helpers\RedisConnectionHelper.cs" />
     <Compile Include="Helpers\WebConfigurationHelper.cs" />
+    <Compile Include="Ioc\WebDependencyResolver.cs" />
+    <Compile Include="Ioc\MvcDependencyResolver.cs" />
     <Compile Include="Root\AppConfig.cs" />
     <Compile Include="Diagnostics\GlobalErrorHandlerModule.cs" />
     <Compile Include="Diagnostics\RequestLoggerModule.cs" />
