@@ -9,6 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package helps to bootstrap a full framework application to PCF(Basic support, without DI)</description>
     <copyright>Copyright ©  2018</copyright>
+    <dependencies>
+      <dependency id="GitInfo" version="2.0.20" />
+    </dependencies>
   </metadata>
   <files>
     <file src="appsettings_template.json" target="Content" />

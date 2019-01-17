@@ -2,8 +2,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Steeltoe.Common.Diagnostics;
+using Steeltoe.Common.HealthChecks;
+using Steeltoe.Extensions.Logging;
+using Steeltoe.Management.Endpoint;
+using Steeltoe.Management.Endpoint.Health.Contributor;
+using Steeltoe.Management.Endpoint.Metrics;
+using Steeltoe.Management.Exporter.Metrics;
+using Steeltoe.Management.Exporter.Metrics.CloudFoundryForwarder;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
 
 namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 {
@@ -13,10 +24,14 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 
         private static Action<HostBuilderContext, IConfigurationBuilder> configureAppConfiguration;
         private static Action<HostBuilderContext, IServiceCollection> configureServices;
-        private static Action<ILoggingBuilder> configureLogging;
+        private static Action<HostBuilderContext, ILoggingBuilder> configureLogging;
         private static bool persistSessionToRedis;
         private static bool addRedisDistributedCache;
         private static bool addConfigServer;
+        private static bool useCloudFoundryActuators;
+        private static bool useCloudFoundryMetricsActuator;
+        private static bool useCloudFoundryMerticsForwarder;
+        private static IMetricsExporter metricsExporter;
 
         public static readonly AppBuilder Instance = new AppBuilder();
 
@@ -34,7 +49,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
             return Instance;
         }
 
-        public AppBuilder ConfigureLogging(Action<ILoggingBuilder> configureDelegate)
+        public AppBuilder ConfigureLogging(Action<HostBuilderContext, ILoggingBuilder> configureDelegate)
         {
             configureLogging = configureDelegate;
             return Instance;
@@ -58,20 +73,93 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
             return Instance;
         }
 
-        public void Build()
+        public AppBuilder UseCloudFoundryMerticsForwarder()
         {
-            AppConfig.Configure(configureAppConfiguration, 
-                                configureServices, 
-                                configureLogging, 
+            useCloudFoundryMerticsForwarder = true;
+            return Instance;
+        }
+
+        public AppBuilder UseCloudFoundryActuators(bool includeMetricsActuator = false)
+        {
+            useCloudFoundryActuators = true;
+            useCloudFoundryMetricsActuator = includeMetricsActuator;
+            return Instance;
+        }
+
+        public AppBuilder Build()
+        {
+            AppConfig.Configure(configureAppConfiguration,
+                                configureServices,
+                                configureLogging,
                                 persistSessionToRedis,
                                 addRedisDistributedCache,
                                 addConfigServer,
                                 InMemoryConfigStore);
+
+            if (useCloudFoundryActuators)
+                ConfigureActuators();
+
+            if (useCloudFoundryMerticsForwarder)
+                ConfigureMetricsForwarder();
+
+            return Instance;
+        }
+
+        public void Start()
+        {
+            if (useCloudFoundryActuators)
+                DiagnosticsManager.Instance.Start();
+
+            if (useCloudFoundryMerticsForwarder)
+                metricsExporter?.Start();
+        }
+
+        public void Stop()
+        {
+            if (useCloudFoundryActuators)
+                DiagnosticsManager.Instance.Stop();
+
+            if (useCloudFoundryMerticsForwarder)
+                metricsExporter?.Stop();
         }
 
         public static T GetService<T>()
         {
             return AppConfig.GetService<T>();
+        }
+
+        private void ConfigureMetricsForwarder()
+        {
+            var configuration = GetService<IConfiguration>();
+            var loggerFactory = GetService<ILoggerFactory>();
+
+            metricsExporter = new CloudFoundryForwarderExporter(new CloudFoundryForwarderOptions(configuration), 
+                                                                OpenCensusStats.Instance, 
+                                                                loggerFactory.CreateLogger<CloudFoundryForwarderExporter>());
+        }
+
+        private void ConfigureActuators()
+        {
+            var configuration = GetService<IConfiguration>();
+            var loggerFactory = GetService<ILoggerFactory>();
+            var dynamicLoggerProvider = new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
+            loggerFactory.AddProvider(dynamicLoggerProvider);
+
+            ActuatorConfigurator.UseCloudFoundryActuators(configuration, 
+                                                            dynamicLoggerProvider, 
+                                                            GetHealthContributors(),
+                                                            GlobalConfiguration.Configuration.Services.GetApiExplorer(), 
+                                                            loggerFactory);
+
+            if(useCloudFoundryMetricsActuator)
+                ActuatorConfigurator.UseMetricsActuator(configuration, loggerFactory);
+        }
+
+        private IEnumerable<IHealthContributor> GetHealthContributors()
+        {
+            var healthContributors = GetService<IEnumerable<IHealthContributor>>().ToList();
+            healthContributors.Add(new DiskSpaceContributor());
+            return healthContributors;
         }
     }
 }

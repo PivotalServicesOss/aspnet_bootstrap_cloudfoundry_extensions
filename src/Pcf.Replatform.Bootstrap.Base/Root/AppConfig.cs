@@ -20,7 +20,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 
         public static void Configure(Action<HostBuilderContext, IConfigurationBuilder> configureAppConfigurationDelegate,
                                      Action<HostBuilderContext, IServiceCollection> configureServicesDelegate,
-                                     Action<ILoggingBuilder> configureLoggingDelegate,
+                                     Action<HostBuilderContext, ILoggingBuilder> configureLoggingDelegate,
                                      bool persistSessionToRedis,
                                      bool addRedisDistributedCache,
                                      bool addConfigServer,
@@ -58,9 +58,9 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 
                     WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
                 })
-                .ConfigureLogging((builder) =>
+                .ConfigureLogging((builder, logBuilder) =>
                 {
-                    configureLoggingDelegate?.Invoke(builder);
+                    configureLoggingDelegate?.Invoke(builder, logBuilder);
                 })
                 .Build();
         }
