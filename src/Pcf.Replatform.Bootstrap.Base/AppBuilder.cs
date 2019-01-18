@@ -36,8 +36,8 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         private static bool useCloudFoundryMerticsForwarder;
         private static IMetricsExporter metricsExporter;
         private static bool useCustomIoC;
-        private static IDependencyResolver mvcDependencyResolver;
-        private static System.Web.Http.Dependencies.IDependencyResolver webApiDependencyResolver;
+        private static Func<IDependencyResolver> mvcDependencyResolverFunc;
+        private static Func<System.Web.Http.Dependencies.IDependencyResolver> webApiDependencyResolverFunc;
 
         public static readonly AppBuilder Instance = new AppBuilder();
 
@@ -92,11 +92,11 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
             return Instance;
         }
 
-        public AppBuilder ConfigureIoC(System.Web.Http.Dependencies.IDependencyResolver webApiResolver, IDependencyResolver mvcResolver, Action<IServiceCollection> configureServiceProvider)
+        public AppBuilder ConfigureIoC(Func<System.Web.Http.Dependencies.IDependencyResolver> webApiResolverFunc, Func<IDependencyResolver> mvcResolverFunc, Action<IServiceCollection> configureServiceProvider)
         {
             useCustomIoC = true;
-            webApiDependencyResolver = webApiResolver;
-            mvcDependencyResolver = mvcResolver;
+            webApiDependencyResolverFunc = webApiResolverFunc;
+            mvcDependencyResolverFunc = mvcResolverFunc;
             configureIoC = configureServiceProvider;
             return Instance;
         }
@@ -153,8 +153,8 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 
         private void InstallCustomDependencyResolvers()
         {
-            GlobalConfiguration.Configuration.DependencyResolver = webApiDependencyResolver;
-            DependencyResolver.SetResolver(mvcDependencyResolver);
+            GlobalConfiguration.Configuration.DependencyResolver = webApiDependencyResolverFunc?.Invoke();
+            DependencyResolver.SetResolver(mvcDependencyResolverFunc?.Invoke());
         }
 
         private void ConfigureMetricsForwarder()
