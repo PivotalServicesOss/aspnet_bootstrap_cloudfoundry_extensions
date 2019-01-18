@@ -29,3 +29,8 @@
 - https://github.com/alfusinigoj/pcf_replatform_bootstrap_samples
 ##### Instructions
 - TODO
+
+##### In future
+- Improve test coverage, currently very minimal level of unit tests written
+- Add Owin support
+- Add support and configuration templates for service discovery
