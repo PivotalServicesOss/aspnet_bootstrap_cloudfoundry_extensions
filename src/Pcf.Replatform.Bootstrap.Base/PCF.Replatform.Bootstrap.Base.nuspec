@@ -4,8 +4,8 @@
     <id>Pivotal.CloudFoundry.Replatform.Bootstrap.Base</id>
     <version>$Version$</version>
     <title>Pivotal.CloudFoundry.Replatform.Bootstrap.Base</title>
-    <authors>ajaganathan, Pivotal</authors>
-    <owners>ajaganathan, Pivotal</owners>
+    <authors>alfusinigoj</authors>
+    <owners>ajaganathan</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package helps to bootstrap a full framework application to PCF(Basic support, with basic DI)</description>
     <copyright>Copyright ©  2018</copyright>
