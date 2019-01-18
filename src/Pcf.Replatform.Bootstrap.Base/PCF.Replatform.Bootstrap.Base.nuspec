@@ -5,9 +5,9 @@
     <version>$Version$</version>
     <title>Pivotal.CloudFoundry.Replatform.Bootstrap.Base</title>
     <authors>alfusinigoj</authors>
-    <owners>ajaganathan</owners>
+    <owners>alfusinigoj</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package helps to bootstrap a full framework application to PCF(Basic support, with basic DI)</description>
+    <description>Package helps to bootstrap a full framework application to PCF - supports DI (native, autofac and unity)</description>
     <copyright>Copyright ©  2018</copyright>
     <dependencies>
       <dependency id="GitInfo" version="2.0.20" />
