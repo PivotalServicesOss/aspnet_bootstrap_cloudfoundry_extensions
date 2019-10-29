@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</id>
+    <version>$Version$</version>
+    <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</title>
+    <authors>alfusjaganathan</authors>
+    <owners>alfusjaganathan</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package helps to bootstrap a full framework application to PCF, for enabling actuators and metrics forwarder, this is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
+    <copyright>Copyright © 2019</copyright>
+  </metadata>
+  <files>
+    <file src="Web.config.install.xdt" target="Content" />
+    <file src="Web.config.uninstall.xdt" target="Content" />
+  </files>
+</package>

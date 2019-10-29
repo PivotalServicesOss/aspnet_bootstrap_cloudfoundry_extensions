@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Ba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Base.Tests", "test\Pcf.Replatform.Bootstrap.Base.Tests\PCF.Replatform.Bootstrap.Base.Tests.csproj", "{82A7B1F3-6B23-489F-8C58-321586917E2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Redis.Session", "src\PCF.Replatform.Bootstrap.Redis.Session\PCF.Replatform.Bootstrap.Redis.Session.csproj", "{4A19BAD0-9EBC-41D4-AEDD-13C7A1B78FED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Configuration", "src\PCF.Replatform.Bootstrap.Configuration\PCF.Replatform.Bootstrap.Configuration.csproj", "{2F30C6F9-ECE8-4200-8094-C0047ABC2573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Logging", "src\PCF.Replatform.Bootstrap.Logging\PCF.Replatform.Bootstrap.Logging.csproj", "{A4C228E0-9B23-4D32-A437-A32D7909752D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Bootstrap.Actuators", "src\PCF.Replatform.Bootstrap.Actutors\PCF.Replatform.Bootstrap.Actuators.csproj", "{F8E5874C-16C6-4AF5-88EF-A57C74888F21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +33,22 @@ Global
 		{82A7B1F3-6B23-489F-8C58-321586917E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82A7B1F3-6B23-489F-8C58-321586917E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82A7B1F3-6B23-489F-8C58-321586917E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A19BAD0-9EBC-41D4-AEDD-13C7A1B78FED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A19BAD0-9EBC-41D4-AEDD-13C7A1B78FED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A19BAD0-9EBC-41D4-AEDD-13C7A1B78FED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A19BAD0-9EBC-41D4-AEDD-13C7A1B78FED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F30C6F9-ECE8-4200-8094-C0047ABC2573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F30C6F9-ECE8-4200-8094-C0047ABC2573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F30C6F9-ECE8-4200-8094-C0047ABC2573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F30C6F9-ECE8-4200-8094-C0047ABC2573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4C228E0-9B23-4D32-A437-A32D7909752D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4C228E0-9B23-4D32-A437-A32D7909752D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4C228E0-9B23-4D32-A437-A32D7909752D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4C228E0-9B23-4D32-A437-A32D7909752D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8E5874C-16C6-4AF5-88EF-A57C74888F21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E5874C-16C6-4AF5-88EF-A57C74888F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E5874C-16C6-4AF5-88EF-A57C74888F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E5874C-16C6-4AF5-88EF-A57C74888F21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +56,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D2B1D74A-734D-432C-A12B-1471EF2E7308} = {4A1A9078-D164-45F3-BF45-D9AB8F7C000B}
 		{82A7B1F3-6B23-489F-8C58-321586917E2C} = {F2AE3FB3-B981-4297-83A9-DF795EE76B2A}
+		{4A19BAD0-9EBC-41D4-AEDD-13C7A1B78FED} = {4A1A9078-D164-45F3-BF45-D9AB8F7C000B}
+		{2F30C6F9-ECE8-4200-8094-C0047ABC2573} = {4A1A9078-D164-45F3-BF45-D9AB8F7C000B}
+		{A4C228E0-9B23-4D32-A437-A32D7909752D} = {4A1A9078-D164-45F3-BF45-D9AB8F7C000B}
+		{F8E5874C-16C6-4AF5-88EF-A57C74888F21} = {4A1A9078-D164-45F3-BF45-D9AB8F7C000B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {71198C41-6536-42E1-BB5F-2091316B4AA5}

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</id>
+    <version>$Version$</version>
+    <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</title>
+    <authors>alfusjaganathan</authors>
+    <owners>alfusjaganathan</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This lso overrites the AppSettings and ConnectionString Sections in Web.config file from other external sources. This is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
+    <copyright>Copyright © 2019</copyright>
+  </metadata>
+  <files>
+    <file src="appsettings.json" target="Content" />
+    <file src="appsettings.development.json" target="Content" />
+  </files>
+</package>

@@ -2,18 +2,18 @@ IF "%1"=="" @GOTO NO_VER_ARG_PROVIDED
 
 %INFO% Argument is the version of the publising package
 
-nuget pack PCF.Replatform.Bootstrap.Base.csproj -Version %1 -OutputDirectory ..\_artifacts
+nuget pack PCF.Replatform.Bootstrap.Redis.Session.csproj -Version %1 -OutputDirectory ..\_artifacts
 
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 
 IF "%2"=="" @GOTO NO_SRC_ARG_PROVIDED
-nuget push ..\_artifacts/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.%1.nupkg -Source %2
+nuget push ..\_artifacts/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.%1.nupkg -Source %2
 
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 IF %ERRORLEVEL% EQU 0 GOTO SUCCESS
 
 :NO_SRC_ARG_PROVIDED
-nuget add ..\_artifacts/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.%1.nupkg -Source c:\MyLocalNugetRepo
+nuget add ..\_artifacts/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.%1.nupkg -Source c:\MyLocalNugetRepo
 
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 IF %ERRORLEVEL% EQU 0 GOTO SUCCESS

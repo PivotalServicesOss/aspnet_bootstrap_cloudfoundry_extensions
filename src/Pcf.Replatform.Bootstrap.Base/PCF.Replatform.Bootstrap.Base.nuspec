@@ -1,20 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>Pivotal.CloudFoundry.Replatform.Bootstrap.Base</id>
+    <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Base</id>
     <version>$Version$</version>
-    <title>Pivotal.CloudFoundry.Replatform.Bootstrap.Base</title>
-    <authors>alfusinigoj</authors>
-    <owners>alfusinigoj</owners>
+    <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Base</title>
+    <authors>alfusjaganathan</authors>
+    <owners>alfusjaganathan</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package helps to bootstrap a full framework application to PCF - supports DI (native, autofac and unity)</description>
-    <copyright>Copyright ©  2018</copyright>
+    <description>Package helps to bootstrap a full framework application to PCF - supports DI (native, autofac and unity). Refer to examples in https://github.com/alfusinigoj/pcf_replatform_bootstrap_samples</description>
+    <copyright>Copyright © 2019</copyright>
     <dependencies>
       <dependency id="GitInfo" version="2.0.20" />
     </dependencies>
   </metadata>
   <files>
-    <file src="appsettings_template.json" target="Content" />
-    <file src="appsettings.development_template.json" target="Content" />
+    <file src="appsettings.json" target="Content" />
+    <file src="appsettings.development.json" target="Content" />
+    <file src="Web.config.install.xdt" target="Content" />
+    <file src="Web.config.uninstall.xdt" target="Content" />
   </files>
 </package>

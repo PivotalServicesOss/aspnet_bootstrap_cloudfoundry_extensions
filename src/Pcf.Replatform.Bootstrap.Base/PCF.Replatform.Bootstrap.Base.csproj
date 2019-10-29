@@ -350,35 +350,20 @@
     <Compile Include="AppBuilder.cs" />
     <Compile Include="Configuration\InMemoryConfigurationProvider.cs" />
     <Compile Include="Configuration\InMemoryConfigurationSource.cs" />
-    <Compile Include="Diagnostics\InboundRequestObserverModule.cs" />
-    <Compile Include="Configuration\WebConfigurationProvider.cs" />
-    <Compile Include="Configuration\WebConfigurationSource.cs" />
-    <Compile Include="Helpers\RedisConnectionHelper.cs" />
-    <Compile Include="Helpers\WebConfigurationHelper.cs" />
+    <Compile Include="Extensions\ConfigurationBuilderExtensions.cs" />
+    <Compile Include="IActuator.cs" />
     <Compile Include="Ioc\DefaultDependencyResolver.cs" />
     <Compile Include="App_Config\AppConfig.cs" />
-    <Compile Include="Diagnostics\GlobalErrorHandlerModule.cs" />
-    <Compile Include="Diagnostics\RequestLoggerModule.cs" />
-    <Compile Include="Diagnostics\OutboundRequestObserver.cs" />
-    <Compile Include="Diagnostics\ScopedLoggingModule.cs" />
-    <Compile Include="Extensions\ConfigurationBuilderExtensions.cs" />
-    <Compile Include="Extensions\ServiceCollectionExtensions.cs" />
-    <Compile Include="App_Config\HttpModuleConfig.cs" />
-    <Compile Include="Extensions\GeneralExtensions.cs" />
     <Compile Include="Ioc\DependencyContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="appsettings.development_template.json" />
-    <None Include="appsettings_template.json" />
+    <None Include="appsettings.development.json" />
+    <None Include="appsettings.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Web.config.transform">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\GitInfo.2.0.20\build\GitInfo.targets" Condition="Exists('..\..\packages\GitInfo.2.0.20\build\GitInfo.targets')" />
