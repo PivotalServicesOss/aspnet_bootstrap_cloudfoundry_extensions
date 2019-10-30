@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj" />
-    <ProjectReference Include="..\..\src\PCF.Replatform.Bootstrap.Configuration\PCF.Replatform.Bootstrap.Configuration.csproj" />
+    <ProjectReference Include="..\..\src\PCF.Replatform.Bootstrap.Redis.Session\PCF.Replatform.Bootstrap.Redis.Session.csproj" />
     <ProjectReference Include="..\PCF.Replatform.Test.Helpers\PCF.Replatform.Test.Helpers.csproj" />
   </ItemGroup>
 

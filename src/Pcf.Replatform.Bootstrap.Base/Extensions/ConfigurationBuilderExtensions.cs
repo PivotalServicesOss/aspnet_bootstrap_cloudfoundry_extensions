@@ -4,7 +4,7 @@ using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Configuration;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
-    internal static class ConfigurationBuilderExtensions
+    public static class ConfigurationBuilderExtensions
     {
         public static IConfigurationBuilder AddInMemoryConfiguration(this IConfigurationBuilder builder)
         {

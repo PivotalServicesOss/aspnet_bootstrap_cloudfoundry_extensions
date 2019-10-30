@@ -8,7 +8,7 @@ using Steeltoe.Management.Tracing;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
-    internal static class ServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         public static void AddDefaultDiagnosticsDependencies(this IServiceCollection services, IConfiguration configuration)
         {
