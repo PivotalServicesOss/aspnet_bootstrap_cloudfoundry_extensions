@@ -1,5 +1,5 @@
 ﻿
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public interface IActuator
     {

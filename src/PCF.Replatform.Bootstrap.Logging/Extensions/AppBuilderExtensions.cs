@@ -1,4 +1,4 @@
-﻿using Pivotal.CloudFoundry.Replatform.Bootstrap.Base;
+﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using Steeltoe.Extensions.Logging.SerilogDynamicLogger;
 using Microsoft.Extensions.DependencyInjection;
 using Steeltoe.Extensions.Logging;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Core;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
     public static class AppBuilderExtensions
     {

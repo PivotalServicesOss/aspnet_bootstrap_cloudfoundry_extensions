@@ -1,7 +1,7 @@
-﻿using Pivotal.CloudFoundry.Replatform.Bootstrap.Base;
+﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using Steeltoe.CloudFoundry.Connector.Redis;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Redis.Session
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
 {
     public static class AppBuilderExtensions
     {

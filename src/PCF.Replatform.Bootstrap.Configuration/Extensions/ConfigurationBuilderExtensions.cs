@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Configuration
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
 {
     public static class ConfigurationBuilderExtensions
     {

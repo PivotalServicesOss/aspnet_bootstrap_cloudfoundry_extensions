@@ -1,16 +1,17 @@
 ﻿using Microsoft.Web.Redis;
-using Pivotal.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using StackExchange.Redis;
 using System;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Redis.Session
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
 {
     public static class RedisConnectionHelper
     {
         static IConnectionMultiplexer connectionMultiplexer;
 
-        //Just to protect the reference to Microsoft.Web.RedisSessionStateProvider (avoid accidental removal)
+#pragma warning disable CS0169 //Just to protect the reference to Microsoft.Web.RedisSessionStateProvider (avoid accidental removal)
         static RedisSessionStateProvider redisSessionStateProvider;
+#pragma warning restore CS0169 
 
         static RedisConnectionHelper()
         {

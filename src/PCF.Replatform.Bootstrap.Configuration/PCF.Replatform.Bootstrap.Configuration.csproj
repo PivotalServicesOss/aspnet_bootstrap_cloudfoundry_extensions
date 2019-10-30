@@ -1,87 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\versions.props" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2F30C6F9-ECE8-4200-8094-C0047ABC2573}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pivotal.CloudFoundry.Replatform.Bootstrap.Configuration</RootNamespace>
-    <AssemblyName>Pivotal.CloudFoundry.Replatform.Bootstrap.Configuration</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>net471</TargetFramework>
+    <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</RootNamespace>
+    <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <PackageReference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" Version="$(PivotalServicesBootstrapBaseVersion)" />
+  </ItemGroup>
+  
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Extensions\AppBuilderExtensions.cs" />
-    <Compile Include="Extensions\ConfigurationBuilderExtensions.cs" />
-    <Compile Include="Helpers\WebConfigurationHelper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebConfigurationProvider.cs" />
-    <Compile Include="WebConfigurationSource.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj">
-      <Project>{D2B1D74A-734D-432C-A12B-1471EF2E7308}</Project>
-      <Name>PCF.Replatform.Bootstrap.Base</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="appsettings.development.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables">
-      <Version>2.2.4</Version>
+      <Version>$(MicrosoftExtensionsConfigurationEnvironmentVariableVersion)</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json">
-      <Version>2.2.0</Version>
+      <Version>$(MicrosoftExtensionsVersion)</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions">
-      <Version>2.2.0</Version>
+      <Version>$(MicrosoftExtensionsVersion)</Version>
     </PackageReference>
     <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore">
-      <Version>2.3.0</Version>
+      <Version>$(SteeltoeVersion)</Version>
     </PackageReference>
     <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerBase">
-      <Version>2.3.0</Version>
+      <Version>$(SteeltoeVersion)</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

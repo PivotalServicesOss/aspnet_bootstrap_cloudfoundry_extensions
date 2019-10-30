@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Pivotal.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Census.Trace.Propagation;
@@ -10,7 +10,7 @@ using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
     public class InboundRequestObserverModule : IHttpModule
     {

@@ -3,7 +3,7 @@ using Steeltoe.Common.Diagnostics;
 using System;
 using System.Web;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
     public class RequestLoggerModule : IHttpModule
     {

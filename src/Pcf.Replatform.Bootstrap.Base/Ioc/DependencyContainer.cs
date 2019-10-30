@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Ioc
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc
 {
     public class DependencyContainer
     {

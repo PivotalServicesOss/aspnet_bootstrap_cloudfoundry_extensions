@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Configuration;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Configuration
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
 {
     internal class WebConfigurationHelper
     {

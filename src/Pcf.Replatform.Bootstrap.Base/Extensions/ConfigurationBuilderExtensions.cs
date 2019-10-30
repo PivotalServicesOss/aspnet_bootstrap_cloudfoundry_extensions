@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
-using Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Configuration;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Configuration;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     internal static class ConfigurationBuilderExtensions
     {

@@ -6,7 +6,7 @@ using Steeltoe.Extensions.Logging;
 using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Tracing;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
     internal static class ServiceCollectionExtensions
     {

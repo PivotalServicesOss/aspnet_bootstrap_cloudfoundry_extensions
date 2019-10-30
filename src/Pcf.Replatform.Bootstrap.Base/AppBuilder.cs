@@ -2,13 +2,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public class AppBuilder
     {

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Web;
 using System.Web.Hosting;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
     public class GlobalErrorHandlerModule : IHttpModule
     {

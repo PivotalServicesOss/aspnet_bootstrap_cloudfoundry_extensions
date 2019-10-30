@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Configuration
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
 {
     public class WebConfigurationProvider : ConfigurationProvider
     {

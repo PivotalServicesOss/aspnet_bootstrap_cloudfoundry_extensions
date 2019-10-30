@@ -2,7 +2,7 @@
 using System.Web.Configuration;
 using System.Web.SessionState;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Redis.Session
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
 {
     internal class WebConfigurationHelper
     {

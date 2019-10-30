@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Pivotal.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 using Steeltoe.Extensions.Configuration.ConfigServer;
 using System;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Configuration
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
 {
     public static class AppBuilderExtensions
     {
