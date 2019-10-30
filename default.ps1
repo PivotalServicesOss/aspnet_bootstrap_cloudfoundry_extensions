@@ -43,8 +43,8 @@ task help {
 }
 
 #These are the actual build tasks. They should be Pascal case by convention
-task DevBuild -depends emitProperties, SetDebugBuild, Clean, Restore, Compile, UnitTest
-task CiBuild -depends emitProperties, SetReleaseBuild, Clean, Restore, Compile, UnitTest
+task DevBuild -depends emitProperties, UpdateVersionProps, SetDebugBuild, Clean, Restore, Compile, UnitTest
+task CiBuild -depends emitProperties, UpdateVersionProps, SetReleaseBuild, Clean, Restore, Compile, UnitTest
 task PublishBase -depends CiBuild, PublishBasePackage
 
 task SetDebugBuild {
@@ -62,6 +62,14 @@ task SetVersion {
             "[assembly: AssemblyFileVersion(`"$version`")]",
             "[assembly: AssemblyInformationalVersion(`"$version`")]"
     Write-Host "Using version#: $version"
+}
+
+task UpdateVersionProps {
+	Write-Host "******************* Updating versions.props file with Base package version as $version *********************"
+    $verPropsPath = "$base_dir\versions.props"
+    $verProps = [xml](Get-content $verPropsPath)
+    $verProps.Project.PropertyGroup.PivotalServicesBootstrapBaseVersion = "$version"
+    $verProps.Save($verPropsPath)
 }
 
 task UnitTest {
