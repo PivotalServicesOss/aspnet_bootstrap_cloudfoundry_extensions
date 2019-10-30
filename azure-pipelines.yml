@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include:
+    - master
+
+pool:
+  vmImage: vs2017-win2016
+
+variables:
+    PublishDirectory: 'publish-artifacts'
+
+steps:
+- task: NuGetToolInstaller@1
+    
+- task: BatchScript@1
+  displayName: 'Executing psake build with target (cip)'
+  inputs:
+    filePath: 'build.bat'
+    arguments: 'cip $(ApiKey)'
+
+- task: CopyFiles@1
+  displayName: 'Copy $(PublishDirectory) into staging directory'
+  inputs:
+    Contents: $(PublishDirectory)/**
+    TargetFolder: $(Build.ArtifactStagingDirectory)
+
+- task: CopyFiles@1
+  displayName: 'Copy build files into staging directory'
+  inputs:
+    Contents: |
+     build.bat
+     configure-build.ps1
+     default.ps1
+    TargetFolder: $(Build.ArtifactStagingDirectory)
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Packed Artifacts from staging directory'
+  inputs:
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    ArtifactName: publish
+
+

@@ -24,7 +24,8 @@ properties {
 
 #These are aliases for other build tasks. They typically are named after the camelcase letters (rd = Rebuild Databases)
 task default -depends DevBuild
-task ci -depends CiBuild
+task cib -depends CiBuild
+task cip -depends CiPublish
 task ? -depends help
 task rl -depends ReleaseLocal
 task rn -depends ReleaseNuget
@@ -52,9 +53,10 @@ task help {
 #These are the actual build tasks. They should be Pascal case by convention
 task DevBuild -depends emitProperties, UpdateVersionProps, SetDebugBuild, Clean, Restore, Compile, UnitTest
 task CiBuild -depends emitProperties, UpdateVersionProps, SetReleaseBuild, Clean, Restore, Compile, UnitTest
+task CiPublish -depends CiBuild, NugetPack
 task ReleaseLocal -depends DevBuild, NugetPushLocal
-task ReleaseNuget -depends CiBuild, NugetPush
-task ReleaseMyget -depends CiBuild, MygetPush
+task ReleaseNuget -depends CiPublish, NugetPack, NugetPush
+task ReleaseMyget -depends CiPublish, NugetPack, MygetPush
 
 task SetDebugBuild {
     $script:project_config = "Debug"
@@ -85,7 +87,7 @@ task NugetPushLocal -depends NugetPack {
 	Pop-Location
 }
 
-task NugetPush -depends NugetPack {
+task NugetPush {
 	Push-Location $base_dir
 	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
 	
@@ -97,7 +99,7 @@ task NugetPush -depends NugetPack {
 	Pop-Location
 }
 
-task MygetPush -depends NugetPack {
+task MygetPush {
 	Push-Location $base_dir
 	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
 	
