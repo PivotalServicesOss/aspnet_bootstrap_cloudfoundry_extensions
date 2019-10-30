@@ -5,13 +5,6 @@
     <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</RootNamespace>
     <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</AssemblyName>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" Version="$(PivotalServicesBootstrapBaseVersion)" />
-  </ItemGroup>
   
   <ItemGroup>
     <Reference Include="System.Configuration" />
@@ -34,5 +27,9 @@
     <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerBase">
       <Version>$(SteeltoeVersion)</Version>
     </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj" />
   </ItemGroup>
 </Project>

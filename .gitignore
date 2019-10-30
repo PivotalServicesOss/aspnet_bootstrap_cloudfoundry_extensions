@@ -36,3 +36,4 @@ msbuild.wrn
 
 #Nuget Publish
 _publish
+publish-artifacts

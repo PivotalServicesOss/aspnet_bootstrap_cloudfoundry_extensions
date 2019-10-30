@@ -7,6 +7,10 @@ properties {
   $solution_file = "$base_dir\$solution_name.sln"
   $test_dir = "$base_dir\test"
   $nuget_exe = "nuget.exe"
+  $local_nuget_repo = "c:\MyLocalNugetRepo"
+  $remote_nuget_repo = "https://api.nuget.org/v3/index.json"
+  $remote_myget_repo = "https://www.myget.org/F/ajaganathan/api/v3/index.json"
+  $repo_api_key = $api_key
   $version = get_version
   $date = Get-Date 
   $ReleaseNumber = $version
@@ -21,8 +25,11 @@ properties {
 #These are aliases for other build tasks. They typically are named after the camelcase letters (rd = Rebuild Databases)
 task default -depends DevBuild
 task ci -depends CiBuild
-task pb -depends PublishBase
 task ? -depends help
+task rl -depends ReleaseLocal
+task rn -depends ReleaseNuget
+task rm -depends ReleaseMyget
+
 
 task emitProperties {
   Write-Host "solution_name=$solution_name"
@@ -45,7 +52,9 @@ task help {
 #These are the actual build tasks. They should be Pascal case by convention
 task DevBuild -depends emitProperties, UpdateVersionProps, SetDebugBuild, Clean, Restore, Compile, UnitTest
 task CiBuild -depends emitProperties, UpdateVersionProps, SetReleaseBuild, Clean, Restore, Compile, UnitTest
-task PublishBase -depends CiBuild, PublishBasePackage
+task ReleaseLocal -depends DevBuild, NugetPushLocal
+task ReleaseNuget -depends CiBuild, NugetPush
+task ReleaseNuget -depends CiBuild, MygetPush
 
 task SetDebugBuild {
     $script:project_config = "Debug"
@@ -64,6 +73,54 @@ task SetVersion {
     Write-Host "Using version#: $version"
 }
 
+task NugetPushLocal -depends NugetPack {
+	Push-Location $base_dir
+	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
+	
+	foreach ($package in $packages) {
+		Write-Host "Executing nuget add for the package: $package"
+		exec { & $nuget_exe add $package -Source $local_nuget_repo }
+	}
+
+	Pop-Location
+}
+
+task NugetPush -depends NugetPack {
+	Push-Location $base_dir
+	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
+	
+	foreach ($package in $packages) {
+		Write-Host "Executing nuget add for the package: $package"
+		exec { & $nuget_exe push $package -Source $remote_nuget_repo -ApiKey $repo_api_key}
+	}
+
+	Pop-Location
+}
+
+task MygetPush -depends NugetPack {
+	Push-Location $base_dir
+	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
+	
+	foreach ($package in $packages) {
+		Write-Host "Executing nuget add for the package: $package"
+		exec { & $nuget_exe push $package -Source $remote_myget_repo -ApiKey $repo_api_key}
+	}
+
+	Pop-Location
+}
+
+task NugetPack -depends UnitTest{
+	Push-Location $base_dir
+	$projects = @(Get-ChildItem -Recurse -Filter "*.csproj" | Where-Object {$_.Directory -like '*src*'}).FullName	
+
+	foreach ($project in $projects) {
+		Write-Host "Executing nuget pack on the project: $project"
+		exec { & $nuget_exe pack $project -Version $version -includereferencedprojects -OutputDirectory $publish_dir -Properties Configuration=$project_config }
+	}
+
+	Pop-Location
+}
+
 task UpdateVersionProps {
 	Write-Host "******************* Updating versions.props file with Base package version as $version *********************"
     $verPropsPath = "$base_dir\versions.props"
@@ -72,7 +129,7 @@ task UpdateVersionProps {
     $verProps.Save($verPropsPath)
 }
 
-task UnitTest {
+task UnitTest -depends Compile{
    Write-Host "******************* Now running Unit Tests *********************"
    $vstest_exe = get_vstest_executable
    Push-Location $base_dir
@@ -95,23 +152,10 @@ task Restore -depends Clean{
     exec { & $nuget_exe restore $solution_file  }
 }
 
-task Compile -depends Clean {
+task Compile -depends Restore {
     exec { msbuild.exe /t:build /v:q /p:Configuration=$project_config /p:Platform="Any CPU" /nologo $solution_file }
 }
 
-task PublishBasePackage {
-    Write-Host "Publishing to $publish_dir *****"
-    if (!(Test-Path $publish_dir)) {
-        New-Item -ItemType Directory -Force -Path $publish_dir
-    }
-    Copy-Item -Path $published_website\* -Destination $publish_dir -recurse -Force
-}
-
-task Push {
-    Push-Location $publish_dir
-    exec { & "cf" push -d $domain}
-    Pop-Location
-}
 
 # -------------------------------------------------------------------------------------------------------------
 # generalized functions for Help Section

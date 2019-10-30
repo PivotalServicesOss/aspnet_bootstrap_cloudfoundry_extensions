@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session</id>
     <version>$Version$</version>
     <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session</title>
-    <authors>alfusjaganathan</authors>
-    <owners>alfusjaganathan</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>ajaganathan</authors>
+    <owners>ajaganathan</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.txt</license>
     <description>Package helps to bootstrap a full framework application to PCF with persisting session to Redis, this is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
     <copyright>Copyright © 2019</copyright>
+    <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web"  />
+      <frameworkAssembly assemblyName="System.Configuration"  />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <file src="Web.config.install.xdt" target="Content" />
     <file src="Web.config.uninstall.xdt" target="Content" />
+    <file src="..\..\LICENSE.txt" target="" />
   </files>
 </package>

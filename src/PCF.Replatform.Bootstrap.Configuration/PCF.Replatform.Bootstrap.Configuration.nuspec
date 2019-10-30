@@ -4,14 +4,21 @@
     <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</id>
     <version>$Version$</version>
     <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</title>
-    <authors>alfusjaganathan</authors>
-    <owners>alfusjaganathan</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>ajaganathan</authors>
+    <owners>ajaganathan</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.txt</license>
     <description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This lso overrites the AppSettings and ConnectionString Sections in Web.config file from other external sources. This is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
     <copyright>Copyright © 2019</copyright>
+    <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web"  />
+      <frameworkAssembly assemblyName="System.Configuration"  />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <file src="appsettings.json" target="Content" />
     <file src="appsettings.development.json" target="Content" />
+    <file src="..\..\LICENSE.txt" target="" />
   </files>
 </package>

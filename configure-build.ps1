@@ -5,7 +5,7 @@ if(-Not($has_nuget)) {
     #install Nuget Package Provider
     [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
     Write-Host "No Nuget Package Provider Found: Installing now" -ForegroundColor Red
-    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+    Install-PackageProvider -Name NuGet -MinimumVersion 5.3.1.6268 -Force
 }
 
 $has_vsSetup = Get-Module -ListAvailable | Select-String -Pattern "VSSetup" -Quiet

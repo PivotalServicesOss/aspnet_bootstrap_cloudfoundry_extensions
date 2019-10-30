@@ -4,14 +4,15 @@
     <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</id>
     <version>$Version$</version>
     <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</title>
-    <authors>alfusjaganathan</authors>
-    <owners>alfusjaganathan</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>ajaganathan</authors>
+    <owners>ajaganathan</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.txt</license>
     <description>Package helps to bootstrap a full framework application to PCF, for enabling actuators and metrics forwarder, this is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
     <copyright>Copyright © 2019</copyright>
+    <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
   </metadata>
   <files>
-    <file src="Web.config.install.xdt" target="Content" />
-    <file src="Web.config.uninstall.xdt" target="Content" />
+    <file src="..\..\LICENSE.txt" target="" />
   </files>
 </package>

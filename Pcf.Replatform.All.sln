@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution_items", "solution_
 		build.bat = build.bat
 		configure-build.ps1 = configure-build.ps1
 		default.ps1 = default.ps1
-		nugetpublishall.bat = nugetpublishall.bat
+		package.version = package.version
 		versions.props = versions.props
 	EndProjectSection
 EndProject
