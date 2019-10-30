@@ -54,7 +54,7 @@ task DevBuild -depends emitProperties, UpdateVersionProps, SetDebugBuild, Clean,
 task CiBuild -depends emitProperties, UpdateVersionProps, SetReleaseBuild, Clean, Restore, Compile, UnitTest
 task ReleaseLocal -depends DevBuild, NugetPushLocal
 task ReleaseNuget -depends CiBuild, NugetPush
-task ReleaseNuget -depends CiBuild, MygetPush
+task ReleaseMyget -depends CiBuild, MygetPush
 
 task SetDebugBuild {
     $script:project_config = "Debug"

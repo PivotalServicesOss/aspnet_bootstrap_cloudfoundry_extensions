@@ -6,7 +6,7 @@
     <MicrosoftExtensionsVersion>2.2.0</MicrosoftExtensionsVersion>
     <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>2.2.4</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
-    <PivotalServicesBootstrapBaseVersion>1.0.0</PivotalServicesBootstrapBaseVersion>
+    <PivotalServicesBootstrapBaseVersion>2.0.0</PivotalServicesBootstrapBaseVersion>
     <SteeltoeVersion>2.3.0</SteeltoeVersion>
     <SteeltoeManagementVersion>2.1.1</SteeltoeManagementVersion>
   </PropertyGroup>
