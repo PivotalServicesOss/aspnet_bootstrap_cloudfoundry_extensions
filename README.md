@@ -1,3 +1,27 @@
+
+[![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master)
+
+###### Configuration
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration)
+
+###### Logging
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging)
+
+###### Actuators
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators)
+
+###### Redis.Session
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session)
+
+###### Base/IoC
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base)
+
+
 #### What is this for?
 - Quickly replatform a ASP.Net full framework app to PCF (PAS), supports to implement few critical of 12/15 factors
 
