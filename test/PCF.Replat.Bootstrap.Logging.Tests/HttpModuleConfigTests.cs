@@ -8,9 +8,9 @@ namespace PCF.Replat.Bootstrap.Logging.Tests
     public class HttpModuleConfigTests
     {
         [Fact]
-        public void Test_If_GetModuleTypes_Returns_4_Modules()
+        public void Test_If_GetModuleTypes_Returns_3_Modules()
         {
-            Assert.Equal(4, HttpModuleConfig.GetModuleTypes().Count());
+            Assert.Equal(3, HttpModuleConfig.GetModuleTypes().Count());
         }
 
         [Fact]
@@ -29,12 +29,6 @@ namespace PCF.Replat.Bootstrap.Logging.Tests
         public void Test_If_GetModuleTypes_Returns_GlobalErrorHandlerModule()
         {
             Assert.Contains(HttpModuleConfig.GetModuleTypes(), (m) => { return m == typeof(GlobalErrorHandlerModule); });
-        }
-
-        [Fact]
-        public void Test_If_GetModuleTypes_Returns_RequestLoggerModule()
-        {
-            Assert.Contains(HttpModuleConfig.GetModuleTypes(), (m) => { return m == typeof(RequestLoggerModule); });
         }
     }
 }

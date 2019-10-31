@@ -54,16 +54,17 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, ILoggingBuilder>>>(instance, "ConfigureLoggingDelegates")
                     .Add((builderContext, loggingBuilder) => {
-                        var loggerConfiguration = new Serilog.LoggerConfiguration();
+                        var loggerConfiguration = new Serilog.LoggerConfiguration()
+                                                                .ReadFrom.Configuration(builderContext.Configuration)
+                                                                .Enrich.FromLogContext()
+                                                                .Filter.ByExcluding("Contains(@Message, 'cloudfoundryapplication')");
+
                         var serilogOptions = new SerilogOptions(builderContext.Configuration);
                         var levelSwitch = new LoggingLevelSwitch(serilogOptions.MinimumLevel.Default);
                         loggerConfiguration.MinimumLevel.ControlledBy(levelSwitch);
 
-                        var logger = loggerConfiguration.ReadFrom.Configuration(builderContext.Configuration)
-                        .Enrich.FromLogContext()
-                        .Filter.ByExcluding("Contains(@Message, 'cloudfoundryapplication')")
-                        .CreateLogger();
-
+                        var logger = loggerConfiguration.CreateLogger();
+                        
                         Log.Logger = logger;
 
                         loggingBuilder.Services.AddSingleton<IDynamicLoggerProvider>(sp => new SerilogDynamicProvider(sp.GetRequiredService<IConfiguration>(), logger, levelSwitch));
@@ -73,7 +74,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                         {
                             loggingBuilder.Services.AddDefaultDiagnosticsDependencies(builderContext.Configuration);
                         }
-            });
+                    });
             return instance;
         }
     }

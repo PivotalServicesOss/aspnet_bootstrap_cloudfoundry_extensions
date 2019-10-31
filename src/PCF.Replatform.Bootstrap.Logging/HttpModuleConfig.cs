@@ -25,7 +25,6 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
                 typeof(InboundRequestObserverModule),
                 typeof(ScopedLoggingModule),
                 typeof(GlobalErrorHandlerModule),
-                typeof(RequestLoggerModule),
             };
         }
     }

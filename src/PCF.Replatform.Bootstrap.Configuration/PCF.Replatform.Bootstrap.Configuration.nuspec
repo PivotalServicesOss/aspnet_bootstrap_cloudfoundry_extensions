@@ -24,6 +24,7 @@
       <dependency id="Steeltoe.Extensions.Configuration.ConfigServerBase" version ="$SteeltoeVersion$"/>
       <dependency id="Steeltoe.Extensions.Configuration.PlaceholderCore" version ="$SteeltoeVersion$"/>
       <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+      <dependency id="Serilog.Sinks.Debug" version ="$SerilogSinksDebug$"/>
     </dependencies>
   </metadata>
   <files>

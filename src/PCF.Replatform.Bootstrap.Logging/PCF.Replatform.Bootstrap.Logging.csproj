@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.Web.Infrastructure">
       <Version>$(MicrosoftWebVersion)</Version>
     </PackageReference>
+    <PackageReference Include="Serilog.Sinks.Debug" Version="$(SerilogSinksDebug)" />
     <PackageReference Include="Steeltoe.Extensions.Logging.SerilogDynamicLogger">
       <Version>$(SteeltoeVersion)</Version>
     </PackageReference>
