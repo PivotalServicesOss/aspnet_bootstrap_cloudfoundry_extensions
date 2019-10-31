@@ -51,13 +51,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         public static AppBuilder AddConfigServer(this AppBuilder instance, string environment = null)
         {
             var inMemoryConfigStore = ReflectionHelper
-                .GetNonPublicInstanceFieldValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
+                .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
             inMemoryConfigStore.Add("spring:application:name", "${vcap.application.name}");
             inMemoryConfigStore.Add("spring:cloud:config:name", "${vcap.application.name}");
             inMemoryConfigStore.Add("spring:cloud:config:validate_certificates", "false");
             inMemoryConfigStore.Add("spring:cloud:config:failFast", "true");
-
 
             environment = environment ?? GetEnvironment();
 

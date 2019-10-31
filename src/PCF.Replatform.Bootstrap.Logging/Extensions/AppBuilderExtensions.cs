@@ -22,7 +22,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             IncludeCorrelation = includeCorrelation;
 
             var inMemoryConfigStore = ReflectionHelper
-                .GetNonPublicInstanceFieldValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
+                .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
             inMemoryConfigStore.Add("Serilog:MinimumLevel:Default", "Information");
             inMemoryConfigStore.Add("Serilog:MinimumLevel:Override:Microsoft", "Warning");
@@ -34,12 +34,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             inMemoryConfigStore.Add("Serilog:Using:1", "Serilog.Sinks.Debug");
 
             inMemoryConfigStore.Add("Serilog:WriteTo:0:Name", "Console");
-            inMemoryConfigStore.Add("Serilog:WriteTo:0:Name", "Debug");
+            inMemoryConfigStore.Add("Serilog:WriteTo:1:Name", "Debug");
 
             if(includeCorrelation)
             {
                 inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
-                inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
+                inMemoryConfigStore.Add("Serilog:WriteTo:1:Args:outputTemplate", "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
 
                 inMemoryConfigStore.Add("management:tracing:AlwaysSample", "true");
                 inMemoryConfigStore.Add("management:tracing:UseShortTraceIds", "false");
@@ -48,7 +48,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             else
             {
                 inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
-                inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
+                inMemoryConfigStore.Add("Serilog:WriteTo:1:Args:outputTemplate", "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
             }
 
             ReflectionHelper

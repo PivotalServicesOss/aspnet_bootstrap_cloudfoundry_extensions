@@ -12,7 +12,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         public static AppBuilder AddHealthActuators(this AppBuilder instance, string basePath = null)
         {
             var inMemoryConfigStore = ReflectionHelper
-                .GetNonPublicInstanceFieldValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
+                .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
             if (string.IsNullOrWhiteSpace(basePath))
                 inMemoryConfigStore.Add("management:endpoints:path", "/cloudfoundryapplication");
@@ -35,7 +35,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         public static AppBuilder AddMetricsForwarder(this AppBuilder instance)
         {
             var inMemoryConfigStore = ReflectionHelper
-                .GetNonPublicInstanceFieldValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
+                .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
             inMemoryConfigStore.Add("management:metrics:exporter:cloudfoundry:validateCertificates", "false");
 

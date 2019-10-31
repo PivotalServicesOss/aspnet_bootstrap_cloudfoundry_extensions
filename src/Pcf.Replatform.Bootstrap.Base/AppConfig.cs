@@ -16,12 +16,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                                      List<Action<HostBuilderContext, IServiceCollection>> configureServicesDelegates,
                                      List<Action<HostBuilderContext, ILoggingBuilder>> configureLoggingDelegates,
                                      Action<IServiceCollection> configureIoCDelegate,
-                                     Dictionary<string, string> inMemoryConfigurationStore = null)
+                                     Dictionary<string, string> inMemoryConfigurationStore)
         {
             host = new HostBuilder()
                 .ConfigureAppConfiguration((builderContext, configBuilder) =>
                 {
-                    configBuilder.AddInMemoryConfiguration();
+                    configBuilder.AddInMemoryConfiguration(inMemoryConfigurationStore);
 
                     foreach (var configureAppConfigurationDelegate in configureAppConfigurationDelegates)
                     {

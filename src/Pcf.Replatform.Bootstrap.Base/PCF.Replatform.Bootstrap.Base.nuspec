@@ -11,10 +11,7 @@
     <description>Package helps to bootstrap a full framework application to PCF - supports DI (native, autofac and unity). Additional extension packages (PivotalServices.CloudFoundry.Replatform.Bootstrap.*) are available based on specific needs like persisting session to redis, cloud native logging, configuration externalization, spring boot actuators, etc.</description>
     <copyright>Copyright © 2019</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
-    <tags>ASP.NET, CloudFoundry, Replatform</tags>
-    <!--<dependencies>
-      <dependency id="GitInfo" version="2.0.20" />
-    </dependencies>-->
+    <tags>ASP.NET; CloudFoundry; Replatform</tags>
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
       <dependency id="Microsoft.AspNet.WebApi.WebHost" version ="$MicrosoftAspNetVersion$"/>

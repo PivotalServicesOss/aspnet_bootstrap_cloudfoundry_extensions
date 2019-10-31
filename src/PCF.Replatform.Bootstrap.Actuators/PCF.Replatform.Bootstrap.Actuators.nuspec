@@ -11,7 +11,7 @@
     <description>Package helps to bootstrap a full framework application to PCF, for enabling actuators and metrics forwarder</description>
     <copyright>Copyright © 2019</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
-    <tags>ASP.NET, CloudFoundry, Replatform, Steeltoe, Spring Boot Actuators</tags>
+    <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; SpringBootActuators</tags>
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
       <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
@@ -22,4 +22,7 @@
       <dependency id="GitInfo" version="$GitInfoVersion$" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="readme.txt" target="" />
+  </files>
 </package>

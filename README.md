@@ -134,13 +134,13 @@
 	.Build()
     .Start();
   ```
-- Configuration details are available under each project appsettings.json file (refer to the source repository, https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap)
+- Configuration details are available under readme.txt under each project (refer to the source repository, https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap). However, the readme file will be downloaded with the package
 - Navigate to `Global.asax.cs` and paste the below code under `Application_Stop`
   ```
     AppBuilder.Instance.Stop();
   ```
 
 ##### In future
-- Improve test coverage, currently very minimal level of unit tests written
+- Improve test coverage, currently very minimal level of unit tests are written
 
 ##### Note: Development packages will be available at https://www.myget.org/feed/ajaganathan/package/nuget/<PackageId>

@@ -11,7 +11,7 @@
     <description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This lso overrites the AppSettings and ConnectionString Sections in Web.config file from other external sources</description>
     <copyright>Copyright © 2019</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
-    <tags>ASP.NET, CloudFoundry, Replatform, Steeltoe, Configuration</tags>
+    <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Configuration; ConfigServer</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Web"  />
       <frameworkAssembly assemblyName="System.Configuration"  />
@@ -26,7 +26,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="appsettings.json" target="Content" />
-    <file src="appsettings.development.json" target="Content" />
+    <file src="readme.txt" target="" />
   </files>
 </package>

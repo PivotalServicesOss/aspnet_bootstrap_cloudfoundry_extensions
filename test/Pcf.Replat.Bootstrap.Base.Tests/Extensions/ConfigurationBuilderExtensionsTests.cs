@@ -16,7 +16,7 @@ namespace Pcf.Replat.Bootstrap.Base.Tests
         {
             var builder = new ConfigBuilderStub();
 
-            TestProxy.AddInMemoryConfiguration(builder);
+            TestProxy.AddInMemoryConfigurationProxy(builder);
 
             Assert.Contains(builder.Sources, (s) => { return s is InMemoryConfigurationSource; });
         }
@@ -26,7 +26,7 @@ namespace Pcf.Replat.Bootstrap.Base.Tests
         {
             var builder = new ConfigBuilderStub();
 
-            TestProxy.AddInMemoryConfiguration(builder, new Dictionary<string, string>());
+            TestProxy.AddInMemoryConfigurationProxy(builder, new Dictionary<string, string>());
 
             Assert.Contains(builder.Sources, (s) => { return s is InMemoryConfigurationSource; });
         }
