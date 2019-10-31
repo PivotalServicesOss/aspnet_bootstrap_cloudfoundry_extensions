@@ -4,7 +4,7 @@
     <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</id>
     <version>$Version$</version>
     <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</title>
-    <authors>ajaganathan</authors>
+    <authors>ajaganathan,Pivotal</authors>
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>

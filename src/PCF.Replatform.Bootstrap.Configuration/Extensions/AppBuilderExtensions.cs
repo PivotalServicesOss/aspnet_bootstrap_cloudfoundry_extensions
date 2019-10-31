@@ -57,7 +57,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                 .Add((builderContext, configBuilder) => {
                     var clientSettings = new ConfigServerClientSettings { Environment = environment };
                     configBuilder.AddConfigServer();
-            });
+                    configBuilder.AddEnvironmentVariables();
+                });
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
