@@ -7,18 +7,26 @@
     <authors>ajaganathan</authors>
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <license type="file">LICENSE.txt</license>
-    <description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This lso overrites the AppSettings and ConnectionString Sections in Web.config file from other external sources. This is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
+    <license type="expression">MIT</license>
+    <description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This lso overrites the AppSettings and ConnectionString Sections in Web.config file from other external sources</description>
     <copyright>Copyright © 2019</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
+    <tags>ASP.NET, CloudFoundry, Replatform, Steeltoe, Configuration</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Web"  />
       <frameworkAssembly assemblyName="System.Configuration"  />
     </frameworkAssemblies>
+    <dependencies>
+      <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version ="$MicrosoftExtensionsConfigurationEnvironmentVariableVersion$"/>
+      <dependency id="Microsoft.Extensions.Configuration.Json" version ="$MicrosoftExtensionsVersion$"/>
+      <dependency id="Microsoft.Extensions.Hosting.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+      <dependency id="Steeltoe.Extensions.Configuration.CloudFoundryCore" version ="$SteeltoeVersion$"/>
+      <dependency id="Steeltoe.Extensions.Configuration.ConfigServerBase" version ="$SteeltoeVersion$"/>
+      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+    </dependencies>
   </metadata>
   <files>
     <file src="appsettings.json" target="Content" />
     <file src="appsettings.development.json" target="Content" />
-    <file src="..\..\LICENSE.txt" target="" />
   </files>
 </package>

@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution_items", "solution_
 		configure-build.ps1 = configure-build.ps1
 		default.ps1 = default.ps1
 		package.version = package.version
+		README.md = README.md
 		versions.props = versions.props
 	EndProjectSection
 EndProject
@@ -31,13 +32,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pcf.Replat.Bootstrap.Base.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstra.Configuration.Tests", "test\PCF.Replat.Bootstra.Configuration.Tests\PCF.Replat.Bootstra.Configuration.Tests.csproj", "{1621AE84-3A52-48B5-8AB8-530690BF3541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replat.Bootstrap.Logging.Tests", "test\PCF.Replat.Bootstrap.Logging.Tests\PCF.Replat.Bootstrap.Logging.Tests.csproj", "{8EB7C644-6E7E-494F-9BF8-F9DD6AB3FD4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Logging.Tests", "test\PCF.Replat.Bootstrap.Logging.Tests\PCF.Replat.Bootstrap.Logging.Tests.csproj", "{8EB7C644-6E7E-494F-9BF8-F9DD6AB3FD4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replat.Bootstra.Redis.Session.Tests", "test\PCF.Replat.Bootstra.Redis.Session.Tests\PCF.Replat.Bootstra.Redis.Session.Tests.csproj", "{215590A9-213E-4CC4-99F5-32EC048D0ED4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstra.Redis.Session.Tests", "test\PCF.Replat.Bootstra.Redis.Session.Tests\PCF.Replat.Bootstra.Redis.Session.Tests.csproj", "{215590A9-213E-4CC4-99F5-32EC048D0ED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replat.Bootstrap.Actuators.Tests", "test\PCF.Replat.Bootstrap.Actuators.Tests\PCF.Replat.Bootstrap.Actuators.Tests.csproj", "{0028B33C-001E-44FA-B273-A4BE6ED6CDF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Actuators.Tests", "test\PCF.Replat.Bootstrap.Actuators.Tests\PCF.Replat.Bootstrap.Actuators.Tests.csproj", "{0028B33C-001E-44FA-B273-A4BE6ED6CDF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCF.Replatform.Test.Helpers", "test\PCF.Replatform.Test.Helpers\PCF.Replatform.Test.Helpers.csproj", "{CB639EE8-26AD-4569-B681-E8DDBB3EF32A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Test.Helpers", "test\PCF.Replatform.Test.Helpers\PCF.Replatform.Test.Helpers.csproj", "{CB639EE8-26AD-4569-B681-E8DDBB3EF32A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

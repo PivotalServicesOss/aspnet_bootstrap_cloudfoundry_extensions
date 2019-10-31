@@ -1,4 +1,9 @@
-﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
+using System;
+using System.Collections.Generic;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
 {
@@ -6,16 +11,22 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
     {
         public static AppBuilder AddHealthActuators(this AppBuilder instance, string basePath = null)
         {
+            var inMemoryConfigStore = ReflectionHelper
+                .GetNonPublicInstanceFieldValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
+
             if (string.IsNullOrWhiteSpace(basePath))
-                instance.InMemoryConfigStore.Add("management:endpoints:path", "/cloudfoundryapplication");
+                inMemoryConfigStore.Add("management:endpoints:path", "/cloudfoundryapplication");
             else
-                instance.InMemoryConfigStore.Add("management:endpoints:path", $"{basePath.TrimEnd('/')}/cloudfoundryapplication");
+                inMemoryConfigStore.Add("management:endpoints:path", $"{basePath.TrimEnd('/')}/cloudfoundryapplication");
 
-            instance.InMemoryConfigStore.Add("management:endpoints:cloudfoundry:validateCertificates", "false");
+            inMemoryConfigStore.Add("management:endpoints:cloudfoundry:validateCertificates", "false");
 
-            instance.Actuators.Add(new CfActuator());
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<IActuator>>(instance, "Actuators").Add(new CfActuator());
 
-            instance.ConfigureServicesDelegates.Add((builderContext, services) => {
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
+                .Add((builderContext, services) => {
                 services.AddControllers();
             });
             return instance;
@@ -23,9 +34,14 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
 
         public static AppBuilder AddMetricsForwarder(this AppBuilder instance)
         {
-            instance.InMemoryConfigStore.Add("management:metrics:exporter:cloudfoundry:validateCertificates", "false");
+            var inMemoryConfigStore = ReflectionHelper
+                .GetNonPublicInstanceFieldValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            instance.Actuators.Add(new CfMetricsForwarder());
+            inMemoryConfigStore.Add("management:metrics:exporter:cloudfoundry:validateCertificates", "false");
+
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<IActuator>>(instance, "Actuators").Add(new CfMetricsForwarder());
+
             return instance;
         }
     }

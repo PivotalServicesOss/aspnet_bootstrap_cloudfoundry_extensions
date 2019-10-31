@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\versions.props" />
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>net47</TargetFramework>
     <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging</RootNamespace>
     <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging</AssemblyName>
   </PropertyGroup>

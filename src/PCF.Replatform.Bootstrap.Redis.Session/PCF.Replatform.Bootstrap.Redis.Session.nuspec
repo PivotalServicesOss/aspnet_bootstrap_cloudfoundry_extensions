@@ -7,18 +7,23 @@
     <authors>ajaganathan</authors>
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <license type="file">LICENSE.txt</license>
-    <description>Package helps to bootstrap a full framework application to PCF with persisting session to Redis, this is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
+    <license type="expression">MIT</license>
+    <description>Package helps to bootstrap a full framework application to PCF with persisting session to Redis</description>
     <copyright>Copyright © 2019</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
+    <tags>ASP.NET, CloudFoundry, Replatform, Redis, Steeltoe, Session</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Web"  />
       <frameworkAssembly assemblyName="System.Configuration"  />
     </frameworkAssemblies>
+    <dependencies>
+      <dependency id="Microsoft.Web.RedisSessionStateProvider" version ="$MicrosoftWebRedisVersion$"/>
+      <dependency id="Steeltoe.CloudFoundry.ConnectorCore" version ="$SteeltoeVersion$"/>
+      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+    </dependencies>
   </metadata>
   <files>
     <file src="Web.config.install.xdt" target="Content" />
     <file src="Web.config.uninstall.xdt" target="Content" />
-    <file src="..\..\LICENSE.txt" target="" />
   </files>
 </package>

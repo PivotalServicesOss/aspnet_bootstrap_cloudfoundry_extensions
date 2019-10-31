@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 using Steeltoe.Extensions.Configuration.ConfigServer;
 using System;
+using System.Collections.Generic;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
 {
@@ -18,17 +22,21 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
         {
             environment = environment ?? GetEnvironment();
 
-            instance.ConfigureAppConfigurationDelegates.Add((builderContext, configBuilder) => {
-                configBuilder.AddWebConfiguration();
-                configBuilder.AddJsonFile("appSettings.json", jsonSettingsOptional, false);
-                configBuilder.AddJsonFile($"appSettings.{environment?.ToLower()}.json", true, false);
-                configBuilder.AddEnvironmentVariables();
-                configBuilder.AddCloudFoundry();
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
+                .Add((builderContext, configBuilder) => {
+                    configBuilder.AddWebConfiguration();
+                    configBuilder.AddJsonFile("appSettings.json", jsonSettingsOptional, false);
+                    configBuilder.AddJsonFile($"appSettings.{environment?.ToLower()}.json", true, false);
+                    configBuilder.AddEnvironmentVariables();
+                    configBuilder.AddCloudFoundry();
             });
 
-            instance.ConfigureServicesDelegates.Add((builderContext, services) => {
-                services.ConfigureCloudFoundryOptions(builderContext.Configuration);
-                WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
+                .Add((builderContext, services) => {
+                    services.ConfigureCloudFoundryOptions(builderContext.Configuration);
+                    WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
             });
 
             return instance;
@@ -44,12 +52,16 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
         {
             environment = environment ?? GetEnvironment();
 
-            instance.ConfigureAppConfigurationDelegates.Add((builderContext, configBuilder) => {
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
+                .Add((builderContext, configBuilder) => {
                     var clientSettings = new ConfigServerClientSettings { Environment = environment };
                     configBuilder.AddConfigServer();
             });
 
-            instance.ConfigureServicesDelegates.Add((builderContext, services) => {
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
+                .Add((builderContext, services) => {
                 services.ConfigureCloudFoundryOptions(builderContext.Configuration);
                 WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
             });

@@ -12,7 +12,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         private AppConfig() { }
         static IHost host;
 
-        public static void Configure(List<Action<HostBuilderContext, IConfigurationBuilder>> configureAppConfigurationDelegates,
+        internal static void Configure(List<Action<HostBuilderContext, IConfigurationBuilder>> configureAppConfigurationDelegates,
                                      List<Action<HostBuilderContext, IServiceCollection>> configureServicesDelegates,
                                      List<Action<HostBuilderContext, ILoggingBuilder>> configureLoggingDelegates,
                                      Action<IServiceCollection> configureIoCDelegate,

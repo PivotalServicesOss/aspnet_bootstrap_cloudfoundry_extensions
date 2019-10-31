@@ -19,14 +19,14 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         private static Func<IDependencyResolver> mvcDependencyResolverFunc;
         private static Func<System.Web.Http.Dependencies.IDependencyResolver> webApiDependencyResolverFunc;
 
-        public List<Action<HostBuilderContext, IServiceCollection>> ConfigureServicesDelegates = new List<Action<HostBuilderContext, IServiceCollection>>();
-        public List<Action<HostBuilderContext, IConfigurationBuilder>> ConfigureAppConfigurationDelegates = new List<Action<HostBuilderContext, IConfigurationBuilder>>();
-        public List<Action<HostBuilderContext, ILoggingBuilder>> ConfigureLoggingDelegates = new List<Action<HostBuilderContext, ILoggingBuilder>>();
-        public List<IActuator> Actuators = new List<IActuator>();
+        internal List<Action<HostBuilderContext, IServiceCollection>> ConfigureServicesDelegates = new List<Action<HostBuilderContext, IServiceCollection>>();
+        internal List<Action<HostBuilderContext, IConfigurationBuilder>> ConfigureAppConfigurationDelegates = new List<Action<HostBuilderContext, IConfigurationBuilder>>();
+        internal List<Action<HostBuilderContext, ILoggingBuilder>> ConfigureLoggingDelegates = new List<Action<HostBuilderContext, ILoggingBuilder>>();
+        internal List<IActuator> Actuators = new List<IActuator>();
 
         public static readonly AppBuilder Instance = new AppBuilder();
 
-        public Dictionary<string, string> InMemoryConfigStore { get; } = new Dictionary<string, string>();
+        internal Dictionary<string, string> InMemoryConfigStore { get; } = new Dictionary<string, string>();
 
         public AppBuilder ConfigureAppConfiguration(Action<HostBuilderContext, IConfigurationBuilder> configureDelegate)
         {

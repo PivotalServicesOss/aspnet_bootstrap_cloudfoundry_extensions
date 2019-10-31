@@ -1,5 +1,10 @@
-﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using Steeltoe.CloudFoundry.Connector.Redis;
+using System;
+using System.Collections.Generic;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
 {
@@ -7,9 +12,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
     {
         public static AppBuilder PersistSessionToRedis(this AppBuilder instance)
         {
-            instance.ConfigureServicesDelegates.Add((builderContext, services)=> {
-                WebConfigurationHelper.ValidateWebConfigurationForRedisSessionState();
-                services.AddRedisConnectionMultiplexer(builderContext.Configuration);
+            ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
+                .Add((builderContext, services)=> {
+                    WebConfigurationHelper.ValidateWebConfigurationForRedisSessionState();
+                    services.AddRedisConnectionMultiplexer(builderContext.Configuration);
             });
             return instance;
         }

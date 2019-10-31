@@ -7,12 +7,18 @@
     <authors>ajaganathan</authors>
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <license type="file">LICENSE.txt</license>
-    <description>Package helps to bootstrap a full framework application to PCF, for enabling actuators and metrics forwarder, this is an extension package of https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base </description>
+    <license type="expression">MIT</license>
+    <description>Package helps to bootstrap a full framework application to PCF, for enabling actuators and metrics forwarder</description>
     <copyright>Copyright © 2019</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
+    <tags>ASP.NET, CloudFoundry, Replatform, Steeltoe, Spring Boot Actuators</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
+      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+      <dependency id="Microsoft.Net.Compilers" version ="$MicrosoftNetVersion$"/>
+      <dependency id="Steeltoe.Management.EndpointWeb" version ="$SteeltoeManagementVersion$"/>
+      <dependency id="Steeltoe.Management.ExporterBase" version ="$SteeltoeManagementVersion$"/>
+      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+    </dependencies>
   </metadata>
-  <files>
-    <file src="..\..\LICENSE.txt" target="" />
-  </files>
 </package>

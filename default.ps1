@@ -1,6 +1,6 @@
 $script:project_config = "Release"
 properties {
-  Framework '4.7.1'
+  Framework '4.7'
   $base_dir = resolve-path .
   $build_dir = ".\build-artifacts"
   $publish_dir = ".\publish-artifacts"
@@ -117,7 +117,7 @@ task NugetPack -depends UnitTest{
 
 	foreach ($project in $projects) {
 		Write-Host "Executing nuget pack on the project: $project"
-		exec { & $nuget_exe pack $project -Version $version -includereferencedprojects -OutputDirectory $publish_dir -Properties Configuration=$project_config }
+		exec { & $nuget_exe pack $project -Version $version -OutputDirectory $publish_dir -Properties Configuration=$project_config }
 	}
 
 	Pop-Location
