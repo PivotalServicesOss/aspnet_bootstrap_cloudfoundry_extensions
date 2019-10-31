@@ -5,6 +5,7 @@ using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 using Steeltoe.Extensions.Configuration.ConfigServer;
+using Steeltoe.Extensions.Configuration.Placeholder;
 using System;
 using System.Collections.Generic;
 
@@ -20,17 +21,16 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         /// <param name="environment"></param>
         public static AppBuilder AddDefaultConfigurationProviders(this AppBuilder instance, bool jsonSettingsOptional = true, string environment = null)
         {
-            environment = environment ?? GetEnvironment();
-
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
                 .Add((builderContext, configBuilder) => {
                     configBuilder.AddWebConfiguration();
                     configBuilder.AddJsonFile("appSettings.json", jsonSettingsOptional, false);
-                    configBuilder.AddJsonFile($"appSettings.{environment?.ToLower()}.json", true, false);
+                    configBuilder.AddJsonFile($"appSettings.{(environment ?? Environment.GetEnvironmentVariable(ASPNET_ENV_VAR)).ToLower()}.json", true, false);
                     configBuilder.AddEnvironmentVariables();
                     configBuilder.AddCloudFoundry();
-            });
+                    configBuilder.AddPlaceholderResolver();
+                });
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
@@ -53,19 +53,23 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore.Add("spring:application:name", "${vcap.application.name}");
-            inMemoryConfigStore.Add("spring:cloud:config:name", "${vcap.application.name}");
+            inMemoryConfigStore.Add("spring:application:name", "${vcap:application:name}");
+            inMemoryConfigStore.Add("spring:cloud:config:name", "${vcap:application:name}");
+
+            if(string.IsNullOrWhiteSpace(environment))
+                inMemoryConfigStore.Add("spring:cloud:config:env", "${ASPNETCORE_ENVIRONMENT}");
+            else
+                inMemoryConfigStore.Add("spring:cloud:config:env", environment);
+
             inMemoryConfigStore.Add("spring:cloud:config:validate_certificates", "false");
             inMemoryConfigStore.Add("spring:cloud:config:failFast", "true");
-
-            environment = environment ?? GetEnvironment();
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
                 .Add((builderContext, configBuilder) => {
-                    var clientSettings = new ConfigServerClientSettings { Environment = environment };
                     configBuilder.AddConfigServer();
                     configBuilder.AddEnvironmentVariables();
+                    configBuilder.AddPlaceholderResolver();
                 });
 
             ReflectionHelper
@@ -76,14 +80,6 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             });
 
             return instance;
-        }
-
-        private static string GetEnvironment()
-        {
-            if (Environment.GetEnvironmentVariable(ASPNET_ENV_VAR) == null)
-                Environment.SetEnvironmentVariable(ASPNET_ENV_VAR, "Development", EnvironmentVariableTarget.Machine);
-
-            return Environment.GetEnvironmentVariable(ASPNET_ENV_VAR);
         }
     }
 }

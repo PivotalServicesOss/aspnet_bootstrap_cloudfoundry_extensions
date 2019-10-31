@@ -16,7 +16,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Configuration
         {
             foreach (var item in store)
             {
-                Data.Add(item.Key, item.Value);
+                Data[item.Key] = item.Value;
             }
         }
     }

@@ -31,8 +31,28 @@ namespace PCF.Replat.Bootstra.Configuration.Tests
             Assert.Single(TestProxy.ConfigureAppConfigurationDelegatesProxy);
             Assert.Single(TestProxy.ConfigureServicesDelegatesProxy);
 
-            Assert.Equal("${vcap.application.name}", TestProxy.InMemoryConfigStoreProxy["spring:application:name"]);
-            Assert.Equal("${vcap.application.name}", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:name"]);
+            Assert.Equal("${vcap:application:name}", TestProxy.InMemoryConfigStoreProxy["spring:application:name"]);
+            Assert.Equal("${vcap:application:name}", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:name"]);
+            Assert.Equal("${ASPNETCORE_ENVIRONMENT}", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:env"]);
+            Assert.Equal("false", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:validate_certificates"]);
+            Assert.Equal("true", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:failFast"]);
+        }
+
+        [Fact]
+        public void Test_AddConfigServerWithEnvironment()
+        {
+            TestProxy.InMemoryConfigStoreProxy.Clear();
+            TestProxy.ConfigureAppConfigurationDelegatesProxy.Clear();
+            TestProxy.ConfigureServicesDelegatesProxy.Clear();
+
+            AppBuilder.Instance.AddConfigServer("test");
+
+            Assert.Single(TestProxy.ConfigureAppConfigurationDelegatesProxy);
+            Assert.Single(TestProxy.ConfigureServicesDelegatesProxy);
+
+            Assert.Equal("${vcap:application:name}", TestProxy.InMemoryConfigStoreProxy["spring:application:name"]);
+            Assert.Equal("${vcap:application:name}", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:name"]);
+            Assert.Equal("test", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:env"]);
             Assert.Equal("false", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:validate_certificates"]);
             Assert.Equal("true", TestProxy.InMemoryConfigStoreProxy["spring:cloud:config:failFast"]);
         }

@@ -27,6 +27,7 @@
     <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerBase">
       <Version>$(SteeltoeVersion)</Version>
     </PackageReference>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="$(SteeltoeVersion)" />
   </ItemGroup>
   
   <ItemGroup>

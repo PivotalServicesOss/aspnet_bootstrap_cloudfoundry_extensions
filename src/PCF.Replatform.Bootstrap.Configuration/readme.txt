@@ -11,13 +11,14 @@ Below are the important developer instructions, to follow after installation of 
 	{
 	  "spring": {
 		"application": {
-		  "name": "${vcap.application.name}"
+		  "name": "${vcap:application:name}"
 		},
 		"cloud": {
 		  "config": {
 			"validate_certificates": false,
 			"failFast": true,
-			"name": "${vcap.application.name}"
+			"name": "${vcap:application:name}"
+			"env": "${ASPNETCORE_ENVIRONMENT}"
 		  }
 		}
 	  }
@@ -32,4 +33,5 @@ Below are the important developer instructions, to follow after installation of 
 	"Database1": "provider1"
 	}
 
+2. Follow the instructions here to setup config server https://pivotal.io/application-transformation-recipes/app-architecture/setting-up-spring-config-server
 ============================================================================================================================================
