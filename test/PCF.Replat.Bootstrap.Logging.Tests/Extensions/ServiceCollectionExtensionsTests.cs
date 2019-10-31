@@ -6,6 +6,8 @@ using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Tracing;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
 using Xunit;
+using PCF.Replatform.Test.Helpers;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Testing;
 
 //Minimum tests are added
 namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
@@ -18,7 +20,7 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
             var services = new ServiceCollection();
             var configuration = new ConfigurationBuilder().Build();
 
-            services.AddDefaultDiagnosticsDependencies(configuration);
+            TestProxy.AddDefaultDiagnosticsDependencies(services, configuration);
 
             Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(ITracingOptions); });
             Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(IDiagnosticObserver); });

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Tracing;
 using Steeltoe.Management.Tracing.Observer;

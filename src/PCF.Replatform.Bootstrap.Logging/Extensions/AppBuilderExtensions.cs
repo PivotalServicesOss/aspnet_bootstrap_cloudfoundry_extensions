@@ -1,5 +1,4 @@
-﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
-using Steeltoe.Extensions.Logging.SerilogDynamicLogger;
+﻿using Steeltoe.Extensions.Logging.SerilogDynamicLogger;
 using Microsoft.Extensions.DependencyInjection;
 using Steeltoe.Extensions.Logging;
 using Microsoft.Extensions.Logging;
@@ -10,8 +9,9 @@ using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Hosting;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class AppBuilderExtensions
     {

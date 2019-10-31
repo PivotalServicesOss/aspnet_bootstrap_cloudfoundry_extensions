@@ -1,6 +1,7 @@
 using PCF.Replatform.Test.Helpers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Configuration;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Testing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace Pcf.Replat.Bootstrap.Base.Tests
         public void Test_If_AddInMemoryConfiguration_Adds_InMemoryConfigurationSource()
         {
             var builder = new ConfigBuilderStub();
-            builder.AddInMemoryConfiguration();
+
+            TestProxy.AddInMemoryConfiguration(builder);
 
             Assert.Contains(builder.Sources, (s) => { return s is InMemoryConfigurationSource; });
         }
@@ -23,7 +25,8 @@ namespace Pcf.Replat.Bootstrap.Base.Tests
         public void Test_If_AddInMemoryConfiguration_Adds_InMemoryConfigurationSource_WithGivenSourceReference()
         {
             var builder = new ConfigBuilderStub();
-            builder.AddInMemoryConfiguration(new Dictionary<string, string>());
+
+            TestProxy.AddInMemoryConfiguration(builder, new Dictionary<string, string>());
 
             Assert.Contains(builder.Sources, (s) => { return s is InMemoryConfigurationSource; });
         }

@@ -10,7 +10,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddDefaultDiagnosticsDependencies(this IServiceCollection services, IConfiguration configuration)
+        internal static void AddDefaultDiagnosticsDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<ITracingOptions>((p) =>
             {

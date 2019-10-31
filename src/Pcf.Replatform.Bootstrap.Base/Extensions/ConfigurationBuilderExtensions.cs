@@ -6,13 +6,13 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class ConfigurationBuilderExtensions
     {
-        public static IConfigurationBuilder AddInMemoryConfiguration(this IConfigurationBuilder builder)
+        internal static IConfigurationBuilder AddInMemoryConfiguration(this IConfigurationBuilder builder)
         {
             builder.Add(new InMemoryConfigurationSource());
             return builder;
         }
 
-        public static IConfigurationBuilder AddInMemoryConfiguration(this IConfigurationBuilder builder, Dictionary<string, string> configStore)
+        internal static IConfigurationBuilder AddInMemoryConfiguration(this IConfigurationBuilder builder, Dictionary<string, string> configStore)
         {
             builder.Add(new InMemoryConfigurationSource() { Store = configStore });
             return builder;

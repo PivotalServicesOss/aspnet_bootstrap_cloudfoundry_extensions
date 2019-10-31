@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using System;
 using System.Collections.Generic;
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class AppBuilderExtensions
     {

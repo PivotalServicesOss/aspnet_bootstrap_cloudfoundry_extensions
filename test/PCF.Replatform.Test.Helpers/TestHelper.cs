@@ -29,6 +29,23 @@ namespace PCF.Replatform.Test.Helpers
             }
         }
 
+        public static object InvokePrivateStaticMethod(Type parentType, string methodName, params object[] methodParameters)
+        {
+            var method = parentType.GetMethod(methodName);
+
+            if (method == null)
+                throw new MissingMethodException(parentType.FullName, methodName);
+
+            try
+            {
+                return method.Invoke(null, methodParameters);
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException ?? ex;
+            }
+        }
+
         public static object GetNonPublicStaticFieldValue(Type parentType, string fieldName)
         {
             var field = parentType.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
