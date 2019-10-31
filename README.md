@@ -26,31 +26,91 @@
 - More importantly, adds few of the most important/critical factors (Logs, Config, Process. Concurrency, Admin process)
 - Can be extended as we learn
 
-###### Currrently available packages
+###### Packages
  - Externalizing Configuration - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
  - Cloud Native Logging - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
  - Spring Boot Actuators - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
  - Externalizing Session - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
  - Base package supporting various IoC frameworks - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
-###### How to use the package
+###### How to use these package
 - Make sure your application is upgraded to ASP.NET framework 4.7.1 or above
 - Install the package necesary for the need
 - Resolve any binding redirects conflicts from the web.config file, incase of any.
 - Now, navigate to `Global.asax.cs` and paste the below code under `Application_Start`
   ```
-  AppBuilder.Instance
-    .PersistSessionToRedis() //For externalizing session
-	.
-    .Build()
-    .Start()
+  AppBuilder
+	.Instance
+    .PersistSessionToRedis() //For externalizing session to Redis, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session`
+	.AddDynamicConsoleSerilogLogging(includeCorrelation:true) //For Cloud Native logging, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging`
+    .AddDefaultConfigurationProviders(jsonSettingsOptional:true, environment:"Production") //Adds Json, Environment Variables and VCAP Services as configuration sources, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration`
+	.AddConfigServer(environment:"Production") //Add Config Server as a configuration source, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration` 
+	.AddHealthActuators() //Adds spring cloud actuators, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
+	.AddMetricsForwarder() //Adds metrics forwarder, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
+	.Build()
+    .Start();
   ```
-- As you see above, there are `Actions` exposed where you can configure; application configurations, inject services and even modify logging configurations, as needed. 
-- With this lines of code, you get..
-    - Configuration injections from `Web.config` (sections--> appSettings and connectionStrings), `appsettings.json`, `appsettings.{ENV:ASPNET_ENVIRONMENT}.json`, `environment variables` and `vcap services`. 
-    - Default logging configurations using Serilog (Console and Debug)
-    - Ability to add additional configuration sources
-    - Ability to inject as many as services (Dependency Injection)
+- Option to add more  `Actions` exposed where you can configure; application configurations, inject services and even modify logging configurations, as needed.
+  
+  ```
+  AppBuilder
+	.Instance
+	.ConfigureAppConfiguration((hostBuilder, configBuilder) =>
+    {
+        //Add additional configurations here
+    })
+    .ConfigureServices((hostBuilder, services) =>
+    {
+        //Add additional services here
+    })
+    .ConfigureLogging((hostBuilder, logBuilder) =>
+    {
+        //configure custome logging here
+    }) 
+	.Build()
+    .Start();
+  ```
+
+- Option to configure Ioc using Unity
+  
+  ```
+  AppBuilder
+	.Instance
+	.ConfigureIoC(
+	() => {
+        return new Unity.AspNet.WebApi.UnityDependencyResolver(UnityConfig.Container);
+    },
+    () => {
+        return new Unity.AspNet.Mvc.UnityDependencyResolver(UnityConfig.Container);
+    },
+    (services) => {
+        UnityConfig.Container.BuildServiceProvider(services);
+        FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
+        FilterProviders.Providers.Add(new Unity.AspNet.Mvc.UnityFilterAttributeFilterProvider(UnityConfig.Container));
+    })
+	.Build()
+    .Start();
+  ```
+
+- Option to configure Ioc using Unity
+  
+  ```
+  AppBuilder
+	.Instance
+	.ConfigureIoC(
+    () => {
+        return new AutofacWebApiDependencyResolver(AutofacConfig.Container);
+    },
+    () => {
+        return new AutofacDependencyResolver(AutofacConfig.Container);
+    },
+    (services) => {
+        AutofacConfig.Builder.Populate(services);
+    })
+	.Build()
+    .Start();
+  ```
+- Configuration details are available under each project appsettings.json file (refer to the source repository, https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap)
 - Navigate to `Global.asax.cs` and paste the below code under `Application_Stop`
   ```
     AppBuilder.Instance.Stop();
@@ -58,3 +118,5 @@
 
 ##### In future
 - Improve test coverage, currently very minimal level of unit tests written
+
+##### Note: Development packages will be available at https://www.myget.org/feed/ajaganathan/package/nuget/<PackageId>
