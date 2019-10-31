@@ -9,7 +9,7 @@
     <sessionState xdt:Transform="Remove"></sessionState>
     <sessionState mode="Custom" customProvider="RedisSessionStateStore" xdt:Transform="InsertIfMissing">
       <providers>
-        <add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName = "PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Helpers.RedisConnectionHelper" settingsMethodName = "GetConnectionString"/>
+        <add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.RedisConnectionHelper" settingsMethodName="GetConnectionString"/>
       </providers>
     </sessionState>
   </system.web>

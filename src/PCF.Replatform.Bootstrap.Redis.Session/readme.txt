@@ -28,7 +28,7 @@ Below are the important developer instructions, to follow after installation of 
       <providers>
         <add name="RedisSessionStateStore" 
 			type="Microsoft.Web.Redis.RedisSessionStateProvider" 
-			settingsClassName="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Helpers.RedisConnectionHelper" 
+			settingsClassName="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.RedisConnectionHelper" 
 			settingsMethodName="GetConnectionString" />
       </providers>
     </sessionState>

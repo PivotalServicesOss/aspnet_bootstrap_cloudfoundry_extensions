@@ -3,7 +3,7 @@ using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using StackExchange.Redis;
 using System;
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class RedisConnectionHelper
     {

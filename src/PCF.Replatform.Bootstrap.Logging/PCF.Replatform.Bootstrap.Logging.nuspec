@@ -8,7 +8,7 @@
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <description>Package helps to bootstrap a full framework application to PCF by adding cloud native distributed logging, enhansed with Serilog</description>
+    <description>Package helps to bootstrap a full framework application to PCF by adding cloud native distributed logging, enhanced with Serilog</description>
     <copyright>Copyright © 2019</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Logging</tags>
