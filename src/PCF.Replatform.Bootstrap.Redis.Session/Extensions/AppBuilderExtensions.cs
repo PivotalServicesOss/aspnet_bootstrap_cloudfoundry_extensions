@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session;
 using Steeltoe.CloudFoundry.Connector.Redis;
 using System;
 using System.Collections.Generic;
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class AppBuilderExtensions
     {

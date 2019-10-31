@@ -140,7 +140,4 @@
     AppBuilder.Instance.Stop();
   ```
 
-##### In future
-- Improve test coverage, currently very minimal level of unit tests are written
-
-##### Note: Development packages will be available at https://www.myget.org/feed/ajaganathan/package/nuget/<PackageId>
+##### Note: Ongoing development packages will be available at https://www.myget.org/feed/ajaganathan/package/nuget/<PackageId>
