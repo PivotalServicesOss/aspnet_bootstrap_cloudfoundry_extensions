@@ -13,8 +13,8 @@
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Redis; Steeltoe; Session</tags>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Web"  />
-      <frameworkAssembly assemblyName="System.Configuration"  />
+      <frameworkAssembly assemblyName="System.Web" targetFramework="net462"/>
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework="net462"/>
     </frameworkAssemblies>
     <dependencies>
       <dependency id="Microsoft.Web.RedisSessionStateProvider" version ="$MicrosoftWebRedisVersion$"/>

@@ -58,7 +58,7 @@
  - Base package supporting various IoC frameworks - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
 ###### How to use these package
-- Make sure your application is upgraded to ASP.NET framework 4.7.1 or above
+- Make sure your application is upgraded to ASP.NET framework 4.6.2 or above
 - Install the package necesary for the need
 - Resolve any binding redirects conflicts from the web.config file, incase of any.
 - Now, navigate to `Global.asax.cs` and paste the below code under `Application_Start`
@@ -67,10 +67,10 @@
 	.Instance
     .PersistSessionToRedis() //For externalizing session to Redis, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session`
 	.AddDynamicConsoleSerilogLogging(includeCorrelation:true) //For Cloud Native logging, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging`
-    .AddDefaultConfigurationProviders(jsonSettingsOptional:true, environment:"Production") //Adds Json, Environment Variables and VCAP Services as configuration sources, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration`
+    .AddDefaultConfigurations(jsonSettingsOptional:true, environment:"Production") //Adds Json, Environment Variables and VCAP Services as configuration sources, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration`
 	.AddConfigServer(environment:"Production") //Add Config Server as a configuration source, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration` 
-	.AddHealthActuators() //Adds spring cloud actuators, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
-	.AddMetricsForwarder() //Adds metrics forwarder, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
+	.AddCloudFoundryActuators() //Adds spring cloud actuators, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
+	.AddCloudFoundryMetricsForwarder() //Adds metrics forwarder, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
 	.Build()
     .Start();
   ```
