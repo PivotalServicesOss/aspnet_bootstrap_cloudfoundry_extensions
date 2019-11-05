@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration;
@@ -9,6 +10,7 @@ using Steeltoe.Extensions.Configuration.ConfigServer;
 using Steeltoe.Extensions.Configuration.Placeholder;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
@@ -25,6 +27,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
                 .Add((builderContext, configBuilder) => {
+                    configBuilder.SetBasePath(GetContentRoot());
                     configBuilder.AddWebConfiguration();
                     configBuilder.AddJsonFile("appSettings.json", jsonSettingsOptional, false);
                     configBuilder.AddJsonFile($"appSettings.{(environment ?? Environment.GetEnvironmentVariable(ASPNET_ENV_VAR)).ToLower()}.json", true, false);
@@ -49,7 +52,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         /// <param name="instance"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
-        public static AppBuilder AddConfigServer(this AppBuilder instance, string environment = null)
+        public static AppBuilder AddConfigServer(this AppBuilder instance, string environment = null, ILoggerFactory configServerLogger = null)
         {
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
@@ -68,7 +71,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
                 .Add((builderContext, configBuilder) => {
-                    configBuilder.AddConfigServer();
+                    configBuilder.AddConfigServer(configServerLogger);
                     configBuilder.AddEnvironmentVariables();
                     configBuilder.AddPlaceholderResolver();
                 });
@@ -81,6 +84,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             });
 
             return instance;
+        }
+
+        public static string GetContentRoot()
+        {
+            var basePath = (string)AppDomain.CurrentDomain.GetData("APP_CONTEXT_BASE_DIRECTORY") ?? AppDomain.CurrentDomain.BaseDirectory;
+            return Path.GetFullPath(basePath);
         }
     }
 }
