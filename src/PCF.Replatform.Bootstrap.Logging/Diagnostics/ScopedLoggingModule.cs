@@ -1,4 +1,5 @@
 ﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using Serilog.Context;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Extensions.Logging;
@@ -32,7 +33,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
         {
             if (messageProcessors == null)
             {
-                messageProcessors = AppConfig.GetService<IEnumerable<IDynamicMessageProcessor>>()
+                messageProcessors = DependencyContainer.GetService<IEnumerable<IDynamicMessageProcessor>>()
                    ?? throw new ArgumentNullException(nameof(IEnumerable<IDynamicMessageProcessor>));
 
                 if (!messageProcessors.Any())

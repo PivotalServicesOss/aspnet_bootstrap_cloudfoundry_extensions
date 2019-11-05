@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Census.Trace.Propagation;
@@ -54,8 +55,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 
         private void HandleBeginEvent(HttpRequest request)
         {
-            var tracing = AppConfig.GetService<ITracing>() ?? throw new ArgumentNullException(nameof(ITracing));
-            var tracingOptions = AppConfig.GetService<ITracingOptions>() ?? throw new ArgumentNullException(nameof(ITracingOptions));
+            var tracing = DependencyContainer.GetService<ITracing>() ?? throw new ArgumentNullException(nameof(ITracing));
+            var tracingOptions = DependencyContainer.GetService<ITracingOptions>() ?? throw new ArgumentNullException(nameof(ITracingOptions));
 
             if (ShouldIgnoreRequest(request.Url.AbsolutePath, tracingOptions))
             {

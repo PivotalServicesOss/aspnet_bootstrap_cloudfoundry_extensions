@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
-    public sealed class AppConfig
+    internal sealed class AppConfig
     {
         private AppConfig() { }
         static IHost host;
 
-        internal static void Configure(List<Action<HostBuilderContext, IConfigurationBuilder>> configureAppConfigurationDelegates,
+        public static void Configure(List<Action<HostBuilderContext, IConfigurationBuilder>> configureAppConfigurationDelegates,
                                      List<Action<HostBuilderContext, IServiceCollection>> configureServicesDelegates,
                                      List<Action<HostBuilderContext, ILoggingBuilder>> configureLoggingDelegates,
                                      Action<IServiceCollection> configureIoCDelegate,

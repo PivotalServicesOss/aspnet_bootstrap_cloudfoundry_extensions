@@ -13,7 +13,7 @@ namespace PCF.Replat.Bootstra.Configuration.Tests
             TestProxy.ConfigureAppConfigurationDelegatesProxy.Clear();
             TestProxy.ConfigureServicesDelegatesProxy.Clear();
 
-            AppBuilder.Instance.AddDefaultConfigurationProviders();
+            AppBuilder.Instance.AddDefaultConfigurations();
 
             Assert.Single(TestProxy.ConfigureAppConfigurationDelegatesProxy);
             Assert.Single(TestProxy.ConfigureServicesDelegatesProxy);

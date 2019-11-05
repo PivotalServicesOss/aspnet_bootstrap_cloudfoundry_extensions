@@ -1,5 +1,6 @@
 ﻿using Microsoft.Web.Redis;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using StackExchange.Redis;
 using System;
 
@@ -15,7 +16,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
         static RedisConnectionHelper()
         {
-            connectionMultiplexer = AppConfig.GetService<IConnectionMultiplexer>() ?? throw new ArgumentNullException(nameof(IConnectionMultiplexer));
+            connectionMultiplexer = DependencyContainer.GetService<IConnectionMultiplexer>() ?? throw new ArgumentNullException(nameof(IConnectionMultiplexer));
         }
 
         public static string GetConnectionString()

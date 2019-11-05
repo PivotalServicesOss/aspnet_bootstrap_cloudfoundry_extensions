@@ -20,7 +20,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         /// Adds Json, Environment Variables and VCAP Services as configuration sources
         /// </summary>
         /// <param name="environment"></param>
-        public static AppBuilder AddDefaultConfigurationProviders(this AppBuilder instance, bool jsonSettingsOptional = true, string environment = null)
+        public static AppBuilder AddDefaultConfigurations(this AppBuilder instance, bool jsonSettingsOptional = true, string environment = null)
         {
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")

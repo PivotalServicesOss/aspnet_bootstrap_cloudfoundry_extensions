@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using Steeltoe.Management.Endpoint.Metrics;
 using Steeltoe.Management.Exporter.Metrics;
 using Steeltoe.Management.Exporter.Metrics.CloudFoundryForwarder;
@@ -13,8 +14,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
 
         public void Configure()
         {
-            var configuration = AppConfig.GetService<IConfiguration>();
-            var loggerFactory = AppConfig.GetService<ILoggerFactory>();
+            var configuration = DependencyContainer.GetService<IConfiguration>();
+            var loggerFactory = DependencyContainer.GetService<ILoggerFactory>();
 
             metricsExporter = new CloudFoundryForwarderExporter(new CloudFoundryForwarderOptions(configuration),
                                                                 OpenCensusStats.Instance,

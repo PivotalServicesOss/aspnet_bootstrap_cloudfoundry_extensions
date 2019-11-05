@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Common.HealthChecks;
 using Steeltoe.Extensions.Logging;
@@ -18,8 +19,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
     {
         public void Configure()
         {
-            var configuration = AppConfig.GetService<IConfiguration>();
-            var loggerFactory = AppConfig.GetService<ILoggerFactory>();
+            var configuration = DependencyContainer.GetService<IConfiguration>();
+            var loggerFactory = DependencyContainer.GetService<ILoggerFactory>();
             var dynamicLoggerProvider = GetDynamicLoggerProvider(configuration);
             loggerFactory.AddProvider(dynamicLoggerProvider);
 
@@ -44,14 +45,14 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
 
         private IEnumerable<IHealthContributor> GetHealthContributors()
         {
-            var healthContributors = AppConfig.GetService<IEnumerable<IHealthContributor>>().ToList();
+            var healthContributors = DependencyContainer.GetService<IEnumerable<IHealthContributor>>().ToList();
             healthContributors.Add(new DiskSpaceContributor());
             return healthContributors;
         }
 
         private IDynamicLoggerProvider GetDynamicLoggerProvider(IConfiguration configuration)
         {
-            return AppConfig.GetService<IDynamicLoggerProvider>() ?? new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
+            return DependencyContainer.GetService<IDynamicLoggerProvider>() ?? new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
         }
     }
 }

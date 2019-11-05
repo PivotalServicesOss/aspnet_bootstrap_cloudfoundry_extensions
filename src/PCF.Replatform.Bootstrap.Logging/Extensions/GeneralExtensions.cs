@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 {
     public static class GeneralExtensions
     {
-        readonly static ILoggerFactory loggerFactory = AppConfig.GetService<ILoggerFactory>()
+        readonly static ILoggerFactory loggerFactory = DependencyContainer.GetService<ILoggerFactory>()
                                                         ?? throw new ArgumentNullException(nameof(ILoggerFactory));
 
         readonly static Dictionary<string, ILogger> loggers = new Dictionary<string, ILogger>();
