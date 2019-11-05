@@ -1,5 +1,30 @@
+
+[![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master)
+
+###### Configuration
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration)
+
+###### Logging
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging)
+
+###### Actuators
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators)
+
+###### Redis.Session
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session)
+
+###### Base/IoC
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base)
+
+
 #### What is this for?
-- Quickly replatform a ASP.Net full framework app to PCF (PAS)
+- Quickly replatform a ASP.Net full framework app to PCF (PAS), supports to implement few critical of 12/15 factors
+
 ##### Supported ASP.Net apps
 - WebAPI
 - MVC
@@ -7,8 +32,7 @@
 - Other types like (.asmx, .ashx)
 - All the above with Unity
 - All the above with Autofac
-##### Not supported (as of now)
-- Owin
+
 ##### Salient features
 - One stop package/reference code
 - Uses steeltoe packages at the most part
@@ -22,42 +46,40 @@
 - Reduces replatforming effort from days to hours/minutes
 - Helps in getting an ASP.Net app to PCF within short time
 - Supports Session persistence to Redis with auto update of Web.config during package install
-- appsettings.json templates are available part of the package
+- appsettings.json templates are available in the respective projects for reference or download
 - More importantly, adds few of the most important/critical factors (Logs, Config, Process. Concurrency, Admin process)
 - Can be extended as we learn
-##### Where can I find the samples?
-- https://github.com/alfusinigoj/pcf_replatform_bootstrap_samples
-##### General Instructions
-###### Create a local nuget package (optional to publish as a public package)
-- Navigate to the source folder `..\src\Pcf.Replatform.Bootstrap.Base`
-- Modify the batch file `nugetpublish.bat` with the correct *local repository folder* of yours
-- Execute the batch file `nugetpublish.bat` with argument as the minimum version number. For e.g the highlighted portion is the minimum version number for the package *mynugetpackage 1.1.`2`*
-- Your package will be created under your local repo as `pivotal.cloudfoundry.replatform.bootstrap.base`
 
-###### How to use the package
+###### Packages
+ - Externalizing Configuration - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
+ - Cloud Native Logging - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
+ - Spring Boot Actuators - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
+ - Externalizing Session - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
+ - Base package supporting various IoC frameworks - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+
+###### How to use these package
 - Make sure your application is upgraded to ASP.NET framework 4.7.1 or above
-- Make sure you have added the local repo folder as one of the nuget sources (use `visual studio` or modify `nuget.config` directly)
-- Open nuget package manager and install the package `Pivotal.CloudFoundry.Replatform.Bootstrap.Base`, make sure you install the latest versions
-- Make sure the installation is completed successfully
-- Now you will see two files `appsettings_template.json` and `appsettings.development_template.json` downloaded part of the installation. Open these files are replace the placeholders `<place holder>` as necessary. Rename those files to `appsettings.json` and `appsettings.development.json` respectively. Note: The environment, (here development) is pulled from the environment variable value `ASPNET_ENVIRONMENT`. Later you can remove the unused sections, after going through all the steps below.
-- If you are using session,
-  - Once the package is completely installed, the `web.config` file will be modified automatically, so as to persist session to redis. You can see the  sections `machineKey` and `sessionState` under section `system.web` in the web.config file. Make sure you have only one `sessionState` section, remove all the others except the one with name `RedisSessionStateStore`. 
-  - Create a random `machineKey` section using https://www.developerfusion.com/tools/generatemachinekey and replace accordingly
-  - End state looks something like this...
-    ```
-    <machineKey validationKey="838A7FA9D1747FA388E8F6100CE303116B3AFCA6C8A19955CFC75E2DB2D8938EFBD4575EB94C8F5C2B8874E80B5A49037571A4420BA2CE2A44A13738C45C32F7" decryptionKey="D3A95572AC0CB2ED3DA4F2F7DAD21CD57684A609A102B8F5CAB47DECB1409FE1" validation="SHA1" decryption="AES"/>
-    <sessionState mode="Custom" customProvider="RedisSessionStateStore">
-      <providers>
-        <add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName="Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Helpers.RedisConnectionHelper" settingsMethodName="GetConnectionString" />
-      </providers>
-    </sessionState>
-    ```
-- If you are not using session, remove sections `machineKey` and `sessionState` from the `web.config` file
-- Resolve any binding redirects conflicts from the web.config file.
-- Now, navigate to `global.asax.cs` and paste the below code under `Application_Start`
+- Install the package necesary for the need
+- Resolve any binding redirects conflicts from the web.config file, incase of any.
+- Now, navigate to `Global.asax.cs` and paste the below code under `Application_Start`
   ```
-  AppBuilder.Instance
-    .ConfigureAppConfiguration((hostBuilder, configBuilder) =>
+  AppBuilder
+	.Instance
+    .PersistSessionToRedis() //For externalizing session to Redis, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session`
+	.AddDynamicConsoleSerilogLogging(includeCorrelation:true) //For Cloud Native logging, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging`
+    .AddDefaultConfigurationProviders(jsonSettingsOptional:true, environment:"Production") //Adds Json, Environment Variables and VCAP Services as configuration sources, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration`
+	.AddConfigServer(environment:"Production") //Add Config Server as a configuration source, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration` 
+	.AddHealthActuators() //Adds spring cloud actuators, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
+	.AddMetricsForwarder() //Adds metrics forwarder, package source `PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators` 
+	.Build()
+    .Start();
+  ```
+- Option to add more  `Actions` exposed where you can configure; application configurations, inject services and even modify logging configurations, as needed.
+  
+  ```
+  AppBuilder
+	.Instance
+	.ConfigureAppConfiguration((hostBuilder, configBuilder) =>
     {
         //Add additional configurations here
     })
@@ -67,25 +89,55 @@
     })
     .ConfigureLogging((hostBuilder, logBuilder) =>
     {
-        //configure custom logging here
-    })
-    .PersistSessionToRedis()
-    .Build()
-    .Start()
+        //configure custome logging here
+    }) 
+	.Build()
+    .Start();
   ```
-- As you see above, there are `Actions` exposed where you can configure; application configurations, inject services and even modify logging configurations, as needed. Please note that if the application is not using session, you can remove `.PersistSessionToRedis()` from the above code.
-- With this lines of code, you get..
-    - Configuration injections from `Web.config` (sections--> appSettings and connectionStrings), `appsettings.json`, `appsettings.{ENV:ASPNET_ENVIRONMENT}.json`, `environment variables` and `vcap services`. 
-    - Default logging configurations using Serilog (Console and Debug)
-    - Ability to add additional configuration sources
-    - Ability to inject as many as services (Dependency Injection)
-- Navigate to `global.asax.cs` and paste the below code under `Application_Stop`
+
+- Option to configure Ioc using Unity
+  
+  ```
+  AppBuilder
+	.Instance
+	.ConfigureIoC(
+	() => {
+        return new Unity.AspNet.WebApi.UnityDependencyResolver(UnityConfig.Container);
+    },
+    () => {
+        return new Unity.AspNet.Mvc.UnityDependencyResolver(UnityConfig.Container);
+    },
+    (services) => {
+        UnityConfig.Container.BuildServiceProvider(services);
+        FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
+        FilterProviders.Providers.Add(new Unity.AspNet.Mvc.UnityFilterAttributeFilterProvider(UnityConfig.Container));
+    })
+	.Build()
+    .Start();
+  ```
+
+- Option to configure Ioc using Unity
+  
+  ```
+  AppBuilder
+	.Instance
+	.ConfigureIoC(
+    () => {
+        return new AutofacWebApiDependencyResolver(AutofacConfig.Container);
+    },
+    () => {
+        return new AutofacDependencyResolver(AutofacConfig.Container);
+    },
+    (services) => {
+        AutofacConfig.Builder.Populate(services);
+    })
+	.Build()
+    .Start();
+  ```
+- Configuration details are available under readme.txt under each project (refer to the source repository, https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap). However, the readme file will be downloaded with the package
+- Navigate to `Global.asax.cs` and paste the below code under `Application_Stop`
   ```
     AppBuilder.Instance.Stop();
   ```
-- **TODO (add futher information...)**
 
-##### In future
-- Improve test coverage, currently very minimal level of unit tests written
-- Add Owin support
-- Add support and configuration templates for service discovery
+##### Note: Ongoing development packages will be available at https://www.myget.org/feed/ajaganathan/package/nuget/<PackageId>

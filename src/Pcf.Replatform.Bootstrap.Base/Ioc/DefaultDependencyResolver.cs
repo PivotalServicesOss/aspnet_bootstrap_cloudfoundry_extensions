@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web.Http.Dependencies;
 using System.Web.Mvc;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Ioc
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc
 {
     internal class DefaultDependencyResolver : System.Web.Mvc.IDependencyResolver, System.Web.Http.Dependencies.IDependencyResolver
     {

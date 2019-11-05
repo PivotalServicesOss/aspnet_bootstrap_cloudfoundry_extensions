@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Configuration
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Configuration
 {
     public class InMemoryConfigurationProvider : ConfigurationProvider
     {
@@ -16,7 +16,7 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Configuration
         {
             foreach (var item in store)
             {
-                Data.Add(item.Key, item.Value);
+                Data[item.Key] = item.Value;
             }
         }
     }

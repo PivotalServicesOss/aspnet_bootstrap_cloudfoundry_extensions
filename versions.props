@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <MicrosoftAspNetVersion>5.2.7</MicrosoftAspNetVersion>
+    <MicrosoftWebVersion>1.0.0</MicrosoftWebVersion>
+    <MicrosoftWebRedisVersion>4.0.1</MicrosoftWebRedisVersion>
+    <MicrosoftExtensionsVersion>2.2.0</MicrosoftExtensionsVersion>
+    <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>2.2.0</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
+    <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
+    <PivotalServicesBootstrapBaseVersion>2.0.0</PivotalServicesBootstrapBaseVersion>
+    <SteeltoeVersion>2.3.0</SteeltoeVersion>
+    <SteeltoeManagementVersion>2.1.1</SteeltoeManagementVersion>
+    <SerilogSinksDebug>1.0.1</SerilogSinksDebug>
+    <GitInfoVersion>2.0.21</GitInfoVersion>
+  </PropertyGroup>
+</Project>

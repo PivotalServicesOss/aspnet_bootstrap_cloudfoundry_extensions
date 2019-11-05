@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\versions.props" />
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</RootNamespace>
+    <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</AssemblyName>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables">
+      <Version>$(MicrosoftExtensionsConfigurationEnvironmentVariableVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json">
+      <Version>$(MicrosoftExtensionsVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions">
+      <Version>$(MicrosoftExtensionsVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore">
+      <Version>$(SteeltoeVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerBase">
+      <Version>$(SteeltoeVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="$(SteeltoeVersion)" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj" />
+  </ItemGroup>
+</Project>

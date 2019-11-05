@@ -2,93 +2,47 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
-using Steeltoe.Common.Diagnostics;
-using Steeltoe.Common.HealthChecks;
-using Steeltoe.Extensions.Logging;
-using Steeltoe.Management.Endpoint;
-using Steeltoe.Management.Endpoint.Health.Contributor;
-using Steeltoe.Management.Endpoint.Metrics;
-using Steeltoe.Management.Exporter.Metrics;
-using Steeltoe.Management.Exporter.Metrics.CloudFoundryForwarder;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public class AppBuilder
     {
         private AppBuilder() { }
 
-        private static Action<HostBuilderContext, IConfigurationBuilder> configureAppConfiguration;
-        private static Action<HostBuilderContext, IServiceCollection> configureServices;
-        private static Action<HostBuilderContext, ILoggingBuilder> configureLogging;
         private static Action<IServiceCollection> configureIoC;
-        private static bool persistSessionToRedis;
-        private static bool addRedisDistributedCache;
-        private static bool addConfigServer;
-        private static bool useCloudFoundryActuators;
-        private static bool useCloudFoundryMetricsActuator;
-        private static bool useCloudFoundryMerticsForwarder;
-        private static IMetricsExporter metricsExporter;
         private static bool useCustomIoC;
         private static Func<IDependencyResolver> mvcDependencyResolverFunc;
         private static Func<System.Web.Http.Dependencies.IDependencyResolver> webApiDependencyResolverFunc;
 
+        internal List<Action<HostBuilderContext, IServiceCollection>> ConfigureServicesDelegates = new List<Action<HostBuilderContext, IServiceCollection>>();
+        internal List<Action<HostBuilderContext, IConfigurationBuilder>> ConfigureAppConfigurationDelegates = new List<Action<HostBuilderContext, IConfigurationBuilder>>();
+        internal List<Action<HostBuilderContext, ILoggingBuilder>> ConfigureLoggingDelegates = new List<Action<HostBuilderContext, ILoggingBuilder>>();
+        internal List<IActuator> Actuators = new List<IActuator>();
+
         public static readonly AppBuilder Instance = new AppBuilder();
 
-        public Dictionary<string, string> InMemoryConfigStore { get; } = new Dictionary<string, string>();
+        internal Dictionary<string, string> InMemoryConfigStore { get; } = new Dictionary<string, string>();
 
         public AppBuilder ConfigureAppConfiguration(Action<HostBuilderContext, IConfigurationBuilder> configureDelegate)
         {
-            configureAppConfiguration = configureDelegate;
+            ConfigureAppConfigurationDelegates.Add(configureDelegate);
             return Instance;
         }
 
         public AppBuilder ConfigureServices(Action<HostBuilderContext, IServiceCollection> configureDelegate)
         {
-            configureServices = configureDelegate;
+            ConfigureServicesDelegates.Add(configureDelegate);
             return Instance;
         }
 
         public AppBuilder ConfigureLogging(Action<HostBuilderContext, ILoggingBuilder> configureDelegate)
         {
-            configureLogging = configureDelegate;
-            return Instance;
-        }
-
-        public AppBuilder PersistSessionToRedis()
-        {
-            persistSessionToRedis = true;
-            return Instance;
-        }
-
-        public AppBuilder AddRedisDistributedCache()
-        {
-            addRedisDistributedCache = true;
-            return Instance;
-        }
-
-        public AppBuilder AddConfigServer()
-        {
-            addConfigServer = true;
-            return Instance;
-        }
-
-        public AppBuilder UseCloudFoundryMerticsForwarder()
-        {
-            useCloudFoundryMerticsForwarder = true;
-            return Instance;
-        }
-
-        public AppBuilder UseCloudFoundryActuators(bool includeMetricsActuator = false)
-        {
-            useCloudFoundryActuators = true;
-            useCloudFoundryMetricsActuator = includeMetricsActuator;
+            ConfigureLoggingDelegates.Add(configureDelegate);
             return Instance;
         }
 
@@ -103,20 +57,14 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 
         public AppBuilder Build()
         {
-            AppConfig.Configure(configureAppConfiguration,
-                                configureServices,
-                                configureLogging,
+            AppConfig.Configure(ConfigureAppConfigurationDelegates,
+                                ConfigureServicesDelegates,
+                                ConfigureLoggingDelegates,
                                 configureIoC,
-                                persistSessionToRedis,
-                                addRedisDistributedCache,
-                                addConfigServer,
                                 InMemoryConfigStore);
 
-            if (useCloudFoundryActuators)
-                ConfigureActuators();
-
-            if (useCloudFoundryMerticsForwarder)
-                ConfigureMetricsForwarder();
+            foreach (var actuator in Actuators)
+                actuator.Configure();
 
             if (!useCustomIoC)
                 InstallDefaultDependencyResolvers();
@@ -128,20 +76,14 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
 
         public void Start()
         {
-            if (useCloudFoundryActuators)
-                DiagnosticsManager.Instance.Start();
-
-            if (useCloudFoundryMerticsForwarder)
-                metricsExporter?.Start();
+            foreach (var actuator in Actuators)
+                actuator.Start();
         }
 
         public void Stop()
         {
-            if (useCloudFoundryActuators)
-                DiagnosticsManager.Instance.Stop();
-
-            if (useCloudFoundryMerticsForwarder)
-                metricsExporter?.Stop();
+            foreach (var actuator in Actuators)
+                actuator.Stop();
         }
 
         private void InstallDefaultDependencyResolvers()
@@ -155,40 +97,6 @@ namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base
         {
             GlobalConfiguration.Configuration.DependencyResolver = webApiDependencyResolverFunc?.Invoke();
             DependencyResolver.SetResolver(mvcDependencyResolverFunc?.Invoke());
-        }
-
-        private void ConfigureMetricsForwarder()
-        {
-            var configuration = AppConfig.GetService<IConfiguration>();
-            var loggerFactory = AppConfig.GetService<ILoggerFactory>();
-
-            metricsExporter = new CloudFoundryForwarderExporter(new CloudFoundryForwarderOptions(configuration),
-                                                                OpenCensusStats.Instance,
-                                                                loggerFactory.CreateLogger<CloudFoundryForwarderExporter>());
-        }
-
-        private void ConfigureActuators()
-        {
-            var configuration = AppConfig.GetService<IConfiguration>();
-            var loggerFactory = AppConfig.GetService<ILoggerFactory>();
-            var dynamicLoggerProvider = new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
-            loggerFactory.AddProvider(dynamicLoggerProvider);
-
-            ActuatorConfigurator.UseCloudFoundryActuators(configuration,
-                                                            dynamicLoggerProvider,
-                                                            GetHealthContributors(),
-                                                            GlobalConfiguration.Configuration.Services.GetApiExplorer(),
-                                                            loggerFactory);
-
-            if (useCloudFoundryMetricsActuator)
-                ActuatorConfigurator.UseMetricsActuator(configuration, loggerFactory);
-        }
-
-        private IEnumerable<IHealthContributor> GetHealthContributors()
-        {
-            var healthContributors = AppConfig.GetService<IEnumerable<IHealthContributor>>().ToList();
-            healthContributors.Add(new DiskSpaceContributor());
-            return healthContributors;
         }
     }
 }

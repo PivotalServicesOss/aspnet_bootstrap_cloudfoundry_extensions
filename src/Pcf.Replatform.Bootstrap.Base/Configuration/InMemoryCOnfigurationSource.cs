@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace Pivotal.CloudFoundry.Replatform.Bootstrap.Base.Configuration
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Configuration
 {
     public class InMemoryConfigurationSource : IConfigurationSource
     {

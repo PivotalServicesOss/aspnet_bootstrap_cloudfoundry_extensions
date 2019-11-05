@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging</id>
+    <version>$Version$</version>
+    <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging</title>
+    <authors>ajaganathan,Pivotal</authors>
+    <owners>ajaganathan</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Package helps to bootstrap a full framework application to PCF by adding cloud native distributed logging, enhanced with Serilog</description>
+    <copyright>Copyright © 2019</copyright>
+    <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
+    <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Logging</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web"  />
+    </frameworkAssemblies>
+    <dependencies>
+      <dependency id="Microsoft.Extensions.Hosting.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+      <dependency id="Microsoft.Web.Infrastructure" version ="$MicrosoftWebVersion$"/>
+      <dependency id="Steeltoe.Extensions.Logging.SerilogDynamicLogger" version ="$SteeltoeVersion$"/>
+      <dependency id="Steeltoe.Management.TracingBase" version ="$SteeltoeManagementVersion$"/>
+      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="readme.txt" target="" />
+  </files>
+</package>

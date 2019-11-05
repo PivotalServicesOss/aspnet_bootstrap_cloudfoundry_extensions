@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</id>
+    <version>$Version$</version>
+    <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</title>
+    <authors>ajaganathan,Pivotal</authors>
+    <owners>ajaganathan</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Package helps to bootstrap a full framework application to PCF, for enabling actuators and metrics forwarder</description>
+    <copyright>Copyright © 2019</copyright>
+    <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
+    <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; SpringBootActuators</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
+      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+      <dependency id="Microsoft.Net.Compilers" version ="$MicrosoftNetVersion$"/>
+      <dependency id="Steeltoe.Management.EndpointWeb" version ="$SteeltoeManagementVersion$"/>
+      <dependency id="Steeltoe.Management.ExporterBase" version ="$SteeltoeManagementVersion$"/>
+      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+      <!--<dependency id="GitInfo" version="$GitInfoVersion$" />-->
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="readme.txt" target="" />
+  </files>
+</package>

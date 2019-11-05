@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration  xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.web>
+    <machineKey xdt:Transform="InsertIfMissing" validationKey="{Validation Key}"
+                decryptionKey="{Decryption Key}"
+                validation="SHA1" decryption="AES"/>
+    <!--One time activity, please generate machine key using any tools like, for e.g 'https://www.developerfusion.com/tools/generatemachinekey'-->
+    
+    <sessionState xdt:Transform="Remove"></sessionState>
+    <sessionState mode="Custom" customProvider="RedisSessionStateStore" xdt:Transform="InsertIfMissing">
+      <providers>
+        <add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.RedisConnectionHelper" settingsMethodName="GetConnectionString"/>
+      </providers>
+    </sessionState>
+  </system.web>
+</configuration>
