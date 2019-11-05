@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\versions.props" />
   <PropertyGroup>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFramework>net462</TargetFramework>
     <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session</RootNamespace>
     <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session</AssemblyName>
   </PropertyGroup>

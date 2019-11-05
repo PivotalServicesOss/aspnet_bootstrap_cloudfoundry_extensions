@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
