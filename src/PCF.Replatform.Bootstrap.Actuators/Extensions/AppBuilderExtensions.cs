@@ -15,6 +15,13 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
+            inMemoryConfigStore.Add("Logging:LogLevel:Default", "Information");
+            inMemoryConfigStore.Add("Logging:LogLevel:System", "Warning");
+            inMemoryConfigStore.Add("Logging:LogLevel:Microsoft", "Warning");
+            inMemoryConfigStore.Add("Logging:LogLevel:Steeltoe", "Warning");
+            inMemoryConfigStore.Add("Logging:LogLevel:Pivotal", "Warning");
+            inMemoryConfigStore.Add("Logging:Console:IncludeScopes", "true");
+
             if (string.IsNullOrWhiteSpace(basePath))
                 inMemoryConfigStore.Add("management:endpoints:path", "/cloudfoundryapplication");
             else

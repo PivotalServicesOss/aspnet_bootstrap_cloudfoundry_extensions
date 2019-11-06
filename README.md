@@ -1,4 +1,4 @@
-##### Quickly replatform a ASP.Net full framework app to Pivotal Platform (PAS), supports to implement few critical of 12/15 factors
+### Quickly replatform a ASP.Net full framework app to Pivotal Platform (PAS), supports to implement few critical of 12/15 factors
 
 [![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master)
 
@@ -31,12 +31,12 @@
 - All the above with Autofac
 
 ##### Salient features
-- One stop package/reference code
-- Uses steeltoe.io under the hood, for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
+- One stop package/reference code for replatforming ASP.NET apps to Pivotal Platform (PAS)
+- Uses https://steeltoe.io for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
 - Supports distributed and structured logging, enhanced with Serilog
 - Supports IoC using Autofac and Unity apart from native Microsoft ServiceCollection
 - Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, environment variables, vcap services and config server)
-- Supports configuration placeholder resolving using pattern matching like `${variable_name}`
+- Supports configuration placeholder resolving using pattern matching like, `${variable_name}`. Refer https://steeltoe.io/app-configuration/docs fro more details
 - Injects all above configuration into WebConfiguration (appsettings, connection strings and providers) at runtime so as to be used by legacy libraries relying on.
 - Helps in getting an ASP.Net app to Pivotal Platform (PAS) or any Cloud Foundry platform within short span of time
 - Supports Session persistence to Redis
@@ -84,31 +84,31 @@
 - All default configurations will be added internally, but can always override using json or environment variables as below (if required)
 
 ```
-    {
-    		"spring": {
-    		"application": {
-    			"name": "${vcap:application:name}"
-    		},
-    		"cloud": {
-    			"config": {
-    			"validate_certificates": false,
-    			"failFast": true,
-    			"name": "${vcap:application:name}"
-    			"env": "${ASPNETCORE_ENVIRONMENT}"
-    			}
-    		}
-    		}
-    	},
-    	"AppSettings": {
-    	"Key1": "value1"
-    	},
-    	"ConnectionStrings": {
-    	"Database1": "connection1"
-    	},
-    	"Providers": {
-    	"Database1": "provider1"
-    	}
+{
+  "spring": {
+    "application": {
+      "name": "${vcap:application:name}"
+    },
+    "cloud": {
+      "config": {
+        "validate_certificates": false,
+        "failFast": true,
+        "name": "${vcap:application:name}",
+        "env": "${ASPNETCORE_ENVIRONMENT}"
+      }
     }
+  },
+  "AppSettings": {
+    "Key1": "value1"
+  },
+  "ConnectionStrings": {
+    "Database1": "connection1"
+  },
+  "Providers": {
+    "Database1": "provider1"
+  }
+}
+
 ```
 - Push the app and bind your app to a config server instance and you are good to go
 - Instructions to setup config server is available here https://pivotal.io/application-transformation-recipes/app-architecture/setting-up-spring-config-server
@@ -171,23 +171,23 @@
 - All default configurations will be added internally, but can always override using json or environment variables as below (if required)
 
 ```
-    {
-    	"management": {
-    	"endpoints": {
-    		"path": "/cloudfoundryapplication",
-    		"cloudfoundry": {
-    		"validateCertificates": false
-    		}
-    	},
-    	"metrics": {
-    		"exporter": {
-    		"cloudfoundry": {
-    			"validateCertificates": false
-    		}
-    		}
-    	}
-    	}
+{
+  "management": {
+    "endpoints": {
+      "path": "/cloudfoundryapplication",
+      "cloudfoundry": {
+        "validateCertificates": false
+      }
+    },
+    "metrics": {
+      "exporter": {
+        "cloudfoundry": {
+          "validateCertificates": false
+        }
+      }
     }
+  }
+}
 ```
 - Push the app, you will be able to see actuators enabled (health, info, etc.) in Apps Manager
 - `Dynamic logging` will be enabled if `.AddDynamicConsoleSerilogLogging()` (below) extension method is added or `Steeltoe dynamic logging` in explicitly added.

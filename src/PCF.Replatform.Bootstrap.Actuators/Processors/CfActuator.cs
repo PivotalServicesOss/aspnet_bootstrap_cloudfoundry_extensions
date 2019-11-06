@@ -17,11 +17,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
 {
     public class CfActuator : IActuator
     {
+        IDynamicLoggerProvider dynamicLoggerProvider = null;
+
         public void Configure()
         {
             var configuration = DependencyContainer.GetService<IConfiguration>();
-            var loggerFactory = DependencyContainer.GetService<ILoggerFactory>();
-            var dynamicLoggerProvider = GetDynamicLoggerProvider(configuration);
+            var loggerFactory = GetLoggerFactory(configuration);
             loggerFactory.AddProvider(dynamicLoggerProvider);
 
             ActuatorConfigurator.UseCloudFoundryActuators(configuration,
@@ -50,9 +51,17 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
             return healthContributors;
         }
 
-        private IDynamicLoggerProvider GetDynamicLoggerProvider(IConfiguration configuration)
+        private ILoggerFactory GetLoggerFactory(IConfiguration configuration)
         {
-            return DependencyContainer.GetService<IDynamicLoggerProvider>() ?? new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
+            var loggerFactory = DependencyContainer.GetService<ILoggerFactory>(false);
+
+            dynamicLoggerProvider = DependencyContainer.GetService<IDynamicLoggerProvider>(false)
+                    ?? new DynamicLoggerProvider(new ConsoleLoggerSettings().FromConfiguration(configuration));
+
+            if (loggerFactory == null)
+                loggerFactory.AddProvider(dynamicLoggerProvider);
+
+            return loggerFactory;
         }
     }
 }
