@@ -58,21 +58,21 @@
 - Environment variable `ASPNETCORE_ENVIRONMENT` to be set
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
-    ```
-    	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    	...
+```
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    ...
     
-    	protected void Application_Start()
-        {
-    		...
-            AppBuilder.Instance
-                    .AddDefaultConfigurations() 
-                    .AddConfigServer() //For config server 
-                    .Build()
-                    .Start();
-    		...
-        }
-    ```
+    protected void Application_Start()
+    {
+    	...
+        AppBuilder.Instance
+                .AddDefaultConfigurations() 
+                .AddConfigServer() //For config server 
+                .Build()
+                .Start();
+    	...
+    }
+```
 - `AddDefaultConfigurations()` have optional parameters
 	- `jsonSettingsOptional` if appsettings.json is must
 	- `environment` to override environment variable `ASPNETCORE_ENVIRONMENT`
@@ -83,33 +83,33 @@
 
 - All default configurations will be added internally, but can always override using json or environment variables as below (if required)
 
-    ```
-    	{
-    		  "spring": {
-    			"application": {
-    			  "name": "${vcap:application:name}"
-    			},
-    			"cloud": {
-    			  "config": {
-    				"validate_certificates": false,
-    				"failFast": true,
-    				"name": "${vcap:application:name}"
-    				"env": "${ASPNETCORE_ENVIRONMENT}"
-    			  }
+```
+    {
+    		"spring": {
+    		"application": {
+    			"name": "${vcap:application:name}"
+    		},
+    		"cloud": {
+    			"config": {
+    			"validate_certificates": false,
+    			"failFast": true,
+    			"name": "${vcap:application:name}"
+    			"env": "${ASPNETCORE_ENVIRONMENT}"
     			}
-    		  }
-    		},
-    		"AppSettings": {
-    		"Key1": "value1"
-    		},
-    		"ConnectionStrings": {
-    		"Database1": "connection1"
-    		},
-    		"Providers": {
-    		"Database1": "provider1"
     		}
+    		}
+    	},
+    	"AppSettings": {
+    	"Key1": "value1"
+    	},
+    	"ConnectionStrings": {
+    	"Database1": "connection1"
+    	},
+    	"Providers": {
+    	"Database1": "provider1"
     	}
-    ```
+    }
+```
 - Push the app and bind your app to a config server instance and you are good to go
 - Instructions to setup config server is available here https://pivotal.io/application-transformation-recipes/app-architecture/setting-up-spring-config-server
 - This uses Steeltoe Configurations, to know more about Steeltoe Configuration, go to https://steeltoe.io/app-configuration/get-started
@@ -124,20 +124,20 @@
 
 - In `Global.asax.cs` and add code as below under `Application_Start`
     
-    ```
-    	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    	...
+```
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    ...
     
-    	protected void Application_Start()
-        {
-    		...
-            AppBuilder.Instance
-                    .PersistSessionToRedis()
-                    .Build()
-                    .Start();
-    		...
-        }
-    ```
+    protected void Application_Start()
+    {
+    	...
+        AppBuilder.Instance
+                .PersistSessionToRedis()
+                .Build()
+                .Start();
+    	...
+    }
+```
 
 - Push the app and bind your app to a redis instance and you are good to go
 - This uses Steeltoe Connector for Redis, to know more about Steeltoe Connectors, go to https://steeltoe.io/service-connectors/get-started
@@ -146,21 +146,21 @@
 - Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
-    ```
-    	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    	...
+```
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    ...
     
-    	protected void Application_Start()
-        {
-    		...
-            AppBuilder.Instance
-                    .AddCloudFoundryActuators()
-    				.AddCloudFoundryMetricsForwarder()
-                    .Build()
-                    .Start();
-    		...
-        }
-    ```
+    protected void Application_Start()
+    {
+    	...
+        AppBuilder.Instance
+                .AddCloudFoundryActuators()
+    			.AddCloudFoundryMetricsForwarder()
+                .Build()
+                .Start();
+    	...
+    }
+```
 
 - `AddCloudFoundryActuators()` have optional parameter
 	- `basePath` to use in case if the app uses context routing
@@ -170,25 +170,25 @@
   ```
 - All default configurations will be added internally, but can always override using json or environment variables as below (if required)
 
-    ```
-    	{
-    	  "management": {
-    		"endpoints": {
-    		  "path": "/cloudfoundryapplication",
-    		  "cloudfoundry": {
-    			"validateCertificates": false
-    		  }
-    		},
-    		"metrics": {
-    		  "exporter": {
-    			"cloudfoundry": {
-    			  "validateCertificates": false
-    			}
-    		  }
+```
+    {
+    	"management": {
+    	"endpoints": {
+    		"path": "/cloudfoundryapplication",
+    		"cloudfoundry": {
+    		"validateCertificates": false
     		}
-    	  }
+    	},
+    	"metrics": {
+    		"exporter": {
+    		"cloudfoundry": {
+    			"validateCertificates": false
+    		}
+    		}
     	}
-    ```
+    	}
+    }
+```
 - Push the app, you will be able to see actuators enabled (health, info, etc.) in Apps Manager
 - `Dynamic logging` will be enabled if `.AddDynamicConsoleSerilogLogging()` (below) extension method is added or `Steeltoe dynamic logging` in explicitly added.
 - This uses Steeltoe Management, to know more about Steeltoe Management, go to https://steeltoe.io/cloud-management/get-started
@@ -197,62 +197,62 @@
 - Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
-    ```
-    	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    	...
+```
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    ...
     
-    	protected void Application_Start()
-        {
-    		...
-            AppBuilder.Instance
-                    .AddDynamicConsoleSerilogLogging()
-    				.AddCloudFoundryMetricsForwarder()
-                    .Build()
-                    .Start();
-    		...
-        }
-    ```
+    protected void Application_Start()
+    {
+    	...
+        AppBuilder.Instance
+                .AddDynamicConsoleSerilogLogging()
+    			.AddCloudFoundryMetricsForwarder()
+                .Build()
+                .Start();
+    	...
+    }
+```
 
 - `AddCloudFoundryActuators()` have optional parameter
 	- `includeCorrelation` if you want to enable distributed logging
 - All default configurations will be added internally, but can always override using json or environment variables as below (if required)
 
-    ```
-    	{
-    	  "management": {
-    		"tracing": {
-    		  "AlwaysSample": true,
-    		  "UseShortTraceIds": false,
-    		  "EgressIgnorePattern": "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
-    		}
-    	  },
-    	  "Serilog": {
-    		"MinimumLevel": {
-    		  "Default": "Information",
-    		  "Override": {
-    			"Microsoft": "Warning",
-    			"System": "Warning",
-    			"Pivotal": "Warning",
-    			"Steeltoe": "Warning"
-    		  }
-    		},
-    		"WriteTo": [
-    		  {
-    			"Name": "Console",
-    			"Args": {
-    			  "outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-    			}
-    		  },
-    		  {
-    			"Name": "Debug",
-    			"Args": {
-    			  "outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-    			}
-    		  }
-    		]
-    	  }
+```
+    {
+    	"management": {
+    	"tracing": {
+    		"AlwaysSample": true,
+    		"UseShortTraceIds": false,
+    		"EgressIgnorePattern": "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
     	}
-    ```
+    	},
+    	"Serilog": {
+    	"MinimumLevel": {
+    		"Default": "Information",
+    		"Override": {
+    		"Microsoft": "Warning",
+    		"System": "Warning",
+    		"Pivotal": "Warning",
+    		"Steeltoe": "Warning"
+    		}
+    	},
+    	"WriteTo": [
+    		{
+    		"Name": "Console",
+    		"Args": {
+    			"outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+    		}
+    		},
+    		{
+    		"Name": "Debug",
+    		"Args": {
+    			"outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+    		}
+    		}
+    	]
+    	}
+    }
+```
 - Push the app, you will be able to see actuators enabled (health, info, dynamic logging, etc.) in Apps Manager
 - This uses Steeltoe Management, to know more about Steeltoe Management, dynamic logging, go to https://steeltoe.io/cloud-management/get-started/logging
 
@@ -260,120 +260,120 @@
 - Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 - Can add more `Actions` exposed where you can configure; `application configurations`, `inject services` and even modify `logging configurations` as needed.
   
-    ```
-    AppBuilder
-        .Instance
-        .ConfigureAppConfiguration((hostBuilder, configBuilder) =>
-        {
-            //Add additional configurations here
-        })
-        .ConfigureServices((hostBuilder, services) =>
-        {
-            //Add additional services here
-        })
-        .ConfigureLogging((hostBuilder, logBuilder) =>
-        {
-            //configure custome logging here
-        }) 
-        .Build()
-        .Start();
-    ```
+```
+AppBuilder
+    .Instance
+    .ConfigureAppConfiguration((hostBuilder, configBuilder) =>
+    {
+        //Add additional configurations here
+    })
+    .ConfigureServices((hostBuilder, services) =>
+    {
+        //Add additional services here
+    })
+    .ConfigureLogging((hostBuilder, logBuilder) =>
+    {
+        //configure custome logging here
+    }) 
+    .Build()
+    .Start();
+```
 
 - If the application uses `Unity` as its dependency container, you can hook them together as below
       
+```
+    AppBuilder
+    .Instance
+    .ConfigureIoC(
+    () => {
+        return new Unity.AspNet.WebApi.UnityDependencyResolver(UnityConfig.Container);
+    },
+    () => {
+        return new Unity.AspNet.Mvc.UnityDependencyResolver(UnityConfig.Container);
+    },
+    (services) => {
+        UnityConfig.Container.BuildServiceProvider(services);
+        FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
+        FilterProviders.Providers.Add(new Unity.AspNet.Mvc.UnityFilterAttributeFilterProvider(UnityConfig.Container));
+    })
+    .Build()
+    .Start();
     ```
-      AppBuilder
-    	.Instance
-    	.ConfigureIoC(
-    	() => {
-            return new Unity.AspNet.WebApi.UnityDependencyResolver(UnityConfig.Container);
-        },
-        () => {
-            return new Unity.AspNet.Mvc.UnityDependencyResolver(UnityConfig.Container);
-        },
-        (services) => {
-            UnityConfig.Container.BuildServiceProvider(services);
-            FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new Unity.AspNet.Mvc.UnityFilterAttributeFilterProvider(UnityConfig.Container));
-        })
-    	.Build()
-        .Start();
-     ```
 - Sample `UnityConfig` class 
     
-    ```
-        using System;
-        using Unity;
+```
+    using System;
+    using Unity;
         
-        namespace Foo
+    namespace Foo
+    {
+        public static class UnityConfig
         {
-            public static class UnityConfig
-            {
-                private static Lazy<IUnityContainer> container =
-                  new Lazy<IUnityContainer>(() =>
-                  {
-                      var container = new UnityContainer();
-                      RegisterTypes(container);
-                      return container;
-                  });
-        
-                public static IUnityContainer Container => container.Value;
-        
-                public static void RegisterTypes(IUnityContainer container)
+            private static Lazy<IUnityContainer> container =
+                new Lazy<IUnityContainer>(() =>
                 {
-                    // TODO: Register your type's mappings here.
-                    //container.RegisterType<ITestClass, TestClass>();
-                }
+                    var container = new UnityContainer();
+                    RegisterTypes(container);
+                    return container;
+                });
+        
+            public static IUnityContainer Container => container.Value;
+        
+            public static void RegisterTypes(IUnityContainer container)
+            {
+                // TODO: Register your type's mappings here.
+                //container.RegisterType<ITestClass, TestClass>();
             }
         }
-    ```
+    }
+```
 
 - If the application uses `Autofac` as its dependency container, you can hook them together as below
   
-    ```
-    AppBuilder
-        .Instance
-        .ConfigureIoC(
-        () => {
-            return new AutofacWebApiDependencyResolver(AutofacConfig.Container);
-        },
-        () => {
-            return new AutofacDependencyResolver(AutofacConfig.Container);
-        },
-        (services) => {
-            AutofacConfig.Builder.Populate(services);
-        })
-        .Build()
-        .Start();
-    ```
+```
+AppBuilder
+    .Instance
+    .ConfigureIoC(
+    () => {
+        return new AutofacWebApiDependencyResolver(AutofacConfig.Container);
+    },
+    () => {
+        return new AutofacDependencyResolver(AutofacConfig.Container);
+    },
+    (services) => {
+        AutofacConfig.Builder.Populate(services);
+    })
+    .Build()
+    .Start();
+```
 - Sample `AutofacConfig` class 
         
-    ```
-        using Autofac;
-        using System;
+```
+    using Autofac;
+    using System;
         
-        namespace Foo
+    namespace Foo
+    {
+        public class AutofacConfig
         {
-            public class AutofacConfig
-            {
-                private static Lazy<IContainer> container =
-                  new Lazy<IContainer>(() =>
-                  {
-                      RegisterTypes();
-                      return Builder.Build();
-                  });
-        
-                public static IContainer Container => container.Value;
-        
-                public static ContainerBuilder Builder { get; private set; } = new ContainerBuilder();
-        
-                public static void RegisterTypes()
+            private static Lazy<IContainer> container =
+                new Lazy<IContainer>(() =>
                 {
-                    // TODO: Register your type's mappings here.
-                    //Builder.RegisterType<IProductRepository, ProductRepository>();
-                }
+                    RegisterTypes();
+                    return Builder.Build();
+                });
+        
+            public static IContainer Container => container.Value;
+        
+            public static ContainerBuilder Builder { get; private set; } = new ContainerBuilder();
+        
+            public static void RegisterTypes()
+            {
+                // TODO: Register your type's mappings here.
+                //Builder.RegisterType<IProductRepository, ProductRepository>();
             }
         }
-    ```
+    }
+```
 
 ##### Note: Preview packages will be available at feed https://www.myget.org/F/ajaganathan/api/v3/index.json
