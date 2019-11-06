@@ -40,6 +40,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Actuat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Test.Helpers", "test\PCF.Replatform.Test.Helpers\PCF.Replatform.Test.Helpers.csproj", "{CB639EE8-26AD-4569-B681-E8DDBB3EF32A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "release_info", "release_info", "{A86021D0-484B-4CDA-8D2D-EE5D77857131}"
+	ProjectSection(SolutionItems) = preProject
+		release_info\README.md = release_info\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +111,7 @@ Global
 		{215590A9-213E-4CC4-99F5-32EC048D0ED4} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
 		{0028B33C-001E-44FA-B273-A4BE6ED6CDF1} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
 		{CB639EE8-26AD-4569-B681-E8DDBB3EF32A} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
+		{A86021D0-484B-4CDA-8D2D-EE5D77857131} = {2FDD2735-3158-43EB-94C8-3FB0F9264BEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D9BB3E3-9A60-436E-AFD6-65E0ED835FB8}
