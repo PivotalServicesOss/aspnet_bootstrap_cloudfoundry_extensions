@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
@@ -26,11 +25,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         {
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
-                .Add((builderContext, configBuilder) => {
+                .Add((builderContext, configBuilder) =>
+                {
                     configBuilder.SetBasePath(GetContentRoot());
                     configBuilder.AddWebConfiguration();
                     configBuilder.AddJsonFile("appSettings.json", jsonSettingsOptional, false);
-                    configBuilder.AddJsonFile($"appSettings.{(environment ?? Environment.GetEnvironmentVariable(ASPNET_ENV_VAR)).ToLower()}.json", true, false);
+                    configBuilder.AddJsonFile($"appSettings.{environment ?? (Environment.GetEnvironmentVariable(ASPNET_ENV_VAR) ?? string.Empty)}.json", true, false);
                     configBuilder.AddEnvironmentVariables();
                     configBuilder.AddCloudFoundry();
                     configBuilder.AddPlaceholderResolver();
@@ -38,10 +38,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
-                .Add((builderContext, services) => {
+                .Add((builderContext, services) =>
+                {
                     services.ConfigureCloudFoundryOptions(builderContext.Configuration);
                     WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
-            });
+                });
 
             return instance;
         }
@@ -60,17 +61,22 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             inMemoryConfigStore.Add("spring:application:name", "${vcap:application:name}");
             inMemoryConfigStore.Add("spring:cloud:config:name", "${vcap:application:name}");
 
-            if(string.IsNullOrWhiteSpace(environment))
+            if (!string.IsNullOrWhiteSpace(environment))
+                inMemoryConfigStore.Add("spring:cloud:config:env", environment);
+            else if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(ASPNET_ENV_VAR)))
                 inMemoryConfigStore.Add("spring:cloud:config:env", "${ASPNETCORE_ENVIRONMENT}");
             else
-                inMemoryConfigStore.Add("spring:cloud:config:env", environment);
+            { 
+                //do nothing 
+            }
 
             inMemoryConfigStore.Add("spring:cloud:config:validate_certificates", "false");
             inMemoryConfigStore.Add("spring:cloud:config:failFast", "true");
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
-                .Add((builderContext, configBuilder) => {
+                .Add((builderContext, configBuilder) =>
+                {
                     configBuilder.AddConfigServer(configServerLogger);
                     configBuilder.AddEnvironmentVariables();
                     configBuilder.AddPlaceholderResolver();
@@ -78,10 +84,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
-                .Add((builderContext, services) => {
-                services.ConfigureCloudFoundryOptions(builderContext.Configuration);
-                WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
-            });
+                .Add((builderContext, services) =>
+                {
+                    services.ConfigureCloudFoundryOptions(builderContext.Configuration);
+                    WebConfigurationHelper.OverrideWebConfiguration(builderContext.Configuration);
+                });
 
             return instance;
         }

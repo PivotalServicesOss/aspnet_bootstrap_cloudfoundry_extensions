@@ -35,33 +35,164 @@
 
 ##### Salient features
 - One stop package/reference code
-- Uses steeltoe packages at the most part
-- Supports distributed tracing (inbound and outbound)
-- Supports structured logging using Serilog
-- Supports all steeltoe actuators including metrics actuator
-- Supports metrics forwarder
-- Supports IoC using Autofac and Unity apart from native IoC
-- Supports multiple config sources (Web.config, appsettings.json, environment variables, vcap services and config server)
+- Use steeltoe.io under the hood for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
+- Supports distributed and structured logging, enhanced with Serilog
+- Supports IoC using Autofac and Unity apart from native Microsoft ServiceCollection
+- Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, environment variables, vcap services and config server)
+- Supports configuration placeholder resolving using pattern matching like `${variable_name}`
 - Injects all above configuration into WebConfiguration (appsettings, connection strings and providers) at runtime so as to be used by legacy libraries relying on.
-- Reduces replatforming effort from days to hours/minutes
-- Helps in getting an ASP.Net app to PCF within short time
-- Supports Session persistence to Redis with auto update of Web.config during package install
-- appsettings.json templates are available in the respective projects for reference or download
-- More importantly, adds few of the most important/critical factors (Logs, Config, Process. Concurrency, Admin process)
-- Can be extended as we learn
+- Helps in getting an ASP.Net app to Pivotal Platform (PAS) or any Cloud Foundry platform within short span of time
+- Supports Session persistence to Redis
 
 ###### Packages
  - Externalizing Configuration - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
  - Cloud Native Logging - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
  - Spring Boot Actuators - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
  - Externalizing Session - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
- - Base package supporting various IoC frameworks - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+ - Base package supporting IoC frameworks - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
-###### How to use these package
+###### Prerequisites
 - Make sure your application is upgraded to ASP.NET framework 4.6.2 or above
-- Install the package necesary for the need
-- Resolve any binding redirects conflicts from the web.config file, incase of any.
-- Now, navigate to `Global.asax.cs` and paste the below code under `Application_Start`
+- Pivotal Platform (PAS) with `hwc_buildpack` buildpack and `windows` stack
+
+####### Externalizing Configuration
+- Make use of the cf extension buildpack https://github.com/cloudfoundry-community/web-config-transform-buildpack which performs token replaccement, transformation, etc. Extension buildpacks are preferred way to do, as they do not need any code changes at all. This buildpack is available in pivnet https://network.pivotal.io/products/buildpack-extensions/
+- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+- Environment variable `ASPNETCORE_ENVIRONMENT` to be set
+- In `Global.asax.cs` and add code as below under `Application_Start`
+
+```
+	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+	...
+
+	protected void Application_Start()
+    {
+		...
+        AppBuilder.Instance
+                .AddDefaultConfigurations() 
+                .AddConfigServer() //For config server 
+                .Build()
+                .Start();
+		...
+    }
+```
+- `AddDefaultConfigurations()` have optional parameters
+	- `jsonSettingsOptional` if appsettings.json is must
+	- `environment` to override environment variable `ASPNETCORE_ENVIRONMENT`
+
+- `AddConfigServer()` have optional parameters
+	- `environment` to override environment variable `ASPNETCORE_ENVIRONMENT`
+	- `configServerLogger` if a seperate logger factory to be provided
+
+- All default configurations will be added internally, but can always override using json or environment variables as below (if required)
+
+```
+	{
+		  "spring": {
+			"application": {
+			  "name": "${vcap:application:name}"
+			},
+			"cloud": {
+			  "config": {
+				"validate_certificates": false,
+				"failFast": true,
+				"name": "${vcap:application:name}"
+				"env": "${ASPNETCORE_ENVIRONMENT}"
+			  }
+			}
+		  }
+		},
+		"AppSettings": {
+		"Key1": "value1"
+		},
+		"ConnectionStrings": {
+		"Database1": "connection1"
+		},
+		"Providers": {
+		"Database1": "provider1"
+		}
+	}
+```
+- Push the app and bind your app to a config server instance and you are good to go
+- Instructions to setup config server is available here https://pivotal.io/application-transformation-recipes/app-architecture/setting-up-spring-config-server
+- This uses Steeltoe Configurations, to know more about Steeltoe Configuration, go to https://steeltoe.io/app-configuration/get-started
+- Order of configuration providers: `web.config, appsettings.json, appsettings.{environment}.json, cups/vcap, config server, environment variables`
+- AppSettings and ConnectionString sections in web.config can be overwritten by any of the proceeding configuration sources
+	- For example, say you have an appsetting key named `Foo` to be externalized, you can set an environment variable like `AppSettings:Foo` to overwrite
+	- For example, say you have an connection string named `Bar` with Provider to be externalized, you can set an environment variable like `ConnectionString:Bar` and `Providers:Bar` to overwrite it
+
+####### Persist Session to Redis
+- Make use of the cf extension buildpack https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack for persisting session to redis. Extension buildpacks are preferred way to do, as they do not need any code changes at all.
+- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+
+```- In `Global.asax.cs` and add code as below under `Application_Start`
+
+```
+	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+	...
+
+	protected void Application_Start()
+    {
+		...
+        AppBuilder.Instance
+                .PersistSessionToRedis()
+                .Build()
+                .Start();
+		...
+    }
+```
+
+- Push the app and bind your app to a redis instance and you are good to go
+- This uses Steeltoe Connector for Redis, to know more about Steeltoe Connectors, go to https://steeltoe.io/service-connectors/get-started
+
+####### Enabling CLoud Foundry Actuators and Metrics Forwarders
+- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+- In `Global.asax.cs` and add code as below under `Application_Start`
+
+```
+	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+	...
+
+	protected void Application_Start()
+    {
+		...
+        AppBuilder.Instance
+                .AddCloudFoundryActuators()
+				.AddCloudFoundryMetricsForwarder()
+                .Build()
+                .Start();
+		...
+    }
+```
+
+- `AddCloudFoundryActuators()` have optional parameter
+	- `basePath` to use in case if the app uses context routing
+
+- All default configurations will be added internally, but can always override using json or environment variables as below (if required)
+
+```
+	{
+	  "management": {
+		"endpoints": {
+		  "path": "/cloudfoundryapplication",
+		  "cloudfoundry": {
+			"validateCertificates": false
+		  }
+		},
+		"metrics": {
+		  "exporter": {
+			"cloudfoundry": {
+			  "validateCertificates": false
+			}
+		  }
+		}
+	  }
+	}
+```
+- Push the app and bind your app to a redis instance and you are good to go
+
+
+
   ```
   AppBuilder
 	.Instance
