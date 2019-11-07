@@ -10,6 +10,13 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class AppBuilderExtensions
     {
+        /// <summary>
+        /// Enables all CF Actuators for Apps Manager
+        /// Only actuator/health and actuator/info endpoints are exposed due to issue https://github.com/SteeltoeOSS/steeltoe/issues/161
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="basePath"></param>
+        /// <returns></returns>
         public static AppBuilder AddCloudFoundryActuators(this AppBuilder instance, string basePath = null)
         {
             var inMemoryConfigStore = ReflectionHelper
