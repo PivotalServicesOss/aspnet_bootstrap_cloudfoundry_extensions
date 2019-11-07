@@ -3,24 +3,24 @@
 [![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master)
 
 ##### Configuration
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration)
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Configuration)
 
 ##### Logging
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging)
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Logging)
 
 ##### Actuators
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators)
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Actuators)
 
 ##### Redis.Session
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session)
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
 
 ##### Base/IoC
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base)
+[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
+[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base)
 
 ##### Supported ASP.Net apps
 - WebAPI
@@ -32,7 +32,7 @@
 
 ##### Salient features
 - One stop package/reference code for replatforming ASP.NET apps to Pivotal Platform (PAS)
-- Uses https://steeltoe.io for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
+- Uses https://steeltoe.io 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
 - Supports distributed and structured logging, enhanced with Serilog
 - Supports IoC using Autofac and Unity apart from native Microsoft ServiceCollection
 - Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, environment variables, vcap services and config server)
@@ -42,11 +42,11 @@
 - Supports Session persistence to Redis
 
 ##### Packages
- - Externalizing Configuration - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration
- - Cloud Native Logging - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
- - Spring Boot Actuators - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
- - Externalizing Session - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session
- - Base package supporting IoC frameworks - https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+ - Externalizing Configuration - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration
+ - Cloud Native Logging - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging
+ - Spring Boot Actuators - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators
+ - Externalizing Session - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session
+ - Base package supporting IoC frameworks - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 
 ##### Prerequisites
 - Make sure your application is upgraded to ASP.NET framework 4.6.2 or above
@@ -54,12 +54,12 @@
 
 ##### Externalizing Configuration
 - Make use of the cf extension buildpack https://github.com/cloudfoundry-community/web-config-transform-buildpack which performs token replaccement, transformation, etc. Extension buildpacks are preferred way to do, as they do not need any code changes at all. This buildpack is available in pivnet https://network.pivotal.io/products/buildpack-extensions/
-- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+- Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - Environment variable `ASPNETCORE_ENVIRONMENT` to be set
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
 ```
-    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    using PivotalServices.AspNet.Replatform.Cf.Base
     ...
     
     protected void Application_Start()
@@ -120,12 +120,12 @@
 
 ##### Persist Session to Redis
 - Make use of the cf extension buildpack https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack for persisting session to redis. Extension buildpacks are preferred way to do, as they do not need any code changes at all.
-- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+- Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 
 - In `Global.asax.cs` and add code as below under `Application_Start`
     
 ```
-    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    using PivotalServices.AspNet.Replatform.Cf.Base
     ...
     
     protected void Application_Start()
@@ -143,11 +143,11 @@
 - This uses Steeltoe Connector for Redis, to know more about Steeltoe Connectors, go to https://steeltoe.io/service-connectors/get-started
 
 ##### Enabling Cloud Foundry Actuators and Metrics Forwarders
-- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+- Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
 ```
-    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    using PivotalServices.AspNet.Replatform.Cf.Base
     ...
     
     protected void Application_Start()
@@ -194,11 +194,11 @@
 - This uses Steeltoe Management, to know more about Steeltoe Management, go to https://steeltoe.io/cloud-management/get-started
 
 ##### Enable Cloud Native Logging
-- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+- Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
 ```
-    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    using PivotalServices.AspNet.Replatform.Cf.Base
     ...
     
     protected void Application_Start()
@@ -257,7 +257,7 @@
 - This uses Steeltoe Management, to know more about Steeltoe Management, dynamic logging, go to https://steeltoe.io/cloud-management/get-started/logging
 
 ##### IoC features
-- Install package https://www.nuget.org/packages/PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+- Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - Can add more `Actions` exposed where you can configure; `application configurations`, `inject services` and even modify `logging configurations` as needed.
   
 ```

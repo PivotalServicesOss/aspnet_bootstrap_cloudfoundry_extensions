@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</id>
+    <id>PivotalServices.AspNet.Replatform.Cf.Actuators</id>
     <version>$Version$</version>
-    <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators</title>
+    <title>PivotalServices.AspNet.Replatform.Cf..Actuators</title>
     <authors>ajaganathan,Pivotal</authors>
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
