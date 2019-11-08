@@ -71,7 +71,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             }
 
             inMemoryConfigStore.Add("spring:cloud:config:validate_certificates", "false");
-            inMemoryConfigStore.Add("spring:cloud:config:failFast", "true");
+            inMemoryConfigStore.Add("spring:cloud:config:failFast", "false");
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")

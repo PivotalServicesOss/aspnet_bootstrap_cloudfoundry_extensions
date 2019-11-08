@@ -15,11 +15,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class AppBuilderExtensions
     {
-        internal static bool IncludeCorrelation;
+        internal static bool IncludeDistributedTracing;
 
-        public static AppBuilder AddDynamicConsoleSerilogLogging(this AppBuilder instance, bool includeCorrelation = false)
+        public static AppBuilder AddConsoleSerilogLogging(this AppBuilder instance, bool includeDistributedTracing = false)
         {
-            IncludeCorrelation = includeCorrelation;
+            IncludeDistributedTracing = includeDistributedTracing;
 
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
@@ -36,7 +36,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             inMemoryConfigStore.Add("Serilog:WriteTo:0:Name", "Console");
             inMemoryConfigStore.Add("Serilog:WriteTo:1:Name", "Debug");
 
-            if(includeCorrelation)
+            if(includeDistributedTracing)
             {
                 inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
                 inMemoryConfigStore.Add("Serilog:WriteTo:1:Args:outputTemplate", "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
@@ -54,7 +54,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, ILoggingBuilder>>>(instance, "ConfigureLoggingDelegates")
                     .Add((builderContext, loggingBuilder) => {
-                        var loggerConfiguration = new Serilog.LoggerConfiguration()
+                        var loggerConfiguration = new LoggerConfiguration()
                                                                 .ReadFrom.Configuration(builderContext.Configuration)
                                                                 .Enrich.FromLogContext()
                                                                 .Filter.ByExcluding("Contains(@Message, 'cloudfoundryapplication')");
@@ -70,7 +70,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                         loggingBuilder.Services.AddSingleton<IDynamicLoggerProvider>(sp => new SerilogDynamicProvider(sp.GetRequiredService<IConfiguration>(), logger, levelSwitch));
                         loggingBuilder.Services.AddSingleton<ILoggerFactory>(sp => new SerilogDynamicLoggerFactory(sp.GetRequiredService<IDynamicLoggerProvider>()));
 
-                        if (includeCorrelation)
+                        if (includeDistributedTracing)
                         {
                             loggingBuilder.Services.AddDefaultDiagnosticsDependencies(builderContext.Configuration);
                         }

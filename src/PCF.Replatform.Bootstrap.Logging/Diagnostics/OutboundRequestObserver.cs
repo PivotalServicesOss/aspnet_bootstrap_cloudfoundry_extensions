@@ -15,7 +15,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 
         public override void ProcessEvent(string evnt, object arg)
         {
-            if (!AppBuilderExtensions.IncludeCorrelation)
+            if (!AppBuilderExtensions.IncludeDistributedTracing)
                 return;
 
             base.ProcessEvent(evnt, arg);

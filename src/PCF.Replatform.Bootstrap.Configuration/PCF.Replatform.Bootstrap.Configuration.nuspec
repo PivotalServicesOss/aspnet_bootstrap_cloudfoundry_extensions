@@ -13,18 +13,20 @@
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Configuration; ConfigServer</tags>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Web"  />
-      <frameworkAssembly assemblyName="System.Configuration"  />
+      <frameworkAssembly assemblyName="System.Web"  targetFramework="$TargetFrameworkGeneral$"/>
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework="$TargetFrameworkGeneral$"/>
     </frameworkAssemblies>
     <dependencies>
-      <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version ="$MicrosoftExtensionsConfigurationEnvironmentVariableVersion$"/>
-      <dependency id="Microsoft.Extensions.Configuration.Json" version ="$MicrosoftExtensionsVersion$"/>
-      <dependency id="Microsoft.Extensions.Hosting.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
-      <dependency id="Steeltoe.Extensions.Configuration.CloudFoundryCore" version ="$SteeltoeVersion$"/>
-      <dependency id="Steeltoe.Extensions.Configuration.ConfigServerBase" version ="$SteeltoeVersion$"/>
-      <dependency id="Steeltoe.Extensions.Configuration.PlaceholderCore" version ="$SteeltoeVersion$"/>
-      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
-      <dependency id="Serilog.Sinks.Debug" version ="$SerilogSinksDebug$"/>
+      <group targetFramework="$TargetFrameworkGeneral$">
+        <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version ="$MicrosoftExtensionsConfigurationEnvironmentVariableVersion$"/>
+        <dependency id="Microsoft.Extensions.Configuration.Json" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Microsoft.Extensions.Hosting.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Steeltoe.Extensions.Configuration.CloudFoundryCore" version ="$SteeltoeVersion$"/>
+        <dependency id="Steeltoe.Extensions.Configuration.ConfigServerBase" version ="$SteeltoeVersion$"/>
+        <dependency id="Steeltoe.Extensions.Configuration.PlaceholderCore" version ="$SteeltoeVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+        <dependency id="Serilog.Sinks.Debug" version ="$SerilogSinksDebug$"/>
+      </group>
     </dependencies>
   </metadata>
   <files>

@@ -21,7 +21,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 
         private void Context_Error(object sender, EventArgs e)
         {
-            if (!AppBuilderExtensions.IncludeCorrelation)
+            if (!AppBuilderExtensions.IncludeDistributedTracing)
                 return;
 
             InitializeObserver();
@@ -32,7 +32,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
         
         private void Context_EndRequest(object sender, EventArgs e)
         {
-            if (!AppBuilderExtensions.IncludeCorrelation)
+            if (!AppBuilderExtensions.IncludeDistributedTracing)
                 return;
 
             InitializeObserver();
@@ -42,7 +42,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 
         private void Context_BeginRequest(object sender, EventArgs e)
         {
-            if (!AppBuilderExtensions.IncludeCorrelation)
+            if (!AppBuilderExtensions.IncludeDistributedTracing)
                 return;
 
             InitializeObserver();

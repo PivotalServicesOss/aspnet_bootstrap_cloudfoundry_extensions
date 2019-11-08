@@ -13,12 +13,14 @@
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; SpringBootActuators</tags>
     <dependencies>
-      <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
-      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
-      <dependency id="Microsoft.Net.Compilers" version ="$MicrosoftNetVersion$"/>
-      <dependency id="Steeltoe.Management.EndpointWeb" version ="$SteeltoeManagementVersion$"/>
-      <dependency id="Steeltoe.Management.ExporterBase" version ="$SteeltoeManagementVersion$"/>
-      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+      <group targetFramework="$TargetFrameworkGeneral$">
+        <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Microsoft.Net.Compilers" version ="$MicrosoftNetVersion$"/>
+        <dependency id="Steeltoe.Management.EndpointWeb" version ="$SteeltoeManagementVersion$"/>
+        <dependency id="Steeltoe.Management.ExporterBase" version ="$SteeltoeManagementVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+      </group>
       <!--<dependency id="GitInfo" version="$GitInfoVersion$" />-->
     </dependencies>
   </metadata>

@@ -13,14 +13,16 @@
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform</tags>
     <dependencies>
-      <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
-      <dependency id="Microsoft.AspNet.WebApi.WebHost" version ="$MicrosoftAspNetVersion$"/>
-      <dependency id="Microsoft.Extensions.Hosting" version ="$MicrosoftExtensionsVersion$"/>
-      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
-      <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version ="$MicrosoftExtensionsConfigurationEnvironmentVariableVersion$"/>
+      <group targetFramework="$TargetFrameworkGeneral$">
+        <dependency id="Microsoft.AspNet.Mvc" version ="$MicrosoftAspNetVersion$"/>
+        <dependency id="Microsoft.AspNet.WebApi.WebHost" version ="$MicrosoftAspNetVersion$"/>
+        <dependency id="Microsoft.Extensions.Hosting" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version ="$MicrosoftExtensionsConfigurationEnvironmentVariableVersion$"/>
+      </group>
     </dependencies>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Web"  />
+      <frameworkAssembly assemblyName="System.Web"  targetFramework="$TargetFrameworkGeneral$" />
     </frameworkAssemblies>
   </metadata>
 </package>

@@ -6,10 +6,12 @@
     <MicrosoftExtensionsVersion>2.2.0</MicrosoftExtensionsVersion>
     <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>2.2.0</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
-    <PivotalServicesBootstrapBaseVersion>2.0.1-preview3</PivotalServicesBootstrapBaseVersion>
+    <PivotalServicesBootstrapBaseVersion>2.0.0-rc1</PivotalServicesBootstrapBaseVersion>
     <SteeltoeVersion>2.4.0-rc1</SteeltoeVersion>
     <SteeltoeManagementVersion>2.4.0-rc1</SteeltoeManagementVersion>
     <SerilogSinksDebug>1.0.1</SerilogSinksDebug>
     <GitInfoVersion>2.0.21</GitInfoVersion>
+    <TargetFrameworkGeneral>net461</TargetFrameworkGeneral>
+    <TargetFrameworkRedisSession>net462</TargetFrameworkRedisSession>
   </PropertyGroup>
 </Project>

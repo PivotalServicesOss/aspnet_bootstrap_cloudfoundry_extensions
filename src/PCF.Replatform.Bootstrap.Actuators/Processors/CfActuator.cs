@@ -3,20 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.Logging.Console;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.Handlers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using Steeltoe.Common.Diagnostics;
 using Steeltoe.Common.HealthChecks;
 using Steeltoe.Extensions.Logging;
 using Steeltoe.Management.Endpoint;
-using Steeltoe.Management.Endpoint.Handler;
 using Steeltoe.Management.Endpoint.Health.Contributor;
-using Steeltoe.Management.Endpoint.Hypermedia;
-using Steeltoe.Management.Endpoint.Security;
-using Steeltoe.Management.Hypermedia;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -31,7 +24,6 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
         {
             var configuration = DependencyContainer.GetService<IConfiguration>();
             var loggerFactory = GetLoggerFactory(configuration);
-            loggerFactory.AddProvider(dynamicLoggerProvider);
 
             #region Obsolete nd to be removed after the fix for https://github.com/SteeltoeOSS/steeltoe/issues/161
             ActuatorConfiguratorOverrides.UseHypermediaActuator(configuration, loggerFactory);
@@ -80,26 +72,37 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
         {
             var loggerFactory = DependencyContainer.GetService<ILoggerFactory>(false);
 
-            dynamicLoggerProvider = DependencyContainer.GetService<IDynamicLoggerProvider>(false)
-                    ?? GetDynamicLoggerProvider(configuration);
-
             if (loggerFactory == null)
+            {
+                var serviceProvider = new ServiceCollection()
+                        .AddLogging(builder => builder
+                            .AddDynamicConsole())
+                        .BuildServiceProvider();
+
+                dynamicLoggerProvider = serviceProvider.GetRequiredService<IDynamicLoggerProvider>();
+                return serviceProvider.GetRequiredService<ILoggerFactory>();
+            }
+
+            dynamicLoggerProvider = DependencyContainer.GetService<IDynamicLoggerProvider>(false);
+
+            if (dynamicLoggerProvider == null)
+            {
+                dynamicLoggerProvider = GetDynamicLoggerProvider(configuration);
                 loggerFactory.AddProvider(dynamicLoggerProvider);
+            }
 
             return loggerFactory;
         }
 
-
         private IDynamicLoggerProvider GetDynamicLoggerProvider(IConfiguration configuration)
         {
             var serviceProvider = new ServiceCollection()
-                        .AddLogging(builder => builder
+                    .AddLogging(builder => builder
                             .AddConfiguration(configuration.GetSection("Logging"))
                             .AddDynamicConsole()
-                            .AddFilter<DynamicConsoleLoggerProvider>(null, LogLevel.Information))
+                            .AddFilter<DynamicConsoleLoggerProvider>(null, LogLevel.Trace))
                         .BuildServiceProvider();
 
-            var loggerProviderConfiguration = serviceProvider.GetService<ILoggerProviderConfiguration<ConsoleLoggerProvider>>();
             return serviceProvider.GetRequiredService<IDynamicLoggerProvider>();
         }
     }

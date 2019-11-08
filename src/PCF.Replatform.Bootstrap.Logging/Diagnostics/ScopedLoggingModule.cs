@@ -23,7 +23,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
 
         public void Init(HttpApplication context)
         {
-            if (!AppBuilderExtensions.IncludeCorrelation)
+            if (!AppBuilderExtensions.IncludeDistributedTracing)
                 return;
 
             context.BeginRequest += Context_BeginRequest;
