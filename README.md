@@ -22,7 +22,7 @@
 [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
 [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base)
 
-##### Supported ASP.Net apps
+### Supported ASP.NET apps
 - WebAPI
 - MVC
 - WebForms
@@ -30,7 +30,7 @@
 - All the above with Unity
 - All the above with Autofac
 
-##### Salient features
+### Salient features
 - One stop package/reference code for replatforming ASP.NET apps to Pivotal Platform (PAS)
 - Uses https://steeltoe.io 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
 - Supports distributed and structured logging, enhanced with Serilog
@@ -42,18 +42,18 @@
 - Supports Session persistence to Redis
 - Explicit access to any of the injected dependencies across your code. For e.g to access `IConfiguration` you can access it using `DependencyContainer.GetService<IConfiguration>()`. You can also access them via constructor injection which absolutely depends on the IoC framework and application.
 
-##### Packages
+### Packages
  - Externalizing Configuration - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration
  - Cloud Native Logging - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging
  - Spring Boot Actuators - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators
  - Externalizing Session - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session
  - Base package supporting IoC frameworks - https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 
-##### Prerequisites
+### Prerequisites
 - Make sure your application is upgraded to ASP.NET framework 4.6.2 or above
 - Pivotal Platform (PAS) with `hwc_buildpack` buildpack and `windows` stack
 
-##### Externalizing Configuration
+### Externalizing Configuration
 - Make use of the cf extension buildpack https://github.com/cloudfoundry-community/web-config-transform-buildpack which performs token replacement, transformation, etc. during build staging itself. It requires zero code change. Extension buildpacks are preferred way to do, as they do not need any code changes at all. This buildpack is available in pivnet https://network.pivotal.io/products/buildpack-extensions/. For more details, refer to https://docs.pivotal.io/platform/application-service/2-7/buildpacks/hwc/web-config-transform-buildpack.html. You can also find the sampe app at https://github.com/cloudfoundry-community/webconfig-example-app. However, if you are unable to get the buildpack in the platform, you can continue with this package.
 - Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - Environment variable `ASPNETCORE_ENVIRONMENT` to be set
@@ -121,7 +121,7 @@
 	- For example, say you have an connection string named `Bar` with Provider to be externalized, you can set an environment variable like `ConnectionString:Bar` and `Providers:Bar` to overwrite it
 - You can access `IConfiguration` anywhere in the application using `DependencyContainer.GetService<IConfiguration>()` or via constructor injection
  
-##### Persist Session to Redis
+### Persist Session to Redis
 - Make use of the cf extension buildpack https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack for persisting session to redis. Extension buildpacks are preferred way to do, as they do not need any code changes at all. However, if you are unable to get the buildpack in the platform, you can continue with this package. Refer here https://www.initpals.com/pcf/cf-buildpack-for-asp-net-apps-to-use-redis-as-session-store-no-code-required/ for more details.
 - Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - In `Global.asax.cs` and add code as below under `Application_Start`
@@ -158,7 +158,7 @@
 - Push the app and bind your app to a redis instance and you are good to go
 - This uses Steeltoe Connector for Redis, to know more about Steeltoe Connectors, go to https://steeltoe.io/service-connectors/get-started
 
-##### Enabling Cloud Foundry Actuators and Metrics Forwarders
+### Enabling Cloud Foundry Actuators and Metrics Forwarders
 - Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
@@ -221,7 +221,7 @@
 - Push the app, you will be able to see actuators enabled (health, info, etc.) in Apps Manager, but endpoint actuators are limited to `/actuator/health` and `/actuator/info`. Refer to release notes https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/release_info for more details.
 - This uses Steeltoe Management, to know more about Steeltoe Management, go to https://steeltoe.io/cloud-management/get-started
 
-##### Enable Cloud Native Logging
+### Enable Cloud Native Logging
 - Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging, which will add its dependency packages including https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
@@ -292,7 +292,7 @@
 	- Using Contructor Injection `.ctor(ILogger<ValuesController>> logger)`
 
 
-##### IoC features
+### IoC features
 - Install package https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base
 - Can add more `Actions` exposed where you can configure; `application configurations`, `inject services` and even modify `logging configurations` as needed.
   
