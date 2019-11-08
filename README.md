@@ -1,26 +1,8 @@
 ### Quickly replatform a ASP.Net full framework app to Pivotal Platform (PAS), supports to implement few critical of 12/15 factors
 
-[![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master)
-
-##### Configuration
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Configuration)
-
-##### Logging
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Logging)
-
-##### Actuators
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Actuators)
-
-##### Redis.Session
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
-
-##### Base/IoC
-[![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
-[![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base)
+Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
+--- | --- | --- | --- |--- | --- |
+[![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base) 
 
 ### Quick Links
 - [Supported ASP.NET apps](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#supported-aspnet-apps)
@@ -480,8 +462,13 @@
     }
 ```
 
-##### Note: Ongoing development packages will be available at feed [MyGet Feed V3](https://www.myget.org/F/ajaganathan/api/v3/index.json)
+### Ongoing development packages in MyGet
 
-##### Kindly raise any issues under [GitHub Issues](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/issues)
+Feed | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
+--- | --- | --- | --- |--- | --- |
+[V3](https://www.myget.org/F/ajaganathan/api/v3/index.json) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Logging) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base) 
 
-##### Always welcome, if you are interest in contribution.
+### Issues
+- Kindly raise any issues under [GitHub Issues](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/issues)
+
+### Contributions are welcome!
