@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging</id>
+    <id>PivotalServices.AspNet.Replatform.Cf.Logging</id>
     <version>$Version$</version>
-    <title>PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging</title>
+    <title>PivotalServices.AspNet.Replatform.Cf.Logging</title>
     <authors>ajaganathan,Pivotal</authors>
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,14 +13,17 @@
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Logging</tags>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Web"  />
+      <frameworkAssembly assemblyName="System.Web"  targetFramework="$TargetFrameworkGeneral$" />
+      <frameworkAssembly assemblyName="System.Configuration"  targetFramework="$TargetFrameworkGeneral$" />
     </frameworkAssemblies>
     <dependencies>
-      <dependency id="Microsoft.Extensions.Hosting.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
-      <dependency id="Microsoft.Web.Infrastructure" version ="$MicrosoftWebVersion$"/>
-      <dependency id="Steeltoe.Extensions.Logging.SerilogDynamicLogger" version ="$SteeltoeVersion$"/>
-      <dependency id="Steeltoe.Management.TracingBase" version ="$SteeltoeManagementVersion$"/>
-      <dependency id="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+      <group targetFramework="$TargetFrameworkGeneral$">
+        <dependency id="Microsoft.Extensions.Hosting.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Microsoft.Web.Infrastructure" version ="$MicrosoftWebVersion$"/>
+        <dependency id="Steeltoe.Extensions.Logging.SerilogDynamicLogger" version ="$SteeltoeVersion$"/>
+        <dependency id="Steeltoe.Management.TracingBase" version ="$SteeltoeManagementVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+      </group>
     </dependencies>
   </metadata>
   <files>

@@ -7,12 +7,12 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
     public class AppBuilderExtensionsTests
     {
         [Fact]
-        public void Test_AddDynamicConsoleSerilogLogging_WithoutCorrelation()
+        public void Test_AddConsoleSerilogLogging_WithoutCorrelation()
         {
             TestProxy.InMemoryConfigStoreProxy.Clear();
             TestProxy.ConfigureServicesDelegatesProxy.Clear();
             TestProxy.ConfigureLoggingDelegatesProxy.Clear();
-            AppBuilder.Instance.AddDynamicConsoleSerilogLogging();
+            AppBuilder.Instance.AddConsoleSerilogLogging();
             Assert.Single(TestProxy.ConfigureLoggingDelegatesProxy);
 
             Assert.Equal("Information", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Default"]);
@@ -29,13 +29,13 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
         }
 
         [Fact]
-        public void Test_AddDynamicConsoleSerilogLogging_WithCorrelation()
+        public void Test_AddConsoleSerilogLogging_WithCorrelation()
         {
             TestProxy.InMemoryConfigStoreProxy.Clear();
             TestProxy.ConfigureServicesDelegatesProxy.Clear();
             TestProxy.ConfigureLoggingDelegatesProxy.Clear();
 
-            AppBuilder.Instance.AddDynamicConsoleSerilogLogging(true);
+            AppBuilder.Instance.AddConsoleSerilogLogging(true);
 
             Assert.Single(TestProxy.ConfigureLoggingDelegatesProxy);
 

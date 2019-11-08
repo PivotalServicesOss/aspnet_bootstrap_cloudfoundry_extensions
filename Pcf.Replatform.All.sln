@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{27181691-9684-4254-AE70-DBF6444BCA73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pcf.Replatform.Bootstrap.Base", "src\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj", "{5E803BC4-0E14-4BAF-9B7A-BA5361EBC4AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.Base", "src\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj", "{5E803BC4-0E14-4BAF-9B7A-BA5361EBC4AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.Actuators", "src\PCF.Replatform.Bootstrap.Actuators\PCF.Replatform.Bootstrap.Actuators.csproj", "{4D1FA024-2DFC-4876-9BD2-9878FE1234C4}"
 EndProject
@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution_items", "solution_
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pcf.Replat.Bootstrap.Base.Tests", "test\Pcf.Replat.Bootstrap.Base.Tests\Pcf.Replat.Bootstrap.Base.Tests.csproj", "{261A9231-922A-42FC-93E0-19EF81873A1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Base.Tests", "test\Pcf.Replat.Bootstrap.Base.Tests\PCF.Replat.Bootstrap.Base.Tests.csproj", "{261A9231-922A-42FC-93E0-19EF81873A1A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstra.Configuration.Tests", "test\PCF.Replat.Bootstra.Configuration.Tests\PCF.Replat.Bootstra.Configuration.Tests.csproj", "{1621AE84-3A52-48B5-8AB8-530690BF3541}"
 EndProject
@@ -39,6 +39,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Actuators.Tests", "test\PCF.Replat.Bootstrap.Actuators.Tests\PCF.Replat.Bootstrap.Actuators.Tests.csproj", "{0028B33C-001E-44FA-B273-A4BE6ED6CDF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Test.Helpers", "test\PCF.Replatform.Test.Helpers\PCF.Replatform.Test.Helpers.csproj", "{CB639EE8-26AD-4569-B681-E8DDBB3EF32A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "release_info", "release_info", "{A86021D0-484B-4CDA-8D2D-EE5D77857131}"
+	ProjectSection(SolutionItems) = preProject
+		release_info\README.md = release_info\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +111,7 @@ Global
 		{215590A9-213E-4CC4-99F5-32EC048D0ED4} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
 		{0028B33C-001E-44FA-B273-A4BE6ED6CDF1} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
 		{CB639EE8-26AD-4569-B681-E8DDBB3EF32A} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
+		{A86021D0-484B-4CDA-8D2D-EE5D77857131} = {2FDD2735-3158-43EB-94C8-3FB0F9264BEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D9BB3E3-9A60-436E-AFD6-65E0ED835FB8}

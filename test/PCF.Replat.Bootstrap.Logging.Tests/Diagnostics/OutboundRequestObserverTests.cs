@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
+using OpenCensus.Trace;
+using OpenCensus.Trace.Propagation;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
 using Steeltoe.Management.Census.Trace;
-using Steeltoe.Management.Census.Trace.Propagation;
-using Steeltoe.Management.Tracing;
 using Steeltoe.Management.Tracing.Observer;
 using Xunit;
 

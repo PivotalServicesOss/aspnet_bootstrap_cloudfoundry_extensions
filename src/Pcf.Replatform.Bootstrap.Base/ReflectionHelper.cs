@@ -15,6 +15,16 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection
             return (T)field.GetValue(parentObject);
         }
 
+        public static T GetNonPublicStaticFieldValue<T>(Type parentType, string fieldName)
+        {
+            var field = parentType.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
+
+            if (field == null)
+                throw new MissingMemberException(parentType.FullName, fieldName);
+
+            return (T)field.GetValue(null);
+        }
+
         public static T GetNonPublicInstancePropertyValue<T>(this object parentObject, string propertyName)
         {
             var property = parentObject.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -23,6 +33,16 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection
                 throw new MissingMemberException(parentObject.GetType().FullName, propertyName);
 
             return (T)property.GetValue(parentObject);
+        }
+
+        public static T GetNonPublicStaticPropertyValue<T>(Type parentType, string propertyName)
+        {
+            var property = parentType.GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Static);
+
+            if (property == null)
+                throw new MissingMemberException(parentType.FullName, propertyName);
+
+            return (T)property.GetValue(null);
         }
     }
 }

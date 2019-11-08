@@ -10,10 +10,24 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public static class AppBuilderExtensions
     {
+        /// <summary>
+        /// Enables all CF Actuators for Apps Manager
+        /// Only actuator/health and actuator/info endpoints are exposed due to issue https://github.com/SteeltoeOSS/steeltoe/issues/161
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="basePath"></param>
+        /// <returns></returns>
         public static AppBuilder AddCloudFoundryActuators(this AppBuilder instance, string basePath = null)
         {
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
+
+            inMemoryConfigStore.Add("Logging:LogLevel:Default", "Information");
+            inMemoryConfigStore.Add("Logging:LogLevel:System", "Warning");
+            inMemoryConfigStore.Add("Logging:LogLevel:Microsoft", "Warning");
+            inMemoryConfigStore.Add("Logging:LogLevel:Steeltoe", "Warning");
+            inMemoryConfigStore.Add("Logging:LogLevel:Pivotal", "Warning");
+            inMemoryConfigStore.Add("Logging:Console:IncludeScopes", "true");
 
             if (string.IsNullOrWhiteSpace(basePath))
                 inMemoryConfigStore.Add("management:endpoints:path", "/cloudfoundryapplication");

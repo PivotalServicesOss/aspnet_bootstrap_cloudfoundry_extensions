@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\versions.props" />
   <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>$(TargetFrameworkGeneral)</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Pcf.Replatform.Bootstrap.Base\Pcf.Replatform.Bootstrap.Base.csproj" />
+    <ProjectReference Include="..\..\src\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj" />
     <ProjectReference Include="..\PCF.Replatform.Test.Helpers\PCF.Replatform.Test.Helpers.csproj" />
   </ItemGroup>
 

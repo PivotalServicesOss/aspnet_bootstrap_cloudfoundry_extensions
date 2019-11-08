@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
-using Steeltoe.Management.Endpoint.Metrics;
+using Steeltoe.Management.Census.Stats;
 using Steeltoe.Management.Exporter.Metrics;
 using Steeltoe.Management.Exporter.Metrics.CloudFoundryForwarder;
 
