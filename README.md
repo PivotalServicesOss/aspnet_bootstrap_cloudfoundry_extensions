@@ -22,6 +22,18 @@
 [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
 [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base)
 
+### Quick Links
+- [Supported ASP.NET apps](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#supported-aspnet-apps)
+- [Salient features](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#salient-features)
+- [Packages](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#packages)
+- [Steps - High level](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#steps---high-level)
+- [Prerequisites](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#prerequisites)
+- [Externalizing Configuration](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#externalizing-configuration)
+- [Persist Session to Redis](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis)
+- [Enabling Cloud Foundry Actuators and Metrics Forwarders](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders)
+- [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging)
+- [IoC features](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#ioc-features)
+
 ### Supported ASP.NET apps
 - WebAPI
 - MVC
@@ -52,7 +64,8 @@
  
 ### Steps - High level
 - Install the nuget package based on your need
-- Modify `App_Start` and `App_End` in Global.ascx (by following the steps in appropriate sections below)
+- Modify `App_Start` and `App_End` in Global.ascx (by following the steps in appropriate sections - [Configuration](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#externalizing-configuration), [Session](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis), [Actuators](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders), [Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging), 
+[Ioc](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#ioc-features))
 - Compile and push the application to Pivotal Platform (PAS)
 
 ### Prerequisites
