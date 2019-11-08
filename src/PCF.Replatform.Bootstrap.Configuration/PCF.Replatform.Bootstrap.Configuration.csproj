@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions">
       <Version>$(MicrosoftExtensionsVersion)</Version>
     </PackageReference>
+    <PackageReference Include="NetEscapades.Configuration.Yaml" Version="$(NetEscapadesConfigurationVersion)" />
     <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore">
       <Version>$(SteeltoeVersion)</Version>
     </PackageReference>

@@ -1,3 +1,6 @@
+#### 2.0.0-rc12
+- Added Yaml configuration support
+
 #### 2.0.0-rc1
 - Initial pre-release version (stable)
 - Depends on Steeltoe prerelease version 2.4.0-rc1

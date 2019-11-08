@@ -26,6 +26,7 @@
         <dependency id="Steeltoe.Extensions.Configuration.PlaceholderCore" version ="$SteeltoeVersion$"/>
         <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
         <dependency id="Serilog.Sinks.Debug" version ="$SerilogSinksDebug$"/>
+        <dependency id="NetEscapades.Configuration.Yaml" version ="$NetEscapadesConfigurationVersion$"/>
       </group>
     </dependencies>
   </metadata>

@@ -29,7 +29,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - Uses [Steeltoe](https://steeltoe.io) 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
 - Supports distributed and structured logging, enhanced with Serilog
 - Supports IoC using Autofac and Unity apart from native Microsoft ServiceCollection
-- Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, environment variables, vcap services and config server)
+- Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, appsettings.yaml, appsettings.{environment}.yaml, environment variables, vcap services and config server)
 - Supports configuration placeholder resolving using pattern matching like, `${variable_name}`. Refer [SteeltoeAppConfiguration](https://steeltoe.io/app-configuration/docs) for more details
 - Pull in secrets from credhub with easy placeholder resolvements
 - Injects all above configuration into WebConfiguration (appsettings, connection strings and providers) at runtime so as to be used by legacy libraries relying on.
@@ -77,6 +77,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 ```
 - `AddDefaultConfigurations()` have optional parameters
 	- `jsonSettingsOptional` if appsettings.json is must
+	- `yamlSettingsOptional` if appsettings.yaml is must
 	- `environment` to override environment variable `ASPNETCORE_ENVIRONMENT`
 
 - `AddConfigServer()` have optional parameters
@@ -84,39 +85,31 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 	- `configServerLogger` if a seperate logger factory to be provided
 
 - The order is important here. In this case, configurations from config server take over others
-- Below is the default configurations will be added internally, but can always override using json or environment variables as below (if at all required)
+- Below is the default configurations will be added internally, but can always override using json or yaml or environment variables as below (if at all required)
 
 ```
-    {
-      "spring": {
-        "application": {
-          "name": "${vcap:application:name}"
-        },
-        "cloud": {
-          "config": {
-            "validate_certificates": false,
-            "failFast": false,
-            "name": "${vcap:application:name}",
-            "env": "${ASPNETCORE_ENVIRONMENT}"
-          }
-        }
-      },
-      "AppSettings": {
-        "Key1": "value1"
-      },
-      "ConnectionStrings": {
-        "Database1": "connection1"
-      },
-      "Providers": {
-        "Database1": "provider1"
-      }
-    }
+	---
+	spring:
+	  application:
+		name: "${vcap:application:name}"
+	  cloud:
+		config:
+		  validate_certificates: false
+		  failFast: false
+		  name: "${vcap:application:name}"
+		  env: "${ASPNETCORE_ENVIRONMENT}"
+	AppSettings:
+	  Key1: value1
+	ConnectionStrings:
+	  Database1: connection1
+	Providers:
+	  Database1: provider1
 
 ```
 - Push the app and bind your app to a config server instance and you are good to go.
 - Instructions to setup config server is available here [setting-up-spring-config-server](https://pivotal.io/application-transformation-recipes/app-architecture/setting-up-spring-config-server)
 - This uses Steeltoe Configurations, to know more about Steeltoe Configuration, go to [Steeltoe AppConfiguration](https://steeltoe.io/app-configuration/get-started)
-- Order of configuration providers: `web.config, appsettings.json, appsettings.{environment}.json, cups/vcap, config server, environment variables`
+- Order of configuration providers: `web.config, appsettings.json, appsettings.{environment}.json, appsettings.yaml, appsettings.{environment}.yaml, cups/vcap, config server, environment variables`
 - AppSettings and ConnectionString sections in web.config can be overwritten by any of the proceeding configuration sources. This will help in avoiding code changes where application is already using say `ConfigurationManager.AppSettings["foo"]` or `ConfigurationManager.ConnectionStrings["bar"].ConnectionString`
 	- For example, say you have an appsetting key named `Foo` to be externalized, you can set an environment variable like `AppSettings:Foo` to overwrite
 	- For example, say you have an connection string named `Bar` with Provider to be externalized, you can set an environment variable like `ConnectionString:Bar` and `Providers:Bar` to overwrite it
@@ -127,7 +120,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - If you have secrets in credhub with instance name `mycredhubinstance`, you can easily make use of placeholder resolver, by following the below steps.
 	- Make sure the application is binded to the credhub instance, in this case `mycredhubinstance` 
 	- Say if you have stored secrets for your database connection string in credhub. e.g. `{["db1username":"foo", "db1password":"bar"]}`.
-	- You can easily manipulate the connection string stored in any of the configuration sources (web.config, json, environment variables and config server). Lets pick environment variable for this example, where your variable looks like `db1ConnStr="Data Source=serverAddress;Initial Catalog=db1;User ID=${vcap:services:credhub:0:credentials:db1username};Password=${vcap:services:credhub:0:credentials:db1password};"`
+	- You can easily manipulate the connection string stored in any of the configuration sources (web.config, json, yaml, environment variables and config server). Lets pick environment variable for this example, where your variable looks like `db1ConnStr="Data Source=serverAddress;Initial Catalog=db1;User ID=${vcap:services:credhub:0:credentials:db1username};Password=${vcap:services:credhub:0:credentials:db1password};"`
 	- During application start, the place holders will be replaced and ready to be served in the application as needed. In our case, the connection string `db1ConnStr` at runtime looks like `Data Source=serverAddress;Initial Catalog=db1;User ID=foo;Password=bar;`
 	- To learn more about managing secrets in credhub, please refer to [managing-secrets-with-credhub](https://docs.pivotal.io/spring-cloud-services/3-1/common/config-server/managing-secrets-with-credhub.html)
  
@@ -216,39 +209,29 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
  ```
     AppBuilder.Instance.Stop();
  ```
-- Below is the default configurations will be added internally, but can always override using json or environment variables as below (if at all required)
+- Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
 ```
-    {
-      "Logging": {
-        "LogLevel": {
-          "Default": "Information",
-          "Steeltoe": "Warning",
-          "Pivotal": "Warning",
-          "System": "Warning",
-          "Microsoft": "Warning"
-        },
-        "Console":
-        {
-          "IncludeScopes": true
-        }
-      }
-      "management": {
-        "endpoints": {
-          "path": "/cloudfoundryapplication",
-          "cloudfoundry": {
-            "validateCertificates": false
-          }
-        },
-        "metrics": {
-          "exporter": {
-            "cloudfoundry": {
-              "validateCertificates": false
-            }
-          }
-        }
-      }
-    }
+    ---
+	Logging:
+	  LogLevel:
+		Default: Information
+		Steeltoe: Warning
+		Pivotal: Warning
+		System: Warning
+		Microsoft: Warning
+	  Console:
+		IncludeScopes: true
+	management:
+	  endpoints:
+		path: "/cloudfoundryapplication"
+		cloudfoundry:
+		  validateCertificates: false
+	  metrics:
+		exporter:
+		  cloudfoundry:
+			validateCertificates: false
+
 ```
 - Push the app, you will be able to see actuators enabled (health, info, etc.) in Apps Manager, but endpoint actuators are limited to `/actuator/health` and `/actuator/info`. Refer to [release notes]( https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/release_info) for more details.
 - This uses Steeltoe Management, to know more, go to [Steeltoe Management](https://steeltoe.io/cloud-management/get-started)
@@ -274,43 +257,30 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 
 - `AddConsoleSerilogLogging()` have optional parameter
 	- `includeDistributedTracing` if you want to enable distributed tracing logging.To know more about distributed tracing refer to the article [asp-net-core-distributed-tracing-using-steeltoe](https://www.initpals.com/net-core/asp-net-core-distributed-tracing-using-steeltoe/)
-- Below is the default configurations will be added internally, but can always override using json or environment variables as below (if at all required)
+- Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
 ```
-    {
-    	"management": {
-    	"tracing": {
-    		"AlwaysSample": true,
-    		"UseShortTraceIds": false,
-    		"EgressIgnorePattern": "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
-    	}
-    	},
-    	"Serilog": {
-    	"MinimumLevel": {
-    		"Default": "Information",
-    		"Override": {
-    		"Microsoft": "Warning",
-    		"System": "Warning",
-    		"Pivotal": "Warning",
-    		"Steeltoe": "Warning"
-    		}
-    	},
-    	"WriteTo": [
-    		{
-    		"Name": "Console",
-    		"Args": {
-    			"outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-    		}
-    		},
-    		{
-    		"Name": "Debug",
-    		"Args": {
-    			"outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-    		}
-    		}
-    	]
-    	}
-    }
+    ---
+	management:
+	  tracing:
+		AlwaysSample: true
+		UseShortTraceIds: false
+		EgressIgnorePattern: "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
+	Serilog:
+	  MinimumLevel:
+		Default: Information
+		Override:
+		  Microsoft: Warning
+		  System: Warning
+		  Pivotal: Warning
+		  Steeltoe: Warning
+	  WriteTo:
+	  - Name: Console
+		Args:
+		  outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+	  - Name: Debug
+		Args:
+		  outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
 ```
 
 - This uses Steeltoe Management Dynamic Loging, to know more, go to [Steeltoe Management Dynamic Loging](https://steeltoe.io/cloud-management/get-started/logging)
