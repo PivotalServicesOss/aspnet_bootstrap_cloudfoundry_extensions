@@ -14,7 +14,8 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - [Persist Session to Redis](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis)
 - [Enabling Cloud Foundry Actuators and Metrics Forwarders](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders)
 - [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging)
-- [Base features](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#base-features)
+- [Base feature (IoC)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-features-ioc)
+- [Base feature (Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-feature-dynamic-handlers)
 
 ### Supported ASP.NET apps
 - WebAPI
@@ -48,7 +49,8 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 ### Steps - High level
 - Install the nuget package based on your need
 - Modify `App_Start` and `App_End` in Global.ascx (by following the steps in appropriate sections - [Configuration](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#externalizing-configuration), [Session](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis), [Actuators](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders), [Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging), 
-[Base](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#base-features))
+[Base(IoC)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-features-ioc), 
+[Base(Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-feature-dynamic-handlers))
 - Compile and push the application to Pivotal Platform (PAS)
 
 ### Prerequisites
@@ -89,22 +91,22 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - Below is the default configurations will be added internally, but can always override using json or yaml or environment variables as below (if at all required)
 
 ```
-	---
-	spring:
-	  application:
-		name: "${vcap:application:name}"
+    ---
+    spring:
+      application:
+    	name: "${vcap:application:name}"
 	  cloud:
-		config:
-		  validate_certificates: false
-		  failFast: false
-		  name: "${vcap:application:name}"
-		  env: "${ASPNETCORE_ENVIRONMENT}"
-	AppSettings:
-	  Key1: value1
-	ConnectionStrings:
-	  Database1: connection1
-	Providers:
-	  Database1: provider1
+	    config:
+	      validate_certificates: false
+              failFast: false
+	      name: "${vcap:application:name}"
+	      env: "${ASPNETCORE_ENVIRONMENT}"
+	   AppSettings:
+	      Key1: value1
+	   ConnectionStrings:
+	      Database1: connection1
+	   Providers:
+	      Database1: provider1
 
 ```
 - Push the app and bind your app to a config server instance and you are good to go.
@@ -214,22 +216,22 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 
 ```
     ---
-	Logging:
-	  LogLevel:
-		Default: Information
-		Steeltoe: Warning
-		Pivotal: Warning
-		System: Warning
-		Microsoft: Warning
-	  Console:
+    Logging:
+	LogLevel:
+	    Default: Information
+	    Steeltoe: Warning
+	    Pivotal: Warning
+	    System: Warning
+	    Microsoft: Warning
+	Console:
 		IncludeScopes: true
-	management:
-	  endpoints:
-		path: "/cloudfoundryapplication"
-		cloudfoundry:
+    management:
+	endpoints:
+            path: "/cloudfoundryapplication"
+	    cloudfoundry:
 		  validateCertificates: false
-	  metrics:
-		exporter:
+        metrics:
+	    exporter:
 		  cloudfoundry:
 			validateCertificates: false
 
@@ -262,26 +264,26 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 
 ```
     ---
-	management:
-	  tracing:
-		AlwaysSample: true
-		UseShortTraceIds: false
-		EgressIgnorePattern: "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
-	Serilog:
-	  MinimumLevel:
-		Default: Information
-		Override:
-		  Microsoft: Warning
-		  System: Warning
-		  Pivotal: Warning
-		  Steeltoe: Warning
-	  WriteTo:
-	  - Name: Console
-		Args:
-		  outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-	  - Name: Debug
-		Args:
-		  outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+    management:
+      tracing:
+	  AlwaysSample: true
+	  UseShortTraceIds: false
+	  EgressIgnorePattern: "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
+    Serilog:
+      MinimumLevel:
+	    Default: Information
+	    Override:
+	         Microsoft: Warning
+	         System: Warning
+	         Pivotal: Warning
+	         Steeltoe: Warning
+      WriteTo:
+       - Name: Console
+	 Args:
+	    outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+       - Name: Debug
+	 Args:
+	    outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
 ```
 
 - This uses Steeltoe Management Dynamic Loging, to know more, go to [Steeltoe Management Dynamic Loging](https://steeltoe.io/cloud-management/get-started/logging)
@@ -303,7 +305,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
-	protected void Application_Start()
+    protected void Application_Start()
     {
 		AppBuilder
 			.Instance
@@ -330,7 +332,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
-	protected void Application_Start()
+    protected void Application_Start()
     {
 		AppBuilder
 		.Instance
@@ -385,7 +387,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
-	protected void Application_Start()
+    protected void Application_Start()
     {
 		AppBuilder
 			.Instance
@@ -437,42 +439,42 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - Sample handler `FooHandler` below which responds to a `GET` operation with request path `/foo`. 
 
 ```
-	using Microsoft.Extensions.Logging;
-	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
-	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
-	using System.Web;
+    using Microsoft.Extensions.Logging;
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
+    using System.Web;
 
-	namespace Bar
+    namespace Bar
+    {
+        public class FooHandler : DynamicHttpHandlerBase
 	{
-		public class FooHandler : DynamicHttpHandlerBase
+            public FooHandler()
+	        : base(DependencyContainer.GetService<ILogger<FooHandler>>(true))
+	    {
+	    }
+
+	    protected override string Path => "/foo";
+
+            public override void HandleRequest(HttpContextBase context)
+	    {
+    		switch (context.Request.HttpMethod)
 		{
-			public FooHandler()
-				: base(DependencyContainer.GetService<ILogger<FooHandler>>(true))
-			{
-			}
+		    case "GET":
+			PerformGet(context);
+			break;
+		    default:
+			logger.LogWarning($"No action found for method {context.Request.HttpMethod}");
+		    break;
+	        }
+	    }
 
-			protected override string Path => "/foo";
-
-			public override void HandleRequest(HttpContextBase context)
-			{
-				switch (context.Request.HttpMethod)
-				{
-					case "GET":
-						PerformGet(context);
-						break;
-					default:
-						logger.LogWarning($"No action found for method {context.Request.HttpMethod}");
-						break;
-				}
-			}
-
-			private void PerformGet(HttpContextBase context)
-			{
-				context.Response.Headers.Set("Content-Type", "application/json");
-				context.Response.Write(new { Name = "FooHandler", Method = "GET" });
-			}
-		}
+	    private void PerformGet(HttpContextBase context)
+	    {
+		context.Response.Headers.Set("Content-Type", "application/json");
+		context.Response.Write(new { Name = "FooHandler", Method = "GET" });
+	    }
 	}
+    }
 ```
 - Override `IsAllowedAsync` method to restrict access based on authorizatin
 
