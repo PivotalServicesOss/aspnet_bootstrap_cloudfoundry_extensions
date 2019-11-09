@@ -1,5 +1,6 @@
 #### 2.0.0-rc12
 - Added Yaml configuration support
+- Added ability to inject dynamic http handlers
 
 #### 2.0.0-rc1
 - Initial pre-release version (stable)

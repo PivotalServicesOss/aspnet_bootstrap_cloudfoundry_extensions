@@ -1,6 +1,6 @@
 ### Quickly replatform a ASP.Net full framework app to Pivotal Platform (PAS), supports to implement few critical of 12/15 factors
 
-Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
+Build | Configuration | Logging | Actuators | Redis.Session | Base |
 --- | --- | --- | --- |--- | --- |
 [![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base) 
 
@@ -14,7 +14,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - [Persist Session to Redis](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis)
 - [Enabling Cloud Foundry Actuators and Metrics Forwarders](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders)
 - [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging)
-- [IoC features](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#ioc-features)
+- [Base features](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#base-features)
 
 ### Supported ASP.NET apps
 - WebAPI
@@ -29,6 +29,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - Uses [Steeltoe](https://steeltoe.io) 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
 - Supports distributed and structured logging, enhanced with Serilog
 - Supports IoC using Autofac and Unity apart from native Microsoft ServiceCollection
+- Provision for injecting http pipeline handlers on the fly
 - Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, appsettings.yaml, appsettings.{environment}.yaml, environment variables, vcap services and config server)
 - Supports configuration placeholder resolving using pattern matching like, `${variable_name}`. Refer [SteeltoeAppConfiguration](https://steeltoe.io/app-configuration/docs) for more details
 - Pull in secrets from credhub with easy placeholder resolvements
@@ -42,12 +43,12 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - Cloud Native Logging - [PivotalServices.AspNet.Replatform.Cf.Logging](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
 - Spring Boot Actuators - [PivotalServices.AspNet.Replatform.Cf.Actuators](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators)
 - Externalizing Session - [PivotalServices.AspNet.Replatform.Cf.Redis.Session](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
-- Base package supporting IoC frameworks - [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
+- Base package - [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
  
 ### Steps - High level
 - Install the nuget package based on your need
 - Modify `App_Start` and `App_End` in Global.ascx (by following the steps in appropriate sections - [Configuration](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#externalizing-configuration), [Session](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis), [Actuators](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders), [Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging), 
-[Ioc](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#ioc-features))
+[Base](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#base-features))
 - Compile and push the application to Pivotal Platform (PAS)
 
 ### Prerequisites
@@ -183,7 +184,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 
 - `AddCloudFoundryActuators()` have optional parameter
 	- `basePath` to use in case if the app uses context routing
-- If you need to inject additionl `Health Contributor`, you can create your own implementation of `Steeltoe.Common.HealthChecks.IHealthContributor` and inject them as below. Lets assume that we have a custom health contributor called `MyCustomHealthContributor`.
+- If you need to inject additional `Health Contributor`, you can create your own implementation of `Steeltoe.Common.HealthChecks.IHealthContributor` and inject them as below. Lets assume that we have a custom health contributor called `MyCustomHealthContributor`.
 
 ```
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
@@ -294,7 +295,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 	- Using Contructor Injection `.ctor(ILogger<ValuesController>> logger)`
 
 
-### IoC features
+### Base features (Ioc)
 - Install package [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
 - Can add more `Actions` exposed where you can configure; `application configurations`, `inject services` and even modify `logging configurations` as needed.
   
@@ -431,10 +432,71 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
         }
     }
 ```
+#### Base feature (Dynamic Handlers)
+- Provision to inject any custom http handler using implementation of `IDynamicHttpHandler` or make use of `DynamicHttpHandlerBase`
+- Sample handler `FooHandler` below which responds to a `GET` operation with request path `/foo`. 
+
+```
+	using Microsoft.Extensions.Logging;
+	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
+	using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
+	using System.Web;
+
+	namespace Bar
+	{
+		public class FooHandler : DynamicHttpHandlerBase
+		{
+			public FooHandler()
+				: base(DependencyContainer.GetService<ILogger<FooHandler>>(true))
+			{
+			}
+
+			protected override string Path => "/foo";
+
+			public override void HandleRequest(HttpContextBase context)
+			{
+				switch (context.Request.HttpMethod)
+				{
+					case "GET":
+						PerformGet(context);
+						break;
+					default:
+						logger.LogWarning($"No action found for method {context.Request.HttpMethod}");
+						break;
+				}
+			}
+
+			private void PerformGet(HttpContextBase context)
+			{
+				context.Response.Headers.Set("Content-Type", "application/json");
+				context.Response.Write(new { Name = "FooHandler", Method = "GET" });
+			}
+		}
+	}
+```
+- Override `IsAllowedAsync` method to restrict access based on authorizatin
+
+- Inject the above handler into the pipeline, as in the code below
+
+```
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+	using Bar;
+    ...
+    
+    protected void Application_Start()
+    {
+    	...
+        AppBuilder.Instance
+                .AddDynamicHttpHandler<FooHandler>()
+                .Build()
+                .Start();
+    	...
+    }
+```
 
 ### Ongoing development packages in MyGet
 
-Feed | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
+Feed | Configuration | Logging | Actuators | Redis.Session | Base |
 --- | --- | --- | --- |--- | --- |
 [V3](https://www.myget.org/F/ajaganathan/api/v3/index.json) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Logging) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base) 
 

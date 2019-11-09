@@ -2,9 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 
@@ -23,6 +25,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         internal List<Action<HostBuilderContext, IConfigurationBuilder>> ConfigureAppConfigurationDelegates = new List<Action<HostBuilderContext, IConfigurationBuilder>>();
         internal List<Action<HostBuilderContext, ILoggingBuilder>> ConfigureLoggingDelegates = new List<Action<HostBuilderContext, ILoggingBuilder>>();
         internal List<IActuator> Actuators = new List<IActuator>();
+        internal List<Type> Handlers = new List<Type>();
 
         public static readonly AppBuilder Instance = new AppBuilder();
 
@@ -55,8 +58,17 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             return Instance;
         }
 
+        public AppBuilder AddDynamicHttpHandler<TCustomHandler>() where TCustomHandler : IDynamicHttpHandler
+        {
+            Handlers.Add(typeof(TCustomHandler));
+            return Instance;
+        }
+
         public AppBuilder Build()
         {
+            foreach (var handler in Handlers)
+                ConfigureServicesDelegates.Add((builder, services) => { services.AddSingleton(typeof(IDynamicHttpHandler), handler); });
+
             AppConfig.Configure(ConfigureAppConfigurationDelegates,
                                 ConfigureServicesDelegates,
                                 ConfigureLoggingDelegates,
@@ -71,7 +83,17 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             else
                 InstallCustomDependencyResolvers();
 
+            var handlers = DependencyContainer.GetService<IEnumerable<IDynamicHttpHandler>>();
+
+            foreach (var handler in handlers)
+                DynamicHttpHandlerModule.Handlers.Add(handler);
+
             return Instance;
+        }
+
+        private object IEnumerable<T>()
+        {
+            throw new NotImplementedException();
         }
 
         public void Start()
