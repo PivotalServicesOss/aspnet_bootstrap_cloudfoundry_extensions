@@ -3,7 +3,7 @@
     <PivotalServicesBootstrapVersion>2.0.0</PivotalServicesBootstrapVersion>
     <PivotalServicesBootstrapVersionSuffix>-rc2</PivotalServicesBootstrapVersionSuffix>
     <PivotalServicesBootstrapVersionRevision>0</PivotalServicesBootstrapVersionRevision>
-      <PivotalServicesBootstrapBuildNumber>$(BUILD_NUMBER)</PivotalServicesBootstrapBuildNumber>
+      <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
     <PivotalServicesBootstrapPackageVersion>$(PivotalServicesBootstrapVersion)$(PivotalServicesBootstrapVersionSuffix)</PivotalServicesBootstrapPackageVersion>
     <PivotalServicesBootstrapAssemblyVersion>$(PivotalServicesBootstrapVersion).$(PivotalServicesBootstrapVersionRevision)</PivotalServicesBootstrapAssemblyVersion>
