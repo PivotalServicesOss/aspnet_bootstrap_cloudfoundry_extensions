@@ -10,9 +10,6 @@ variables:
     PublishDirectory: 'publish-artifacts'
 
 steps:
-- powershell: 
-  env:
-    BUILD_NUMBER: $(Build.BuildNumber)
     
 - task: NuGetToolInstaller@1
 
