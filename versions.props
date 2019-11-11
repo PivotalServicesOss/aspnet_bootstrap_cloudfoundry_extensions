@@ -27,6 +27,6 @@
     <TargetFrameworkRedisSession>net462</TargetFrameworkRedisSession>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PivotalServicesBootstrapBuildNumber>-$(Build.BuildNumber)</PivotalServicesBootstrapBuildNumber>
+    <PivotalServicesBootstrapBuildNumber>-$(BUILD_NUMBER)</PivotalServicesBootstrapBuildNumber>
   </PropertyGroup>
 </Project>
