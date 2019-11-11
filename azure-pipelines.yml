@@ -35,6 +35,7 @@ steps:
      build.bat
      configure-build.ps1
      default.ps1
+     versions.props
     TargetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
