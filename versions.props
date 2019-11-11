@@ -1,4 +1,15 @@
 <Project>
+    <PropertyGroup>
+    <PivotalServicesBootstrapVersion>2.0.0</PivotalServicesBootstrapVersion>
+    <PivotalServicesBootstrapVersionSuffix>-rc2</PivotalServicesBootstrapVersionSuffix>
+    <PivotalServicesBootstrapVersionRevision>0</PivotalServicesBootstrapVersionRevision>
+    <PivotalServicesBootstrapBuildNumber>local</PivotalServicesBootstrapBuildNumber>
+    <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
+    <PivotalServicesBootstrapPackageVersion>$(PivotalServicesBootstrapVersion)$(PivotalServicesBootstrapVersionSuffix)</PivotalServicesBootstrapPackageVersion>
+    <PivotalServicesBootstrapAssemblyVersion>$(PivotalServicesBootstrapVersion).$(PivotalServicesBootstrapVersionRevision)</PivotalServicesBootstrapAssemblyVersion>
+    <PivotalServicesBootstrapFileVersion>$(PivotalServicesBootstrapVersion).$(PivotalServicesBootstrapVersionRevision)</PivotalServicesBootstrapFileVersion>
+    <PivotalServicesBootstrapInformationalVersion>$(PivotalServicesBootstrapPackageVersion)-$(PivotalServicesBootstrapVersionRevision)-$(PivotalServicesBootstrapBuildNumber)</PivotalServicesBootstrapInformationalVersion>
+  </PropertyGroup>
   <PropertyGroup>
     <MicrosoftAspNetVersion>5.2.7</MicrosoftAspNetVersion>
     <MicrosoftWebVersion>1.0.0</MicrosoftWebVersion>
@@ -6,7 +17,7 @@
     <MicrosoftExtensionsVersion>2.2.0</MicrosoftExtensionsVersion>
     <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>2.2.0</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
-    <PivotalServicesBootstrapBaseVersion>2.0.0-rc2</PivotalServicesBootstrapBaseVersion>
+    <PivotalServicesBootstrapPackageVersion>2.0.0-rc2</PivotalServicesBootstrapPackageVersion>
     <SteeltoeVersion>2.4.0-rc1</SteeltoeVersion>
     <SteeltoeManagementVersion>2.4.0-rc1</SteeltoeManagementVersion>
     <SerilogSinksDebug>1.0.1</SerilogSinksDebug>
@@ -14,5 +25,8 @@
     <GitInfoVersion>2.0.21</GitInfoVersion>
     <TargetFrameworkGeneral>net461</TargetFrameworkGeneral>
     <TargetFrameworkRedisSession>net462</TargetFrameworkRedisSession>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PivotalServicesBootstrapBuildNumber>-$(Build.BuildNumber)</PivotalServicesBootstrapBuildNumber>
   </PropertyGroup>
 </Project>

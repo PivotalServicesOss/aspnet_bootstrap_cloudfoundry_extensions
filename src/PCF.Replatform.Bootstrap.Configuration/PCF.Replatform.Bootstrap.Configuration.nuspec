@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This also overrides the AppSettings and ConnectionString Sections in Web.config file from other external sources</description>
-    <copyright>Copyright © 2019</copyright>
+    <copyright>$PivotalServicesBootstrapCopyright$</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Configuration; ConfigServer</tags>
     <frameworkAssemblies>
@@ -24,7 +24,7 @@
         <dependency id="Steeltoe.Extensions.Configuration.CloudFoundryCore" version ="$SteeltoeVersion$"/>
         <dependency id="Steeltoe.Extensions.Configuration.ConfigServerBase" version ="$SteeltoeVersion$"/>
         <dependency id="Steeltoe.Extensions.Configuration.PlaceholderCore" version ="$SteeltoeVersion$"/>
-        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapPackageVersion$"/>
         <dependency id="Serilog.Sinks.Debug" version ="$SerilogSinksDebug$"/>
         <dependency id="NetEscapades.Configuration.Yaml" version ="$NetEscapadesConfigurationVersion$"/>
       </group>

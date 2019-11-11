@@ -9,17 +9,27 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
 {
     public class DynamicHttpHandlerModule : IHttpModule
     {
-        internal static List<IDynamicHttpHandler> Handlers { get; } = new List<IDynamicHttpHandler>();
+        internal static List<DynamicHttpHandlerBase> Handlers { get; } = new List<DynamicHttpHandlerBase>();
+
         private ILogger<DynamicHttpHandlerModule> logger;
 
         public DynamicHttpHandlerModule() { }
 
-        public void Init(HttpApplication context)
+        public void Init(HttpApplication application)
         {
             logger = DependencyContainer.GetService<ILogger<DynamicHttpHandlerModule>>(true);
 
-            EventHandlerTaskAsyncHelper eventHandlerTaskAsyncHelper = new EventHandlerTaskAsyncHelper(FilterAndPreProcessRequest);
-            context.AddOnPostAuthorizeRequestAsync(eventHandlerTaskAsyncHelper.BeginEventHandler, eventHandlerTaskAsyncHelper.EndEventHandler);
+            var asyncHandlerHelper = new EventHandlerTaskAsyncHelper(FilterAndPreProcessRequest);
+
+            foreach (var handler in Handlers)
+                handler.RegisterEvent(application, asyncHandlerHelper);
+        }
+
+        private async Task FilterAndPreProcessRequest(object sender, EventArgs e)
+        {
+            var context = new HttpContextWrapper(((HttpApplication)sender).Context);
+            await FilterAndPreProcessRequest(context, HttpContext.Current.ApplicationInstance.CompleteRequest)
+                            .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         private async Task FilterAndPreProcessRequest(HttpContextBase context, Action completeRequest)
@@ -28,20 +38,15 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
             {
                 if (handler.IsPathMatched(context))
                 {
-                    if (await handler.IsAllowedAsync(context).ConfigureAwait(continueOnCapturedContext: false))
+                    if (await handler.IsEnabledAsync(context).ConfigureAwait(continueOnCapturedContext: false))
                         handler.HandleRequest(context);
 
-                    completeRequest();
+                    if (!await handler.ContinueNextAsync(context))
+                        completeRequest();
+
                     break;
                 }
             }
-        }
-
-        private async Task FilterAndPreProcessRequest(object sender, EventArgs e)
-        {
-            var context = new HttpContextWrapper(((HttpApplication)sender).Context);
-            await FilterAndPreProcessRequest(context, HttpContext.Current.ApplicationInstance.CompleteRequest)
-                            .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         public void Dispose()

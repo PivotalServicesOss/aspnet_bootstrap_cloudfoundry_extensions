@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Package helps to bootstrap a full framework application to PCF with persisting session to Redis</description>
-    <copyright>Copyright © 2019</copyright>
+    <copyright>$PivotalServicesBootstrapCopyright$</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Redis; Steeltoe; Session</tags>
     <frameworkAssemblies>
@@ -20,7 +20,7 @@
       <group targetFramework="$TargetFrameworkGeneral$">
         <dependency id="Microsoft.Web.RedisSessionStateProvider" version ="$MicrosoftWebRedisVersion$"/>
         <dependency id="Steeltoe.CloudFoundry.ConnectorCore" version ="$SteeltoeVersion$"/>
-        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapPackageVersion$"/>
       </group>
     </dependencies>
   </metadata>

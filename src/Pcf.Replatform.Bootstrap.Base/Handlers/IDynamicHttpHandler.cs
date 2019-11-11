@@ -3,10 +3,12 @@ using System.Web;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
 {
-    public interface IDynamicHttpHandler
+    internal interface IDynamicHttpHandler
     {
+        string Path { get; }
         void HandleRequest(HttpContextBase context);
-        Task<bool> IsAllowedAsync(HttpContextBase context);
-        bool IsPathMatched(HttpContextBase context);
+        void RegisterEvent(HttpApplication application, EventHandlerTaskAsyncHelper eventHandlerHelper);
+        Task<bool> IsEnabledAsync(HttpContextBase context);
+        Task<bool> ContinueNextAsync(HttpContextBase context);
     }
 }

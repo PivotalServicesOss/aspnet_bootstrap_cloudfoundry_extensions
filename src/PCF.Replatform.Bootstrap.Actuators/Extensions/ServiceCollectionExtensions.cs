@@ -18,7 +18,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
                                     || type.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase));
 
             foreach (var type in controllerTypes)
-                services.AddTransient(type);
+                if (!services.Any((desc) => desc?.ImplementationType?.Name == type.Name))
+                    services.AddTransient(type);
 
             return services;
         }

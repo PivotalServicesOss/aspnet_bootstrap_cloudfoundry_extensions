@@ -19,19 +19,45 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
         {
         }
 
-        protected abstract string Path { get; }
+        public abstract string Path { get; }
 
         public abstract void HandleRequest(HttpContextBase context);
 
-        public virtual async Task<bool> IsAllowedAsync(HttpContextBase context)
+        /// <summary>
+        /// Registers AddOnPostAuthorizeRequestAsync by default
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="eventHandlerHelper"></param>
+        public virtual void RegisterEvent(HttpApplication application, EventHandlerTaskAsyncHelper eventHandlerHelper)
         {
-            //Authorize here if you need to restricted access
+            application.AddOnPostAuthorizeRequestAsync(eventHandlerHelper.BeginEventHandler, eventHandlerHelper.EndEventHandler);
+        }
+
+        /// <summary>
+        /// Default is true, but access can be restricted based on permission here
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public virtual async Task<bool> IsEnabledAsync(HttpContextBase context)
+        {
             return await Task.FromResult(result: true);
         }
 
-        public bool IsPathMatched(HttpContextBase context)
+        /// <summary>
+        /// Should continue processing the request after this handler, default is false
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public virtual async Task<bool> ContinueNextAsync(HttpContextBase context)
         {
-            if (context.Request.Path.Contains(Path))
+            return await Task.FromResult(result: false);
+        }
+
+        internal bool IsPathMatched(HttpContextBase context)
+        {
+            if (!string.IsNullOrWhiteSpace(Path) && context.Request.Path.Contains(Path))
+                return true;
+            else if (string.IsNullOrWhiteSpace(Path))
                 return true;
 
             return false;

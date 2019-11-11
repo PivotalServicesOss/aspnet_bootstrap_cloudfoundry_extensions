@@ -4,6 +4,11 @@
     <TargetFramework>$(TargetFrameworkGeneral)</TargetFramework>
     <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Base</RootNamespace>
     <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Base</AssemblyName>
+    <InformationalVersion>$(PivotalServicesBootstrapInformationalVersion)</InformationalVersion>
+    <AssemblyVersion>$(PivotalServicesBootstrapAssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(PivotalServicesBootstrapFileVersion)</FileVersion>
+    <Version>$(PivotalServicesBootstrapInformationalVersion)</Version>
+    <Copyright>$(PivotalServicesBootstrapCopyright)</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

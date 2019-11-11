@@ -279,11 +279,11 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 	         Steeltoe: Warning
       WriteTo:
        - Name: Console
-	 Args:
-	    outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+		 Args:
+			outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
        - Name: Debug
-	 Args:
-	    outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+		 Args:
+			outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
 ```
 
 - This uses Steeltoe Management Dynamic Loging, to know more, go to [Steeltoe Management Dynamic Loging](https://steeltoe.io/cloud-management/get-started/logging)
@@ -435,8 +435,8 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     }
 ```
 #### Base feature (Dynamic Handlers)
-- Provision to inject any custom http handler using implementation of `IDynamicHttpHandler` or make use of `DynamicHttpHandlerBase`
-- Sample handler `FooHandler` below which responds to a `GET` operation with request path `/foo`. 
+- Provision to inject any custom http handler using an implementation of abstract `DynamicHttpHandlerBase`
+- Below is a sample api handler `FooHandler` below which responds to a `GET` operation with request path `/foo`. 
 
 ```
     using Microsoft.Extensions.Logging;
@@ -447,36 +447,38 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     namespace Bar
     {
         public class FooHandler : DynamicHttpHandlerBase
-	{
-            public FooHandler()
-	        : base(DependencyContainer.GetService<ILogger<FooHandler>>(true))
-	    {
-	    }
-
-	    protected override string Path => "/foo";
-
-            public override void HandleRequest(HttpContextBase context)
-	    {
-    		switch (context.Request.HttpMethod)
 		{
-		    case "GET":
-			PerformGet(context);
-			break;
-		    default:
-			logger.LogWarning($"No action found for method {context.Request.HttpMethod}");
-		    break;
-	        }
-	    }
+			public FooHandler()
+				: base(DependencyContainer.GetService<ILogger<FooHandler>>(true))
+			{
+			}
 
-	    private void PerformGet(HttpContextBase context)
-	    {
-		context.Response.Headers.Set("Content-Type", "application/json");
-		context.Response.Write(new { Name = "FooHandler", Method = "GET" });
-	    }
-	}
+			public override string Path => "/foo";
+
+			public override void HandleRequest(HttpContextBase context)
+			{
+				switch (context.Request.HttpMethod)
+				{
+					case "GET":
+						PerformGet(context);
+						break;
+					default:
+						logger.LogWarning($"No action found for method {context.Request.HttpMethod}");
+						break;
+				}
+			}
+
+			private void PerformGet(HttpContextBase context)
+			{
+				context.Response.Headers.Set("Content-Type", "application/json");
+				context.Response.Write(new { Name = "FooHandler", Method = "GET" });
+			}
+		}
     }
 ```
-- Override `IsAllowedAsync` method to restrict access based on authorizatin
+- Override `IsEnabledAsync` Default is `true`, but access can be overriden based on permissions here
+- Override `ContinueNextAsync` Should continue processing the request after this handler, default is `false`
+- Override `RegisterEvent` Registers `AddOnPostAuthorizeRequestAsync` by default, but can be overidden based on the type of handler. For e.g. if the handler is for authentication purposes, you cn use `application.AddOnAuthenticateRequestAsync(eventHandlerHelper.BeginEventHandler, eventHandlerHelper.EndEventHandler)`
 
 - Inject the above handler into the pipeline, as in the code below
 
