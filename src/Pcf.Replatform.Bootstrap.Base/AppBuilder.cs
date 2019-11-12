@@ -67,7 +67,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         public AppBuilder Build()
         {
             foreach (var handler in Handlers)
-                ConfigureServicesDelegates.Add((builder, services) => { services.AddSingleton(typeof(DynamicHttpHandlerBase), handler); });
+                ConfigureServicesDelegates.Add((builder, services) => { services.AddSingleton(typeof(IDynamicHttpHandler), handler); });
 
             AppConfig.Configure(ConfigureAppConfigurationDelegates,
                                 ConfigureServicesDelegates,
@@ -83,7 +83,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             else
                 InstallCustomDependencyResolvers();
 
-            var handlers = DependencyContainer.GetService<IEnumerable<DynamicHttpHandlerBase>>();
+            var handlers = DependencyContainer.GetService<IEnumerable<IDynamicHttpHandler>>();
 
             foreach (var handler in handlers)
                 DynamicHttpHandlerModule.Handlers.Add(handler);

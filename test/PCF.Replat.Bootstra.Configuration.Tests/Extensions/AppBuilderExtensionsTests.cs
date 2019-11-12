@@ -2,6 +2,7 @@
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Testing;
 using Xunit;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 namespace PCF.Replat.Bootstra.Configuration.Tests
 {
     public class AppBuilderExtensionsTests

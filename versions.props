@@ -2,7 +2,7 @@
     <PropertyGroup>
     <PivotalServicesBootstrapVersion>2.0.0</PivotalServicesBootstrapVersion>
     <PivotalServicesBootstrapVersionSuffix>-rc2</PivotalServicesBootstrapVersionSuffix>
-    <PivotalServicesBootstrapVersionRevision>0</PivotalServicesBootstrapVersionRevision>
+    <PivotalServicesBootstrapVersionRevision>1</PivotalServicesBootstrapVersionRevision>
       <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
     <PivotalServicesBootstrapPackageVersion>$(PivotalServicesBootstrapVersion)$(PivotalServicesBootstrapVersionSuffix)</PivotalServicesBootstrapPackageVersion>

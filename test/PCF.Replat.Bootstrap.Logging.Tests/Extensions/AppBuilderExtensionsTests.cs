@@ -1,7 +1,9 @@
 ﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Testing;
+using System.Linq;
 using Xunit;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
 {
     public class AppBuilderExtensionsTests
@@ -13,7 +15,10 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
             TestProxy.ConfigureServicesDelegatesProxy.Clear();
             TestProxy.ConfigureLoggingDelegatesProxy.Clear();
             AppBuilder.Instance.AddConsoleSerilogLogging();
+
             Assert.Single(TestProxy.ConfigureLoggingDelegatesProxy);
+
+            Assert.Contains(TestProxy.HandlersProxy, h => h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.GlobalErrorHandler");
 
             Assert.Equal("Information", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Default"]);
             Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:Microsoft"]);
@@ -39,6 +44,12 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
 
             Assert.Single(TestProxy.ConfigureLoggingDelegatesProxy);
 
+            Assert.Contains(TestProxy.HandlersProxy, h =>h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.GlobalErrorHandler");
+            Assert.Contains(TestProxy.HandlersProxy, h =>h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.ScopedLoggingHandler");
+            Assert.Contains(TestProxy.HandlersProxy, h =>h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.InboundBeginRequestObserverHandler");
+            Assert.Contains(TestProxy.HandlersProxy, h =>h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.InboundEndRequestObserverHandler");
+            Assert.Contains(TestProxy.HandlersProxy, h =>h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.InboundErrorRequestObserverHandler");
+
             Assert.Equal("Information", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Default"]);
             Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:Microsoft"]);
             Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:System"]);
@@ -56,3 +67,4 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
         }
     }
 }
+#pragma warning restore CS0618 // Type or member is obsolete

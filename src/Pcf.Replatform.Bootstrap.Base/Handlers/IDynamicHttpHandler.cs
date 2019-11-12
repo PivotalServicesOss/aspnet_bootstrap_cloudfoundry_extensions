@@ -6,9 +6,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
     internal interface IDynamicHttpHandler
     {
         string Path { get; }
+        DynamicHttpHandlerEvent ApplicationEvent { get; }
         void HandleRequest(HttpContextBase context);
-        void RegisterEvent(HttpApplication application, EventHandlerTaskAsyncHelper eventHandlerHelper);
         Task<bool> IsEnabledAsync(HttpContextBase context);
         Task<bool> ContinueNextAsync(HttpContextBase context);
+        void RegisterEvent(HttpApplication application);
     }
 }

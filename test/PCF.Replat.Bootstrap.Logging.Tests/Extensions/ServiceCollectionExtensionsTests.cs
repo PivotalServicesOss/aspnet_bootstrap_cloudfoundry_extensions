@@ -8,6 +8,7 @@ using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
 using Xunit;
 using PCF.Replatform.Test.Helpers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Testing;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers;
 
 //Minimum tests are added
 namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
@@ -24,6 +25,7 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
 
             Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(ITracingOptions); });
             Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(IDiagnosticObserver); });
+            Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(IInboundRequestObserver); });
             Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(ITracing); });
             Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(IDynamicMessageProcessor); });
             Assert.Contains(services, (sd) => { return sd.ServiceType == typeof(IDiagnosticsManager); });

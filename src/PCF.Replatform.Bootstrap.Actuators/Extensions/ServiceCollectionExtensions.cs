@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Http.Controllers;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
 {
@@ -14,13 +15,17 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
                            select type;
 
             var controllerTypes = allTypes.Where(type => !type.IsAbstract && !type.IsGenericTypeDefinition)
-                                    .Where(type => typeof(IController).IsAssignableFrom(type)
-                                    || type.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase));
-
-            foreach (var type in controllerTypes)
-                if (!services.Any((desc) => desc?.ImplementationType?.Name == type.Name))
-                    services.AddTransient(type);
-
+                                    .Where(type => (typeof(IController).IsAssignableFrom(type) || typeof(IHttpController).IsAssignableFrom(type))
+                                    && type.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase));
+            try
+            {
+                foreach (var type in controllerTypes)
+                {
+                    if (!services.Any((desc) => desc?.ImplementationType?.Name == type.Name))
+                        services.AddTransient(type);
+                }
+            }
+            catch { }
             return services;
         }
 

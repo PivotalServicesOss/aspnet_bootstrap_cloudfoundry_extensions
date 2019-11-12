@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
+using System;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -8,29 +9,76 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
     public abstract class DynamicHttpHandlerBase : IDynamicHttpHandler
     {
         protected ILogger<DynamicHttpHandlerBase> logger;
+        protected EventHandlerTaskAsyncHelper asyncHandlerHelper;
 
-        public DynamicHttpHandlerBase(ILogger<DynamicHttpHandlerBase> logger)
+        public DynamicHttpHandlerBase(ILogger<DynamicHttpHandlerBase> logger = null)
         {
-            this.logger = logger;
-        }
-
-        public DynamicHttpHandlerBase()
-            : this(DependencyContainer.GetService<ILogger<DynamicHttpHandlerBase>>(true))
-        {
+            this.logger = logger ?? DependencyContainer.GetService<ILogger<DynamicHttpHandlerBase>>(true);
+            asyncHandlerHelper = new EventHandlerTaskAsyncHelper(HandleAsyncRequest);
         }
 
         public abstract string Path { get; }
-
+        public abstract DynamicHttpHandlerEvent ApplicationEvent { get; }
         public abstract void HandleRequest(HttpContextBase context);
 
-        /// <summary>
-        /// Registers AddOnPostAuthorizeRequestAsync by default
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="eventHandlerHelper"></param>
-        public virtual void RegisterEvent(HttpApplication application, EventHandlerTaskAsyncHelper eventHandlerHelper)
+        public void RegisterEvent(HttpApplication application)
         {
-            application.AddOnPostAuthorizeRequestAsync(eventHandlerHelper.BeginEventHandler, eventHandlerHelper.EndEventHandler);
+            switch (ApplicationEvent)
+            {
+                case DynamicHttpHandlerEvent.AuthenticateRequestAsync:
+                    application.AddOnAuthenticateRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.AuthorizeRequestAsync:
+                    application.AddOnAuthorizeRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.BeginRequestAsync:
+                    application.AddOnBeginRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.EndRequestAsync:
+                    application.AddOnEndRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.LogRequestAsync:
+                    application.AddOnLogRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.PostAuthenticateRequestAsync:
+                    application.AddOnPostAuthenticateRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.PostAuthorizeRequestAsync:
+                    application.AddOnPostAuthorizeRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.PostLogRequestAsync:
+                    application.AddOnPostLogRequestAsync(asyncHandlerHelper.BeginEventHandler, asyncHandlerHelper.EndEventHandler);
+                    break;
+                case DynamicHttpHandlerEvent.BeginRequest:
+                    application.BeginRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.AuthenticateRequest:
+                    application.AuthenticateRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.PostAuthenticateRequest:
+                    application.PostAuthenticateRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.AuthorizeRequest:
+                    application.AuthorizeRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.PostAuthorizeRequest:
+                    application.PostAuthorizeRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.PostLogRequest:
+                    application.PostLogRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.LogRequest:
+                    application.LogRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.EndRequest:
+                    application.EndRequest += HandleRequest;
+                    break;
+                case DynamicHttpHandlerEvent.Error:
+                    application.Error += HandleRequest;
+                    break;
+                default:
+                    throw new ApplicationException($"Async event type '{ApplicationEvent}' not configured for registrations");
+            }
         }
 
         /// <summary>
@@ -61,6 +109,43 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
                 return true;
 
             return false;
+        }
+
+        private void HandleRequest(object sender, EventArgs e)
+        {
+            var context = new HttpContextWrapper(((HttpApplication)sender).Context);
+            FilterAndProcessRequest(context, HttpContext.Current.ApplicationInstance.CompleteRequest);
+        }
+
+        private void FilterAndProcessRequest(HttpContextBase context, Action completeRequest)
+        {
+            if (IsPathMatched(context))
+            {
+                if (IsEnabledAsync(context).Result)
+                    HandleRequest(context);
+
+                if (!ContinueNextAsync(context).Result)
+                    completeRequest();
+            }
+        }
+
+        private async Task HandleAsyncRequest(object sender, EventArgs e)
+        {
+            var context = new HttpContextWrapper(((HttpApplication)sender).Context);
+            await FilterAndProcessRequestAsync(context, HttpContext.Current.ApplicationInstance.CompleteRequest)
+                                            .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        private async Task FilterAndProcessRequestAsync(HttpContextBase context, Action completeRequest)
+        {
+            if (IsPathMatched(context))
+            {
+                if (await IsEnabledAsync(context).ConfigureAwait(continueOnCapturedContext: false))
+                    HandleRequest(context);
+
+                if (!await ContinueNextAsync(context))
+                    completeRequest();
+            }
         }
 
         protected internal string GetRequestUri(HttpRequestBase request)

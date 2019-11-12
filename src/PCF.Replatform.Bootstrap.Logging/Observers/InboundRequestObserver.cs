@@ -11,7 +11,7 @@ using System.Web;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers
 {
-    internal class HttpRequestResponseObserver : HttpClientTracingObserver
+    public class InboundRequestObserver : HttpClientTracingObserver, IInboundRequestObserver
     {
         public const string START_EVNT = "Start";
         public const string STOP_EVNT = "Stop";
@@ -19,7 +19,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers
 
         private readonly ILogger logger;
 
-        public HttpRequestResponseObserver(string observerName, string diagnosticName, ITracingOptions options, ITracing tracing, ILogger logger) 
+        public InboundRequestObserver(string observerName, string diagnosticName, ITracingOptions options, ITracing tracing, ILogger logger) 
             : base(observerName, diagnosticName, options, tracing, logger)
         {
             this.logger = logger;
@@ -33,26 +33,26 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers
             if (evnt == START_EVNT)
             {
                 logger.LogTrace($"HandleStartEvent start {Thread.CurrentThread.ManagedThreadId}");
-                HandleStartEvent((HttpContext)arg);
+                HandleStartEvent((HttpContextBase)arg);
                 logger.LogTrace($"HandleStartEvent finished {Thread.CurrentThread.ManagedThreadId}");
             }
             else if (evnt == STOP_EVNT)
             {
                 logger.LogTrace($"HandleStopEvent start {Thread.CurrentThread.ManagedThreadId}");
-                HandleStopEvent((HttpContext)arg);
+                HandleStopEvent((HttpContextBase)arg);
                 logger.LogTrace($"HandleStopEvent finished {Thread.CurrentThread.ManagedThreadId}");
             }
             else if (evnt == ERR_EVNT)
             {
                 logger.LogTrace($"HandleExceptionEvent start {Thread.CurrentThread.ManagedThreadId}");
-                HandleExceptionEvent((HttpContext)arg);
+                HandleExceptionEvent((HttpContextBase)arg);
                 logger.LogTrace($"HandleExceptionEvent finished {Thread.CurrentThread.ManagedThreadId}");
             }
         }
 
-        private void HandleExceptionEvent(HttpContext httpContext)
+        private void HandleExceptionEvent(HttpContextBase httpContext)
         {
-            var request = DiagnosticHelpers.GetProperty<HttpRequest>(httpContext, "Request");
+            var request = DiagnosticHelpers.GetProperty<HttpRequestBase>(httpContext, "Request");
 
             if (!request.RequestContext.RouteData.Values.TryGetValue("Steeltoe.SpanContext", out object value))
             {
@@ -76,10 +76,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers
             }
         }
 
-        private void HandleStopEvent(HttpContext httpContext)
+        private void HandleStopEvent(HttpContextBase httpContext)
         {
-            var request = DiagnosticHelpers.GetProperty<HttpRequest>(httpContext, "Request");
-            var response = DiagnosticHelpers.GetProperty<HttpResponse>(httpContext, "Response");
+            var request = DiagnosticHelpers.GetProperty<HttpRequestBase>(httpContext, "Request");
+            var response = DiagnosticHelpers.GetProperty<HttpResponseBase>(httpContext, "Response");
 
             if (!request.RequestContext.RouteData.Values.TryGetValue("Steeltoe.SpanContext", out object value))
             {
@@ -106,9 +106,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers
             }
         }
 
-        private void HandleStartEvent(HttpContext httpContext)
+        private void HandleStartEvent(HttpContextBase httpContext)
         {
-            var request = DiagnosticHelpers.GetProperty<HttpRequest>(httpContext, "Request");
+            var request = DiagnosticHelpers.GetProperty<HttpRequestBase>(httpContext, "Request");
 
             if (ShouldIgnoreRequest(request.Url.AbsolutePath))
             {
@@ -146,12 +146,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers
 
             InjectTraceContext(request, currentSpan);
         }
-        private string ExtractSpanName(HttpRequest request)
+        private string ExtractSpanName(HttpRequestBase request)
         {
             return $"httpclient:{request.Url.AbsolutePath}";
         }
 
-        private void InjectTraceContext(HttpRequest request, ISpan parentSpan)
+        private void InjectTraceContext(HttpRequestBase request, ISpan parentSpan)
         {
             var headers = request.Headers;
 
@@ -169,5 +169,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers
                 headers.Add("X-B3-ParentSpanId", parentSpan.Context.SpanId.ToLowerBase16());
             }
         }
+    }
+
+    public interface IInboundRequestObserver
+    {
+        void ProcessEvent(string evnt, object arg);
     }
 }

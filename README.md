@@ -448,12 +448,14 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     {
         public class FooHandler : DynamicHttpHandlerBase
 		{
-			public FooHandler()
-				: base(DependencyContainer.GetService<ILogger<FooHandler>>(true))
+			public FooHandler(ILogger<FooHandler> logger)
+				: base(logger)
 			{
 			}
 
 			public override string Path => "/foo";
+
+			public override DynamicHttpHandlerEvent ApplicationEvent => DynamicHttpHandlerEvent.PostAuthorizeRequestAsync;
 
 			public override void HandleRequest(HttpContextBase context)
 			{
@@ -476,9 +478,10 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 		}
     }
 ```
-- Override `IsEnabledAsync` Default is `true`, but access can be overriden based on permissions here
-- Override `ContinueNextAsync` Should continue processing the request after this handler, default is `false`
-- Override `RegisterEvent` Registers `AddOnPostAuthorizeRequestAsync` by default, but can be overidden based on the type of handler. For e.g. if the handler is for authentication purposes, you cn use `application.AddOnAuthenticateRequestAsync(eventHandlerHelper.BeginEventHandler, eventHandlerHelper.EndEventHandler)`
+- Override method `IsEnabledAsync` Default is `true`, but access can be overriden based on permissions here
+- Override method `ContinueNextAsync` Should continue processing the request after this handler, default is `false`
+- Override property `Path`, request path to which the handler to respond
+- Override property `ApplicationEvent`, what kind of application event to handle
 
 - Inject the above handler into the pipeline, as in the code below
 
