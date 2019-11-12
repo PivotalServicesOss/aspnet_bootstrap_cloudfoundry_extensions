@@ -1,4 +1,6 @@
-﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+﻿using Microsoft.Extensions.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using Serilog.Context;
 using Steeltoe.Common.Diagnostics;
@@ -6,30 +8,27 @@ using Steeltoe.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers
 {
-    public class ScopedLoggingModule : IHttpModule
+    public class ScopedLoggingHandler : DynamicHttpHandlerBase
     {
         IEnumerable<IDynamicMessageProcessor> messageProcessors;
         const string CORR_CONTXT = "CorrelationContext";
         const string REQ_PATH_LOG_PROP_NM = "RequestPath";
 
-        public void Dispose()
+        public ScopedLoggingHandler(ILogger<ScopedLoggingHandler> logger)
+           : base(logger)
         {
-            //Nothing to dispose here
         }
 
-        public void Init(HttpApplication context)
-        {
-            if (!AppBuilderExtensions.IncludeDistributedTracing)
-                return;
+        public override string Path => null;
 
-            context.BeginRequest += Context_BeginRequest;
-        }
+        public override DynamicHttpHandlerEvent ApplicationEvent => DynamicHttpHandlerEvent.BeginRequest;
 
-        private void Context_BeginRequest(object sender, EventArgs e)
+        public override void HandleRequest(HttpContextBase context)
         {
             if (messageProcessors == null)
             {
@@ -40,15 +39,19 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
                     throw new Exception("No message procesors of type 'IDynamicMessageProcessor' found");
             }
 
-            var context = ((HttpApplication)sender).Context;
-            var request = DiagnosticHelpers.GetProperty<HttpRequest>(context, "Request");
+            var request = DiagnosticHelpers.GetProperty<HttpRequestBase>(context, "Request");
 
             if (request == null) return;
 
             PushCorelationProperties(request);
         }
 
-        private void PushCorelationProperties(HttpRequest request)
+        public override async Task<bool> ContinueNextAsync(HttpContextBase context)
+        {
+            return await Task.FromResult(result: true);
+        }
+
+        private void PushCorelationProperties(HttpRequestBase request)
         {
             var correlationContextInfo = string.Empty;
 

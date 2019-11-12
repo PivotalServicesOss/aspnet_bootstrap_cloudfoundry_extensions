@@ -1,26 +1,26 @@
 ﻿using Microsoft.Extensions.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers
 {
-    public class GlobalErrorHandlerModule : IHttpModule
+    public class GlobalErrorHandler : DynamicHttpHandlerBase
     {
-        public void Dispose()
+        public GlobalErrorHandler(ILogger<GlobalErrorHandler> logger)
+            : base(logger)
         {
-            //Nothing to dispose here
         }
 
-        public void Init(HttpApplication context)
-        {
-            context.Error += Context_Error;
-        }
+        public override string Path => null;
 
-        private void Context_Error(object sender, EventArgs e)
+        public override DynamicHttpHandlerEvent ApplicationEvent => DynamicHttpHandlerEvent.Error;
+
+        public override void HandleRequest(HttpContextBase context)
         {
-            var context = ((HttpApplication)sender).Context;
             try
             {
                 var lastError = context.Server.GetLastError();
@@ -34,6 +34,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
             {
                 LogError(exception);
             }
+        }
+
+        public override async Task<bool> ContinueNextAsync(HttpContextBase context)
+        {
+            return await Task.FromResult(result: true);
         }
 
         private void LogError(Exception exception)

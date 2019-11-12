@@ -1,6 +1,6 @@
 ### Quickly replatform a ASP.Net full framework app to Pivotal Platform (PAS), supports to implement few critical of 12/15 factors
 
-Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
+Build | Configuration | Logging | Actuators | Redis.Session | Base |
 --- | --- | --- | --- |--- | --- |
 [![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base) 
 
@@ -14,7 +14,8 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - [Persist Session to Redis](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis)
 - [Enabling Cloud Foundry Actuators and Metrics Forwarders](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders)
 - [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging)
-- [IoC features](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#ioc-features)
+- [Base feature (IoC)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-features-ioc)
+- [Base feature (Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-feature-dynamic-handlers)
 
 ### Supported ASP.NET apps
 - WebAPI
@@ -26,14 +27,15 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 
 ### Salient features
 - One stop package/reference code for replatforming ASP.NET apps to Pivotal Platform (PAS)
-- Uses [Steeltoe](https://steeltoe.io) 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
+- Uses [Steeltoe](https://steeltoe.io) 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder.
 - Supports distributed and structured logging, enhanced with Serilog
 - Supports IoC using Autofac and Unity apart from native Microsoft ServiceCollection
-- Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, environment variables, vcap services and config server)
+- Provision for injecting http pipeline handlers on the fly
+- Supports multiple config sources (Web.config, appsettings.json, appsettings.{environment}.json, appsettings.yaml, appsettings.{environment}.yaml, environment variables, vcap services and config server)
 - Supports configuration placeholder resolving using pattern matching like, `${variable_name}`. Refer [SteeltoeAppConfiguration](https://steeltoe.io/app-configuration/docs) for more details
 - Pull in secrets from credhub with easy placeholder resolvements
 - Injects all above configuration into WebConfiguration (appsettings, connection strings and providers) at runtime so as to be used by legacy libraries relying on.
-- Helps in getting an ASP.Net app to Pivotal Platform (PAS) or any Cloud Foundry platform within short span of time
+- Helps in getting an ASP.Net app to Pivotal Platform (PAS - Cloud Foundry) within short span of time and effort
 - Supports Session persistence to Redis
 - Explicit access to any of the injected dependencies across your code. For e.g to access `IConfiguration` you can access it using `DependencyContainer.GetService<IConfiguration>()`. You can also access them via constructor injection which absolutely depends on the IoC framework and application.
 
@@ -42,12 +44,13 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - Cloud Native Logging - [PivotalServices.AspNet.Replatform.Cf.Logging](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
 - Spring Boot Actuators - [PivotalServices.AspNet.Replatform.Cf.Actuators](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators)
 - Externalizing Session - [PivotalServices.AspNet.Replatform.Cf.Redis.Session](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
-- Base package supporting IoC frameworks - [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
+- Base package - [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
  
 ### Steps - High level
 - Install the nuget package based on your need
 - Modify `App_Start` and `App_End` in Global.ascx (by following the steps in appropriate sections - [Configuration](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#externalizing-configuration), [Session](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis), [Actuators](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders), [Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging), 
-[Ioc](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#ioc-features))
+[Base(IoC)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-features-ioc), 
+[Base(Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-feature-dynamic-handlers))
 - Compile and push the application to Pivotal Platform (PAS)
 
 ### Prerequisites
@@ -77,6 +80,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 ```
 - `AddDefaultConfigurations()` have optional parameters
 	- `jsonSettingsOptional` if appsettings.json is must
+	- `yamlSettingsOptional` if appsettings.yaml is must
 	- `environment` to override environment variable `ASPNETCORE_ENVIRONMENT`
 
 - `AddConfigServer()` have optional parameters
@@ -84,39 +88,31 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 	- `configServerLogger` if a seperate logger factory to be provided
 
 - The order is important here. In this case, configurations from config server take over others
-- Below is the default configurations will be added internally, but can always override using json or environment variables as below (if at all required)
+- Below is the default configurations will be added internally, but can always override using json or yaml or environment variables as below (if at all required)
 
 ```
-    {
-      "spring": {
-        "application": {
-          "name": "${vcap:application:name}"
-        },
-        "cloud": {
-          "config": {
-            "validate_certificates": false,
-            "failFast": false,
-            "name": "${vcap:application:name}",
-            "env": "${ASPNETCORE_ENVIRONMENT}"
-          }
-        }
-      },
-      "AppSettings": {
-        "Key1": "value1"
-      },
-      "ConnectionStrings": {
-        "Database1": "connection1"
-      },
-      "Providers": {
-        "Database1": "provider1"
-      }
-    }
+    ---
+    spring:
+      application:
+    	name: "${vcap:application:name}"
+	  cloud:
+	    config:
+	      validate_certificates: false
+              failFast: false
+	      name: "${vcap:application:name}"
+	      env: "${ASPNETCORE_ENVIRONMENT}"
+	   AppSettings:
+	      Key1: value1
+	   ConnectionStrings:
+	      Database1: connection1
+	   Providers:
+	      Database1: provider1
 
 ```
 - Push the app and bind your app to a config server instance and you are good to go.
 - Instructions to setup config server is available here [setting-up-spring-config-server](https://pivotal.io/application-transformation-recipes/app-architecture/setting-up-spring-config-server)
 - This uses Steeltoe Configurations, to know more about Steeltoe Configuration, go to [Steeltoe AppConfiguration](https://steeltoe.io/app-configuration/get-started)
-- Order of configuration providers: `web.config, appsettings.json, appsettings.{environment}.json, cups/vcap, config server, environment variables`
+- Order of configuration providers: `web.config, appsettings.json, appsettings.{environment}.json, appsettings.yaml, appsettings.{environment}.yaml, cups/vcap, config server, environment variables`
 - AppSettings and ConnectionString sections in web.config can be overwritten by any of the proceeding configuration sources. This will help in avoiding code changes where application is already using say `ConfigurationManager.AppSettings["foo"]` or `ConfigurationManager.ConnectionStrings["bar"].ConnectionString`
 	- For example, say you have an appsetting key named `Foo` to be externalized, you can set an environment variable like `AppSettings:Foo` to overwrite
 	- For example, say you have an connection string named `Bar` with Provider to be externalized, you can set an environment variable like `ConnectionString:Bar` and `Providers:Bar` to overwrite it
@@ -127,7 +123,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 - If you have secrets in credhub with instance name `mycredhubinstance`, you can easily make use of placeholder resolver, by following the below steps.
 	- Make sure the application is binded to the credhub instance, in this case `mycredhubinstance` 
 	- Say if you have stored secrets for your database connection string in credhub. e.g. `{["db1username":"foo", "db1password":"bar"]}`.
-	- You can easily manipulate the connection string stored in any of the configuration sources (web.config, json, environment variables and config server). Lets pick environment variable for this example, where your variable looks like `db1ConnStr="Data Source=serverAddress;Initial Catalog=db1;User ID=${vcap:services:credhub:0:credentials:db1username};Password=${vcap:services:credhub:0:credentials:db1password};"`
+	- You can easily manipulate the connection string stored in any of the configuration sources (web.config, json, yaml, environment variables and config server). Lets pick environment variable for this example, where your variable looks like `db1ConnStr="Data Source=serverAddress;Initial Catalog=db1;User ID=${vcap:services:credhub:0:credentials:db1username};Password=${vcap:services:credhub:0:credentials:db1password};"`
 	- During application start, the place holders will be replaced and ready to be served in the application as needed. In our case, the connection string `db1ConnStr` at runtime looks like `Data Source=serverAddress;Initial Catalog=db1;User ID=foo;Password=bar;`
 	- To learn more about managing secrets in credhub, please refer to [managing-secrets-with-credhub](https://docs.pivotal.io/spring-cloud-services/3-1/common/config-server/managing-secrets-with-credhub.html)
  
@@ -190,7 +186,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 
 - `AddCloudFoundryActuators()` have optional parameter
 	- `basePath` to use in case if the app uses context routing
-- If you need to inject additionl `Health Contributor`, you can create your own implementation of `Steeltoe.Common.HealthChecks.IHealthContributor` and inject them as below. Lets assume that we have a custom health contributor called `MyCustomHealthContributor`.
+- If you need to inject additional `Health Contributor`, you can create your own implementation of `Steeltoe.Common.HealthChecks.IHealthContributor` and inject them as below. Lets assume that we have a custom health contributor called `MyCustomHealthContributor`.
 
 ```
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
@@ -216,39 +212,29 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
  ```
     AppBuilder.Instance.Stop();
  ```
-- Below is the default configurations will be added internally, but can always override using json or environment variables as below (if at all required)
+- Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
 ```
-    {
-      "Logging": {
-        "LogLevel": {
-          "Default": "Information",
-          "Steeltoe": "Warning",
-          "Pivotal": "Warning",
-          "System": "Warning",
-          "Microsoft": "Warning"
-        },
-        "Console":
-        {
-          "IncludeScopes": true
-        }
-      }
-      "management": {
-        "endpoints": {
-          "path": "/cloudfoundryapplication",
-          "cloudfoundry": {
-            "validateCertificates": false
-          }
-        },
-        "metrics": {
-          "exporter": {
-            "cloudfoundry": {
-              "validateCertificates": false
-            }
-          }
-        }
-      }
-    }
+    ---
+    Logging:
+	LogLevel:
+	    Default: Information
+	    Steeltoe: Warning
+	    Pivotal: Warning
+	    System: Warning
+	    Microsoft: Warning
+	Console:
+		IncludeScopes: true
+    management:
+	endpoints:
+            path: "/cloudfoundryapplication"
+	    cloudfoundry:
+		  validateCertificates: false
+        metrics:
+	    exporter:
+		  cloudfoundry:
+			validateCertificates: false
+
 ```
 - Push the app, you will be able to see actuators enabled (health, info, etc.) in Apps Manager, but endpoint actuators are limited to `/actuator/health` and `/actuator/info`. Refer to [release notes]( https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/release_info) for more details.
 - This uses Steeltoe Management, to know more, go to [Steeltoe Management](https://steeltoe.io/cloud-management/get-started)
@@ -274,43 +260,30 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 
 - `AddConsoleSerilogLogging()` have optional parameter
 	- `includeDistributedTracing` if you want to enable distributed tracing logging.To know more about distributed tracing refer to the article [asp-net-core-distributed-tracing-using-steeltoe](https://www.initpals.com/net-core/asp-net-core-distributed-tracing-using-steeltoe/)
-- Below is the default configurations will be added internally, but can always override using json or environment variables as below (if at all required)
+- Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
 ```
-    {
-    	"management": {
-    	"tracing": {
-    		"AlwaysSample": true,
-    		"UseShortTraceIds": false,
-    		"EgressIgnorePattern": "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
-    	}
-    	},
-    	"Serilog": {
-    	"MinimumLevel": {
-    		"Default": "Information",
-    		"Override": {
-    		"Microsoft": "Warning",
-    		"System": "Warning",
-    		"Pivotal": "Warning",
-    		"Steeltoe": "Warning"
-    		}
-    	},
-    	"WriteTo": [
-    		{
-    		"Name": "Console",
-    		"Args": {
-    			"outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-    		}
-    		},
-    		{
-    		"Name": "Debug",
-    		"Args": {
-    			"outputTemplate": "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-    		}
-    		}
-    	]
-    	}
-    }
+    ---
+    management:
+      tracing:
+	  AlwaysSample: true
+	  UseShortTraceIds: false
+	  EgressIgnorePattern: "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
+    Serilog:
+      MinimumLevel:
+	    Default: Information
+	    Override:
+	         Microsoft: Warning
+	         System: Warning
+	         Pivotal: Warning
+	         Steeltoe: Warning
+      WriteTo:
+       - Name: Console
+		 Args:
+			outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+       - Name: Debug
+		 Args:
+			outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
 ```
 
 - This uses Steeltoe Management Dynamic Loging, to know more, go to [Steeltoe Management Dynamic Loging](https://steeltoe.io/cloud-management/get-started/logging)
@@ -324,7 +297,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
 	- Using Contructor Injection `.ctor(ILogger<ValuesController>> logger)`
 
 
-### IoC features
+### Base features (Ioc)
 - Install package [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
 - Can add more `Actions` exposed where you can configure; `application configurations`, `inject services` and even modify `logging configurations` as needed.
   
@@ -332,7 +305,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
-	protected void Application_Start()
+    protected void Application_Start()
     {
 		AppBuilder
 			.Instance
@@ -359,7 +332,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
-	protected void Application_Start()
+    protected void Application_Start()
     {
 		AppBuilder
 		.Instance
@@ -414,7 +387,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
-	protected void Application_Start()
+    protected void Application_Start()
     {
 		AppBuilder
 			.Instance
@@ -461,10 +434,76 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
         }
     }
 ```
+#### Base feature (Dynamic Handlers)
+- Provision to inject any custom http handler using an implementation of abstract `DynamicHttpHandlerBase`
+- Below is a sample api handler `FooHandler` below which responds to a `GET` operation with request path `/foo`. 
+
+```
+    using Microsoft.Extensions.Logging;
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
+    using System.Web;
+
+    namespace Bar
+    {
+        public class FooHandler : DynamicHttpHandlerBase
+		{
+			public FooHandler(ILogger<FooHandler> logger)
+				: base(logger)
+			{
+			}
+
+			public override string Path => "/foo";
+
+			public override DynamicHttpHandlerEvent ApplicationEvent => DynamicHttpHandlerEvent.PostAuthorizeRequestAsync;
+
+			public override void HandleRequest(HttpContextBase context)
+			{
+				switch (context.Request.HttpMethod)
+				{
+					case "GET":
+						PerformGet(context);
+						break;
+					default:
+						logger.LogWarning($"No action found for method {context.Request.HttpMethod}");
+						break;
+				}
+			}
+
+			private void PerformGet(HttpContextBase context)
+			{
+				context.Response.Headers.Set("Content-Type", "application/json");
+				context.Response.Write(new { Name = "FooHandler", Method = "GET" });
+			}
+		}
+    }
+```
+- Override method `IsEnabledAsync` Default is `true`, but access can be overriden based on permissions here
+- Override method `ContinueNextAsync` Should continue processing the request after this handler, default is `false`
+- Override property `Path`, request path to which the handler to respond
+- Override property `ApplicationEvent`, what kind of application event to handle
+
+- Inject the above handler into the pipeline, as in the code below
+
+```
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+	using Bar;
+    ...
+    
+    protected void Application_Start()
+    {
+    	...
+        AppBuilder.Instance
+                .AddDynamicHttpHandler<FooHandler>()
+                .Build()
+                .Start();
+    	...
+    }
+```
 
 ### Ongoing development packages in MyGet
 
-Feed | Configuration | Logging | Actuators | Redis.Session | Base/IoC |
+Feed | Configuration | Logging | Actuators | Redis.Session | Base |
 --- | --- | --- | --- |--- | --- |
 [V3](https://www.myget.org/F/ajaganathan/api/v3/index.json) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Logging) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base) 
 

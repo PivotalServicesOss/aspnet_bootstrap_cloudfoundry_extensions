@@ -4,6 +4,11 @@
     <TargetFramework>$(TargetFrameworkRedisSession)</TargetFramework>
     <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session</RootNamespace>
     <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session</AssemblyName>
+    <InformationalVersion>$(PivotalServicesBootstrapInformationalVersion)</InformationalVersion>
+    <AssemblyVersion>$(PivotalServicesBootstrapAssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(PivotalServicesBootstrapFileVersion)</FileVersion>
+    <Version>$(PivotalServicesBootstrapInformationalVersion)</Version>
+    <Copyright>$(PivotalServicesBootstrapCopyright)</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

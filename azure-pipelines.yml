@@ -10,6 +10,7 @@ variables:
     PublishDirectory: 'publish-artifacts'
 
 steps:
+    
 - task: NuGetToolInstaller@1
 
 - task: BatchScript@1
@@ -31,6 +32,7 @@ steps:
      build.bat
      configure-build.ps1
      default.ps1
+     versions.props
     TargetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Hosting;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
@@ -49,6 +50,19 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             {
                 inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
                 inMemoryConfigStore.Add("Serilog:WriteTo:1:Args:outputTemplate", "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
+            }
+
+            var handlers = ReflectionHelper
+                .GetNonPublicInstanceFieldValue<List<Type>>(instance, "Handlers");
+
+            handlers.Add(typeof(GlobalErrorHandler));
+
+            if (includeDistributedTracing)
+            {
+                handlers.Add(typeof(InboundBeginRequestObserverHandler));
+                handlers.Add(typeof(InboundEndRequestObserverHandler));
+                handlers.Add(typeof(InboundErrorRequestObserverHandler));
+                handlers.Add(typeof(ScopedLoggingHandler));
             }
 
             ReflectionHelper

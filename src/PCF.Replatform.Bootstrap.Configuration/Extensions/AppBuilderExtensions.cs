@@ -19,9 +19,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
         /// <summary>
         /// Adds Json, Environment Variables and VCAP Services as configuration sources
+        /// appsettings.{ASPNETCORE_ENVIRONMENT}.* files are optional
         /// </summary>
         /// <param name="environment"></param>
-        public static AppBuilder AddDefaultConfigurations(this AppBuilder instance, bool jsonSettingsOptional = true, string environment = null)
+        public static AppBuilder AddDefaultConfigurations(this AppBuilder instance, bool jsonSettingsOptional = true, bool yamlSettingsOptional = true, string environment = null)
         {
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
@@ -31,6 +32,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                     configBuilder.AddWebConfiguration();
                     configBuilder.AddJsonFile("appSettings.json", jsonSettingsOptional, false);
                     configBuilder.AddJsonFile($"appSettings.{environment ?? (Environment.GetEnvironmentVariable(ASPNET_ENV_VAR) ?? string.Empty)}.json", true, false);
+                    configBuilder.AddYamlFile("appSettings.yaml", yamlSettingsOptional, false);
+                    configBuilder.AddYamlFile($"appSettings.{environment ?? (Environment.GetEnvironmentVariable(ASPNET_ENV_VAR) ?? string.Empty)}.yaml", true, false);
                     configBuilder.AddEnvironmentVariables();
                     configBuilder.AddCloudFoundry();
                     configBuilder.AddPlaceholderResolver();

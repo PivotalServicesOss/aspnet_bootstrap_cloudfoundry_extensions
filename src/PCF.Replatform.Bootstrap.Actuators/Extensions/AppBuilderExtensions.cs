@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators;
+﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using System;
 using System.Collections.Generic;
@@ -43,11 +41,6 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<IActuator>>(instance, "Actuators").Add(new CfActuator());
 
-            ReflectionHelper
-                .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
-                .Add((builderContext, services) => {
-                services.AddControllers();
-            });
             return instance;
         }
 

@@ -4,6 +4,10 @@
     <TargetFramework>$(TargetFrameworkGeneral)</TargetFramework>
     <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</RootNamespace>
     <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration</AssemblyName>
+    <InformationalVersion>$(PivotalServicesBootstrapInformationalVersion)</InformationalVersion>
+    <AssemblyVersion>$(PivotalServicesBootstrapAssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(PivotalServicesBootstrapFileVersion)</FileVersion>
+    <Copyright>$(PivotalServicesBootstrapCopyright)</Copyright>
   </PropertyGroup>
   
   <ItemGroup>
@@ -21,6 +25,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions">
       <Version>$(MicrosoftExtensionsVersion)</Version>
     </PackageReference>
+    <PackageReference Include="NetEscapades.Configuration.Yaml" Version="$(NetEscapadesConfigurationVersion)" />
     <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore">
       <Version>$(SteeltoeVersion)</Version>
     </PackageReference>

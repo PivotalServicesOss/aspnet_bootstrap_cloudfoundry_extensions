@@ -7,9 +7,7 @@ using System.Collections.Generic;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Testing
 {
-    /// <summary>
-    /// Only for Unit testing purposes
-    /// </summary>
+    [Obsolete("Not for production use, only for internal testing purpose")]
     public class TestProxy
     {
         public static void AddInMemoryConfigurationProxy(IConfigurationBuilder builder)
@@ -22,10 +20,16 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Testing
             builder.AddInMemoryConfiguration(configStore);
         }
 
+        public static void AddControllersProxy(IServiceCollection services)
+        {
+            services.AddControllers();
+        }
+
         public static List<Action<HostBuilderContext, IServiceCollection>> ConfigureServicesDelegatesProxy { get; } = AppBuilder.Instance.ConfigureServicesDelegates;
         public static List<Action<HostBuilderContext, IConfigurationBuilder>> ConfigureAppConfigurationDelegatesProxy { get; } = AppBuilder.Instance.ConfigureAppConfigurationDelegates;
         public static List<Action<HostBuilderContext, ILoggingBuilder>> ConfigureLoggingDelegatesProxy { get; } = AppBuilder.Instance.ConfigureLoggingDelegates;
         public static List<IActuator> ActuatorsProxy { get; } = AppBuilder.Instance.Actuators;
         public static Dictionary<string, string> InMemoryConfigStoreProxy { get; } = AppBuilder.Instance.InMemoryConfigStore;
+        public static List<Type> HandlersProxy { get; } = AppBuilder.Instance.Handlers;
     }
 }

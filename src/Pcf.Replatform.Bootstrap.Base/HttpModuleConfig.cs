@@ -1,12 +1,13 @@
 ﻿using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Web;
 
 [assembly: PreApplicationStartMethod(typeof(HttpModuleConfig), "ConfigureModules")]
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     public class HttpModuleConfig
     {
@@ -22,9 +23,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging
         {
             return new List<Type>
             {
-                typeof(InboundRequestObserverModule),
-                typeof(ScopedLoggingModule),
-                typeof(GlobalErrorHandlerModule),
+                typeof(DynamicHttpHandlerModule),
             };
         }
     }

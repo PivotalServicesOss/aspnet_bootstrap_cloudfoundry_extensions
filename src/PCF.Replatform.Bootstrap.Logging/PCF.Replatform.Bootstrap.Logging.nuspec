@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Package helps to bootstrap a full framework application to PCF by adding cloud native distributed logging, enhanced with Serilog</description>
-    <copyright>Copyright © 2019</copyright>
+    <copyright>$PivotalServicesBootstrapCopyright$</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Logging</tags>
     <frameworkAssemblies>
@@ -22,7 +22,7 @@
         <dependency id="Microsoft.Web.Infrastructure" version ="$MicrosoftWebVersion$"/>
         <dependency id="Steeltoe.Extensions.Logging.SerilogDynamicLogger" version ="$SteeltoeVersion$"/>
         <dependency id="Steeltoe.Management.TracingBase" version ="$SteeltoeManagementVersion$"/>
-        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapBaseVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapPackageVersion$"/>
       </group>
     </dependencies>
   </metadata>

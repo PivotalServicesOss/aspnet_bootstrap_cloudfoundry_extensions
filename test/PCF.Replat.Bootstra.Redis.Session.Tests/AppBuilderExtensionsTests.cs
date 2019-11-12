@@ -1,13 +1,8 @@
 ﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Testing;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 namespace PCF.Replat.Bootstra.Redis.Session.Tests
 {
     public class AppBuilderExtensionsTests
@@ -21,3 +16,4 @@ namespace PCF.Replat.Bootstra.Redis.Session.Tests
         }
     }
 }
+#pragma warning restore CS0618 // Type or member is obsolete

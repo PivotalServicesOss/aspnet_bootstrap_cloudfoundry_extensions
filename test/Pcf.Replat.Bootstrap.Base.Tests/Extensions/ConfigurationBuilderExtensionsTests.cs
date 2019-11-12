@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 namespace Pcf.Replat.Bootstrap.Base.Tests
 {
     public class ConfigurationBuilderExtensionsTests
@@ -32,3 +33,4 @@ namespace Pcf.Replat.Bootstrap.Base.Tests
         }
     }
 }
+#pragma warning restore CS0618 // Type or member is obsolete

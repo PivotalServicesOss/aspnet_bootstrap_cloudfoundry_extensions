@@ -2,7 +2,7 @@
 using Moq;
 using OpenCensus.Trace;
 using OpenCensus.Trace.Propagation;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Observers;
 using Steeltoe.Management.Census.Trace;
 using Steeltoe.Management.Tracing.Observer;
 using Xunit;

@@ -1,4 +1,4 @@
-$script:project_config = "Release"
+$script:project_config = "Debug"
 properties {
   Framework '4.7'
   $base_dir = resolve-path .
@@ -39,6 +39,9 @@ task emitProperties {
   Write-Host "solution_file=$solution_file"
   Write-Host "test_dir=$test_dir"
   Write-Host "publish_dir=$publish_dir"
+  Write-Host "project_config=$project_config"
+  Write-Host "version=$version"
+  Write-Host "ReleaseNumber=$ReleaseNumber"
 }
 
 task help {
@@ -51,8 +54,8 @@ task help {
 }
 
 #These are the actual build tasks. They should be Pascal case by convention
-task DevBuild -depends emitProperties, UpdateVersionProps, SetDebugBuild, Clean, Restore, Compile, UnitTest
-task CiBuild -depends emitProperties, UpdateVersionProps, SetReleaseBuild, Clean, Restore, Compile, UnitTest
+task DevBuild -depends SetDebugBuild, emitProperties, Clean, Restore, Compile, UnitTest
+task CiBuild -depends SetReleaseBuild, emitProperties, Clean, Restore, Compile, UnitTest
 task CiPublish -depends CiBuild, NugetPack
 task ReleaseLocal -depends DevBuild, NugetPushLocal
 task ReleaseNuget -depends CiPublish, NugetPack, NugetPush
@@ -64,15 +67,6 @@ task SetDebugBuild {
 
 task SetReleaseBuild {
     $script:project_config = "Release"
-}
-
-task SetVersion {
-    set-content $base_dir\CommonAssemblyInfo.cs "// Generated file - do not modify",
-            "using System.Reflection;",
-            "[assembly: AssemblyVersion(`"$version`")]",
-            "[assembly: AssemblyFileVersion(`"$version`")]",
-            "[assembly: AssemblyInformationalVersion(`"$version`")]"
-    Write-Host "Using version#: $version"
 }
 
 task NugetPushLocal -depends NugetPack {
@@ -121,14 +115,6 @@ task NugetPack -depends UnitTest{
 	}
 
 	Pop-Location
-}
-
-task UpdateVersionProps {
-	Write-Host "******************* Updating versions.props file with Base package version as $version *********************"
-    $verPropsPath = "$base_dir\versions.props"
-    $verProps = [xml](Get-content $verPropsPath)
-    $verProps.Project.PropertyGroup.PivotalServicesBootstrapBaseVersion = "$version"
-    $verProps.Save($verPropsPath)
 }
 
 task UnitTest -depends Compile{
@@ -217,12 +203,11 @@ function global:get_vstest_executable() {
 }
 
 function global:get_version(){
-    Write-Host "******************* Getting the Version Number ********************"
-    $version = get-content "$base_Dir\package.version" -ErrorAction SilentlyContinue
-    if ($version -eq $null) {
-        Write-Host "--------- No version found defaulting to 1.0.0 --------------------" -foregroundcolor Red
-        $version = '1.0.0'
-    }
-    return $version
+	$verPropsPath = "$base_dir\versions.props"
+    $verProps = [xml](Get-content $verPropsPath)
+    $versionNumber = $verProps.Project.PropertyGroup[0].PivotalServicesBootstrapVersion
+    $versionSuffix = $verProps.Project.PropertyGroup[0].PivotalServicesBootstrapVersionSuffix
+
+    return  $versionNumber+$versionSuffix
 }
 
