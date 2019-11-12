@@ -69,6 +69,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             foreach (var handler in Handlers)
                 ConfigureServicesDelegates.Add((builder, services) => { services.AddSingleton(typeof(IDynamicHttpHandler), handler); });
 
+            ConfigureServicesDelegates.Add((builderContext, services) =>
+            {
+                services.AddControllers();
+            });
+
             AppConfig.Configure(ConfigureAppConfigurationDelegates,
                                 ConfigureServicesDelegates,
                                 ConfigureLoggingDelegates,

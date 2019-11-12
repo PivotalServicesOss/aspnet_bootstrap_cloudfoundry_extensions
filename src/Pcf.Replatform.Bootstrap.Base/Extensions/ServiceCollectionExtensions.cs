@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Http.Controllers;
 
-namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
+namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
     internal static class ServiceCollectionExtensions
     {

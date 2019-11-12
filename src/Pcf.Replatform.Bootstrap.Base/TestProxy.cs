@@ -20,6 +20,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Testing
             builder.AddInMemoryConfiguration(configStore);
         }
 
+        public static void AddControllersProxy(IServiceCollection services)
+        {
+            services.AddControllers();
+        }
+
         public static List<Action<HostBuilderContext, IServiceCollection>> ConfigureServicesDelegatesProxy { get; } = AppBuilder.Instance.ConfigureServicesDelegates;
         public static List<Action<HostBuilderContext, IConfigurationBuilder>> ConfigureAppConfigurationDelegatesProxy { get; } = AppBuilder.Instance.ConfigureAppConfigurationDelegates;
         public static List<Action<HostBuilderContext, ILoggingBuilder>> ConfigureLoggingDelegatesProxy { get; } = AppBuilder.Instance.ConfigureLoggingDelegates;
