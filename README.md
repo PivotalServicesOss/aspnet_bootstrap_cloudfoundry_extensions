@@ -27,7 +27,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 
 ### Salient features
 - One stop package/reference code for replatforming ASP.NET apps to Pivotal Platform (PAS)
-- Uses [Steeltoe](https://steeltoe.io) 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder
+- Uses [Steeltoe](https://steeltoe.io) 2.x versions for Configuration, Dynamic Logging, Connector, CF Actuators and CF Metrics Forwarder.
 - Supports distributed and structured logging, enhanced with Serilog
 - Supports IoC using Autofac and Unity apart from native Microsoft ServiceCollection
 - Provision for injecting http pipeline handlers on the fly
@@ -35,7 +35,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - Supports configuration placeholder resolving using pattern matching like, `${variable_name}`. Refer [SteeltoeAppConfiguration](https://steeltoe.io/app-configuration/docs) for more details
 - Pull in secrets from credhub with easy placeholder resolvements
 - Injects all above configuration into WebConfiguration (appsettings, connection strings and providers) at runtime so as to be used by legacy libraries relying on.
-- Helps in getting an ASP.Net app to Pivotal Platform (PAS) or any Cloud Foundry platform within short span of time
+- Helps in getting an ASP.Net app to Pivotal Platform (PAS - Cloud Foundry) within short span of time and effort
 - Supports Session persistence to Redis
 - Explicit access to any of the injected dependencies across your code. For e.g to access `IConfiguration` you can access it using `DependencyContainer.GetService<IConfiguration>()`. You can also access them via constructor injection which absolutely depends on the IoC framework and application.
 
