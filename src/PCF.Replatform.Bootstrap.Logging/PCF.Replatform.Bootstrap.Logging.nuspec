@@ -23,6 +23,8 @@
         <dependency id="Steeltoe.Extensions.Logging.SerilogDynamicLogger" version ="$SteeltoeVersion$"/>
         <dependency id="Steeltoe.Management.TracingBase" version ="$SteeltoeManagementVersion$"/>
         <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapPackageVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Configuration" version ="$PivotalServicesBootstrapPackageVersion$"/>
+        <dependency id="Serilog.Sinks.Debug" version ="$SerilogSinksDebug$"/>
       </group>
     </dependencies>
   </metadata>

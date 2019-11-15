@@ -41,6 +41,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<IActuator>>(instance, "Actuators").Add(new CfActuator());
 
+            instance.AddDefaultConfigurations();
+            instance.AddConfigServer();
+
             return instance;
         }
 
@@ -53,6 +56,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<IActuator>>(instance, "Actuators").Add(new CfMetricsForwarder());
+
+            instance.AddDefaultConfigurations();
+            instance.AddConfigServer();
 
             return instance;
         }

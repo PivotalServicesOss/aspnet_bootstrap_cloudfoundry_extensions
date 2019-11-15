@@ -89,6 +89,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                             loggingBuilder.Services.AddDefaultDiagnosticsDependencies(builderContext.Configuration);
                         }
                     });
+
+            instance.AddDefaultConfigurations();
+            instance.AddConfigServer();
+
             return instance;
         }
     }
