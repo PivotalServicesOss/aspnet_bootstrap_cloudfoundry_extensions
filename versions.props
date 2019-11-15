@@ -1,8 +1,8 @@
 <Project>
   <PropertyGroup>
     <PivotalServicesBootstrapVersion>2.0.0</PivotalServicesBootstrapVersion>
-    <PivotalServicesBootstrapVersionSuffix>-rc3d2</PivotalServicesBootstrapVersionSuffix>
-    <PivotalServicesBootstrapVersionRevision>2</PivotalServicesBootstrapVersionRevision>
+    <PivotalServicesBootstrapVersionSuffix>-rc3d3</PivotalServicesBootstrapVersionSuffix>
+    <PivotalServicesBootstrapVersionRevision>20033</PivotalServicesBootstrapVersionRevision>
     <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
     <PivotalServicesBootstrapPackageVersion>$(PivotalServicesBootstrapVersion)$(PivotalServicesBootstrapVersionSuffix)</PivotalServicesBootstrapPackageVersion>

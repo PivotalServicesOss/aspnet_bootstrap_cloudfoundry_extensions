@@ -1,0 +1,1 @@
+﻿cf create-service credhub default CredHub \ -c '{"db1username":"myusernameFromCredHub", "db1password":"mySecretPasswordFromCredHub"}

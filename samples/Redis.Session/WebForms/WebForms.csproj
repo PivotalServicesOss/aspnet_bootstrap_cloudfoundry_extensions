@@ -132,12 +132,6 @@
     <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Pipelines.Sockets.Unofficial.1.0.7\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.0.0-rc2\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\PivotalServices.AspNet.Replatform.Cf.Redis.Session.2.0.0-rc2\lib\net462\PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.dll</HintPath>
-    </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\StackExchange.Redis.2.0.519\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
@@ -295,6 +289,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="manifest.yml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -393,6 +388,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj">
+      <Project>{cc6a1c47-8aa9-45d0-9c0a-ad15dcffe04a}</Project>
+      <Name>PCF.Replatform.Bootstrap.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\PCF.Replatform.Bootstrap.Redis.Session\PCF.Replatform.Bootstrap.Redis.Session.csproj">
+      <Project>{227ea594-8a77-4a72-9f39-8b73ffd2ee79}</Project>
+      <Name>PCF.Replatform.Bootstrap.Redis.Session</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -18,6 +18,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                     WebConfigurationHelper.ValidateWebConfigurationForRedisSessionState();
                     services.AddRedisConnectionMultiplexer(builderContext.Configuration);
             });
+
+            instance.AddDefaultConfigurations();
+
             return instance;
         }
     }
