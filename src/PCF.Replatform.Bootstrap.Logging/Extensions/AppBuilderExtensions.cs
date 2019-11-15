@@ -25,31 +25,31 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore.Add("Serilog:MinimumLevel:Default", "Information");
-            inMemoryConfigStore.Add("Serilog:MinimumLevel:Override:Microsoft", "Warning");
-            inMemoryConfigStore.Add("Serilog:MinimumLevel:Override:System", "Warning");
-            inMemoryConfigStore.Add("Serilog:MinimumLevel:Override:Pivotal", "Warning");
-            inMemoryConfigStore.Add("Serilog:MinimumLevel:Override:Steeltoe", "Warning");
+            inMemoryConfigStore["Serilog:MinimumLevel:Default"] = "Information";
+            inMemoryConfigStore["Serilog:MinimumLevel:Override:Microsoft"] = "Warning";
+            inMemoryConfigStore["Serilog:MinimumLevel:Override:System"] = "Warning";
+            inMemoryConfigStore["Serilog:MinimumLevel:Override:Pivotal"] = "Warning";
+            inMemoryConfigStore["Serilog:MinimumLevel:Override:Steeltoe"] = "Warning";
 
-            inMemoryConfigStore.Add("Serilog:Using:0", "Serilog.Sinks.Console");
-            inMemoryConfigStore.Add("Serilog:Using:1", "Serilog.Sinks.Debug");
+            inMemoryConfigStore["Serilog:Using:0"] = "Serilog.Sinks.Console";
+            inMemoryConfigStore["Serilog:Using:1"] = "Serilog.Sinks.Debug";
 
-            inMemoryConfigStore.Add("Serilog:WriteTo:0:Name", "Console");
-            inMemoryConfigStore.Add("Serilog:WriteTo:1:Name", "Debug");
+            inMemoryConfigStore["Serilog:WriteTo:0:Name"] = "Console";
+            inMemoryConfigStore["Serilog:WriteTo:1:Name"] = "Debug";
 
-            if(includeDistributedTracing)
+            if (includeDistributedTracing)
             {
-                inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
-                inMemoryConfigStore.Add("Serilog:WriteTo:1:Args:outputTemplate", "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
+                inMemoryConfigStore["Serilog:WriteTo:0:Args:outputTemplate"] = "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}";
+                inMemoryConfigStore["Serilog:WriteTo:1:Args:outputTemplate"] = "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}";
 
-                inMemoryConfigStore.Add("management:tracing:AlwaysSample", "true");
-                inMemoryConfigStore.Add("management:tracing:UseShortTraceIds", "false");
-                inMemoryConfigStore.Add("management:tracing:EgressIgnorePattern", "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*");
+                inMemoryConfigStore["management:tracing:AlwaysSample"] = "true";
+                inMemoryConfigStore["management:tracing:UseShortTraceIds"] = "false";
+                inMemoryConfigStore["management:tracing:EgressIgnorePattern"] = "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*";
             }
             else
             {
-                inMemoryConfigStore.Add("Serilog:WriteTo:0:Args:outputTemplate", "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
-                inMemoryConfigStore.Add("Serilog:WriteTo:1:Args:outputTemplate", "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}");
+                inMemoryConfigStore["Serilog:WriteTo:0:Args:outputTemplate"] = "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}";
+                inMemoryConfigStore["Serilog:WriteTo:1:Args:outputTemplate"] = "[{Level}]RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}";
             }
 
             var handlers = ReflectionHelper
@@ -67,7 +67,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, ILoggingBuilder>>>(instance, "ConfigureLoggingDelegates")
-                    .Add((builderContext, loggingBuilder) => {
+                    .Add((builderContext, loggingBuilder) =>
+                    {
                         var loggerConfiguration = new LoggerConfiguration()
                                                                 .ReadFrom.Configuration(builderContext.Configuration)
                                                                 .Enrich.FromLogContext()
@@ -78,7 +79,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                         loggerConfiguration.MinimumLevel.ControlledBy(levelSwitch);
 
                         var logger = loggerConfiguration.CreateLogger();
-                        
+
                         Log.Logger = logger;
 
                         loggingBuilder.Services.AddSingleton<IDynamicLoggerProvider>(sp => new SerilogDynamicProvider(sp.GetRequiredService<IConfiguration>(), logger, levelSwitch));

@@ -61,20 +61,20 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore.Add("spring:application:name", "${vcap:application:name}");
-            inMemoryConfigStore.Add("spring:cloud:config:name", "${vcap:application:name}");
+            inMemoryConfigStore["spring:application:name"] = "${vcap:application:name}";
+            inMemoryConfigStore["spring:cloud:config:name"] = "${vcap:application:name}";
 
             if (!string.IsNullOrWhiteSpace(environment))
-                inMemoryConfigStore.Add("spring:cloud:config:env", environment);
+                inMemoryConfigStore["spring:cloud:config:env"] = environment;
             else if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(ASPNET_ENV_VAR)))
-                inMemoryConfigStore.Add("spring:cloud:config:env", "${ASPNETCORE_ENVIRONMENT}");
+                inMemoryConfigStore["spring:cloud:config:env"] = "${ASPNETCORE_ENVIRONMENT}";
             else
-            { 
+            {
                 //do nothing 
             }
 
-            inMemoryConfigStore.Add("spring:cloud:config:validate_certificates", "false");
-            inMemoryConfigStore.Add("spring:cloud:config:failFast", "false");
+            inMemoryConfigStore["spring:cloud:config:validate_certificates"] = "false";
+            inMemoryConfigStore["spring:cloud:config:failFast"] = "false";
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IConfigurationBuilder>>>(instance, "ConfigureAppConfigurationDelegates")
