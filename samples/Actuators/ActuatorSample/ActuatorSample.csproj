@@ -49,6 +49,18 @@
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNetCore.Http.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNetCore.Http.Features.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.DiaSymReader, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.DiaSymReader.1.2.0\lib\net20\Microsoft.DiaSymReader.dll</HintPath>
@@ -122,14 +134,26 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="NetEscapades.Configuration.Yaml, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NetEscapades.Configuration.Yaml.1.6.0\lib\net451\NetEscapades.Configuration.Yaml.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\PivotalServices.AspNet.Replatform.Cf.Actuators.2.0.0-rc2\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PivotalServices.AspNet.Replatform.Cf.Actuators.2.0.0-rc3d2\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.0.0-rc2\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.0.0-rc3d2\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.0.0-rc3d2\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Serilog.2.5.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Debug, Version=1.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Serilog.Sinks.Debug.1.0.1\lib\net46\Serilog.Sinks.Debug.dll</HintPath>
     </Reference>
     <Reference Include="Steeltoe.Common, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Steeltoe.Common.2.4.0-rc1\lib\netstandard2.0\Steeltoe.Common.dll</HintPath>
@@ -139,6 +163,18 @@
     </Reference>
     <Reference Include="Steeltoe.Extensions.Configuration.CloudFoundryBase, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Steeltoe.Extensions.Configuration.CloudFoundryBase.2.4.0-rc1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.CloudFoundryBase.dll</HintPath>
+    </Reference>
+    <Reference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Steeltoe.Extensions.Configuration.CloudFoundryCore.2.4.0-rc1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.CloudFoundryCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Steeltoe.Extensions.Configuration.ConfigServerBase, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Steeltoe.Extensions.Configuration.ConfigServerBase.2.4.0-rc1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.ConfigServerBase.dll</HintPath>
+    </Reference>
+    <Reference Include="Steeltoe.Extensions.Configuration.PlaceholderBase, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Steeltoe.Extensions.Configuration.PlaceholderBase.2.4.0-rc1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.PlaceholderBase.dll</HintPath>
+    </Reference>
+    <Reference Include="Steeltoe.Extensions.Configuration.PlaceholderCore, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Steeltoe.Extensions.Configuration.PlaceholderCore.2.4.0-rc1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.PlaceholderCore.dll</HintPath>
     </Reference>
     <Reference Include="Steeltoe.Extensions.Logging.DynamicLogger, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Steeltoe.Extensions.Logging.DynamicLogger.2.4.0-rc1\lib\netstandard2.0\Steeltoe.Extensions.Logging.DynamicLogger.dll</HintPath>
@@ -212,6 +248,7 @@
     <Reference Include="System.Reflection.Metadata, Version=1.4.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Reflection.Metadata.1.4.2\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -234,6 +271,9 @@
       <HintPath>..\..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -287,6 +327,9 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\YamlDotNet.5.1.0\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

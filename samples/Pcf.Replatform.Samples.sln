@@ -3,46 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{27181691-9684-4254-AE70-DBF6444BCA73}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{38D8940E-06DB-4BCA-A219-E3C6A8C40940}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.Base", "src\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj", "{5E803BC4-0E14-4BAF-9B7A-BA5361EBC4AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resis_session", "resis_session", "{2C09F51F-75FD-43EE-B71E-0B84A6FF1EDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.Actuators", "src\PCF.Replatform.Bootstrap.Actuators\PCF.Replatform.Bootstrap.Actuators.csproj", "{4D1FA024-2DFC-4876-9BD2-9878FE1234C4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logging", "logging", "{AF7F510B-3038-4254-8535-454F5D64AE20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.Configuration", "src\PCF.Replatform.Bootstrap.Configuration\PCF.Replatform.Bootstrap.Configuration.csproj", "{210EDD81-DF2C-49D4-B3E2-01B739AF3165}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configuration", "{153EFD7F-42EF-4C81-963F-9DF5E54295AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.Logging", "src\PCF.Replatform.Bootstrap.Logging\PCF.Replatform.Bootstrap.Logging.csproj", "{D90F5A43-667E-4208-BB55-157579820810}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actuators", "actuators", "{958BEAD6-F7CC-49F1-8047-1BEB4E4883E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.Redis.Session", "src\PCF.Replatform.Bootstrap.Redis.Session\PCF.Replatform.Bootstrap.Redis.Session.csproj", "{43E70864-1D18-4028-BD1D-5C04BD4DAA66}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base", "base", "{D47330C6-04A9-47DA-9F69-13871CC477EB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution_items", "solution_items", "{2FDD2735-3158-43EB-94C8-3FB0F9264BEE}"
-	ProjectSection(SolutionItems) = preProject
-		azure-pipelines.yml = azure-pipelines.yml
-		build.bat = build.bat
-		configure-build.ps1 = configure-build.ps1
-		default.ps1 = default.ps1
-		README.md = README.md
-		versions.props = versions.props
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForms", "Redis.Session\WebForms\WebForms.csproj", "{E23E0D5C-CDC4-4713-8B65-03FF9D3B051C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "Logging\WebApi\WebApi.csproj", "{FF65C2BD-B0CE-4D78-8B02-9E05C28F450A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Base.Tests", "test\Pcf.Replat.Bootstrap.Base.Tests\PCF.Replat.Bootstrap.Base.Tests.csproj", "{261A9231-922A-42FC-93E0-19EF81873A1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForm", "Logging\WebForm\WebForm.csproj", "{A370004D-1945-4E83-BFBA-280EC88C297B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstra.Configuration.Tests", "test\PCF.Replat.Bootstra.Configuration.Tests\PCF.Replat.Bootstra.Configuration.Tests.csproj", "{1621AE84-3A52-48B5-8AB8-530690BF3541}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample1", "Configuration\Sample1\Sample1.csproj", "{E9567715-A72B-43A9-BA9D-C08439F0D06A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Logging.Tests", "test\PCF.Replat.Bootstrap.Logging.Tests\PCF.Replat.Bootstrap.Logging.Tests.csproj", "{8EB7C644-6E7E-494F-9BF8-F9DD6AB3FD4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActuatorSample", "Actuators\ActuatorSample\ActuatorSample.csproj", "{923D74A1-20B0-4786-8969-8A030D881621}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstra.Redis.Session.Tests", "test\PCF.Replat.Bootstra.Redis.Session.Tests\PCF.Replat.Bootstra.Redis.Session.Tests.csproj", "{215590A9-213E-4CC4-99F5-32EC048D0ED4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.Actuators.Tests", "test\PCF.Replat.Bootstrap.Actuators.Tests\PCF.Replat.Bootstrap.Actuators.Tests.csproj", "{0028B33C-001E-44FA-B273-A4BE6ED6CDF1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Test.Helpers", "test\PCF.Replatform.Test.Helpers\PCF.Replatform.Test.Helpers.csproj", "{CB639EE8-26AD-4569-B681-E8DDBB3EF32A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "release_info", "release_info", "{A86021D0-484B-4CDA-8D2D-EE5D77857131}"
-	ProjectSection(SolutionItems) = preProject
-		release_info\README.md = release_info\README.md
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicHandler", "Base\DynamicHandler\DynamicHandler.csproj", "{46E642A1-39DC-4727-9445-D970AF5D73C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
