@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DynamicHandler.Handlers;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +18,11 @@ namespace DynamicHandler
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            AppBuilder.Instance
+                .AddDynamicHttpHandler<AppInfoApiHandler>()
+                .AddDynamicHttpHandler<SimpleAuthHandler>()
+                .Build().Start();
         }
     }
 }

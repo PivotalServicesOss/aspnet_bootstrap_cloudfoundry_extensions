@@ -11,7 +11,7 @@ namespace DynamicHandler
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblUser.Text = User.Identity.Name;
         }
     }
 }
