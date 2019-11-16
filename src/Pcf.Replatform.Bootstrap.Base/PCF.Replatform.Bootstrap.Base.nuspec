@@ -25,4 +25,7 @@
       <frameworkAssembly assemblyName="System.Web"  targetFramework="$TargetFrameworkGeneral$" />
     </frameworkAssemblies>
   </metadata>
+  <files>
+    <file src="readme.txt" target="" />
+  </files>
 </package>
