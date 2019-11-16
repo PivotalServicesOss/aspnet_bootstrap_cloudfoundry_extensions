@@ -9,14 +9,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
     {
         internal static List<IDynamicHttpHandler> Handlers { get; } = new List<IDynamicHttpHandler>();
 
-        private ILogger<DynamicHttpHandlerModule> logger;
-
         public DynamicHttpHandlerModule() { }
 
         public void Init(HttpApplication application)
         {
-            logger = DependencyContainer.GetService<ILogger<DynamicHttpHandlerModule>>(true);
-
             foreach (var handler in Handlers)
                 handler.RegisterEvent(application);
         }

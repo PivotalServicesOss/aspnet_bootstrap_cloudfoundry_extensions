@@ -21,6 +21,7 @@
         <dependency id="Microsoft.Web.RedisSessionStateProvider" version ="$MicrosoftWebRedisVersion$"/>
         <dependency id="Steeltoe.CloudFoundry.ConnectorCore" version ="$SteeltoeVersion$"/>
         <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapPackageVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Configuration" version ="$PivotalServicesBootstrapPackageVersion$"/>
       </group>
     </dependencies>
   </metadata>

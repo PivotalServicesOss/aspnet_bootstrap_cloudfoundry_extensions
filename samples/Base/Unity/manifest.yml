@@ -1,0 +1,8 @@
+﻿---
+applications:
+- name: base_unity_sample
+  memory: 1024M
+  stack: windows
+  buildpacks:
+   - hwc_buildpack
+

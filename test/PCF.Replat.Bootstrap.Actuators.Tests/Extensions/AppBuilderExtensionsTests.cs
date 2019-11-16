@@ -11,9 +11,13 @@ namespace PCF.Replat.Bootstrap.Actuators.Tests
         public void Test_AddCloudFoundryHealthActuators_AddsIntoActuatorCollection()
         {
             TestProxy.InMemoryConfigStoreProxy.Clear();
+            TestProxy.ConfigureServicesDelegatesProxy.Clear();
             TestProxy.ActuatorsProxy.Clear();
             AppBuilder.Instance.AddCloudFoundryActuators();
+
             Assert.Single(TestProxy.ActuatorsProxy);
+            Assert.Equal(2, TestProxy.ConfigureServicesDelegatesProxy.Count);
+
             Assert.Equal("/cloudfoundryapplication", TestProxy.InMemoryConfigStoreProxy["management:endpoints:path"]);
             Assert.Equal("false", TestProxy.InMemoryConfigStoreProxy["management:endpoints:cloudfoundry:validateCertificates"]);
             Assert.Equal("${vcap:application:name}", TestProxy.InMemoryConfigStoreProxy["info:ApplicationName"]);
@@ -25,8 +29,12 @@ namespace PCF.Replat.Bootstrap.Actuators.Tests
         public void Test_AddCloudFoundryActuators_AddsIntoActuatorCollection_WithBasePath()
         {
             TestProxy.InMemoryConfigStoreProxy.Clear();
+            TestProxy.ConfigureServicesDelegatesProxy.Clear();
             TestProxy.ActuatorsProxy.Clear();
+
             AppBuilder.Instance.AddCloudFoundryActuators("/foo");
+            Assert.Equal(2, TestProxy.ConfigureServicesDelegatesProxy.Count);
+
             Assert.Single(TestProxy.ActuatorsProxy);
             Assert.Equal("/foo/cloudfoundryapplication", TestProxy.InMemoryConfigStoreProxy["management:endpoints:path"]);
             Assert.Equal("false", TestProxy.InMemoryConfigStoreProxy["management:endpoints:cloudfoundry:validateCertificates"]);
@@ -36,9 +44,14 @@ namespace PCF.Replat.Bootstrap.Actuators.Tests
         public void Test_AddCloudFoundryMetricsForwarder_AddsIntoActuatorCollection()
         {
             TestProxy.InMemoryConfigStoreProxy.Clear();
+            TestProxy.ConfigureServicesDelegatesProxy.Clear();
             TestProxy.ActuatorsProxy.Clear();
+
             AppBuilder.Instance.AddCloudFoundryMetricsForwarder();
+
             Assert.Single(TestProxy.ActuatorsProxy);
+            Assert.Equal(2, TestProxy.ConfigureServicesDelegatesProxy.Count);
+
             Assert.Equal("false", TestProxy.InMemoryConfigStoreProxy["management:metrics:exporter:cloudfoundry:validateCertificates"]);
         }
     }

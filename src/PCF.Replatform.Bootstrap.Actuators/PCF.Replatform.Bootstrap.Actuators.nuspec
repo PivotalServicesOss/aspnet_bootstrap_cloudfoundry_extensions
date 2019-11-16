@@ -20,6 +20,7 @@
         <dependency id="Steeltoe.Management.EndpointWeb" version ="$SteeltoeManagementVersion$"/>
         <dependency id="Steeltoe.Management.ExporterBase" version ="$SteeltoeManagementVersion$"/>
         <dependency id="PivotalServices.AspNet.Replatform.Cf.Base" version ="$PivotalServicesBootstrapPackageVersion$"/>
+        <dependency id="PivotalServices.AspNet.Replatform.Cf.Configuration" version ="$PivotalServicesBootstrapPackageVersion$"/>
       </group>
       <!--<dependency id="GitInfo" version="$GitInfoVersion$" />-->
     </dependencies>

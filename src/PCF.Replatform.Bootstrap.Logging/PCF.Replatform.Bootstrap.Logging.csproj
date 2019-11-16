@@ -28,6 +28,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj" />
+    <ProjectReference Include="..\PCF.Replatform.Bootstrap.Configuration\PCF.Replatform.Bootstrap.Configuration.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,13 @@
+﻿---
+applications:
+- name: credhub_configuration_sample
+  memory: 1024M
+  stack: windows
+  buildpacks:
+   - hwc_buildpack
+  services:
+   - ConfigServer
+   - CredHub
+  env:
+    ASPNETCORE_ENVIRONMENT: dev
+    #"connectionStrings:conn1": "conn1 value coming from environment variables"

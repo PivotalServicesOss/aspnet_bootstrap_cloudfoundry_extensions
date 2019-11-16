@@ -20,26 +20,29 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore.Add("Logging:LogLevel:Default", "Information");
-            inMemoryConfigStore.Add("Logging:LogLevel:System", "Warning");
-            inMemoryConfigStore.Add("Logging:LogLevel:Microsoft", "Warning");
-            inMemoryConfigStore.Add("Logging:LogLevel:Steeltoe", "Warning");
-            inMemoryConfigStore.Add("Logging:LogLevel:Pivotal", "Warning");
-            inMemoryConfigStore.Add("Logging:Console:IncludeScopes", "true");
+            inMemoryConfigStore["Logging:LogLevel:Default"] = "Information";
+            inMemoryConfigStore["Logging:LogLevel:System"] = "Warning";
+            inMemoryConfigStore["Logging:LogLevel:Microsoft"] = "Warning";
+            inMemoryConfigStore["Logging:LogLevel:Steeltoe"] = "Warning";
+            inMemoryConfigStore["Logging:LogLevel:Pivotal"] = "Warning";
+            inMemoryConfigStore["Logging:Console:IncludeScopes"] = "true";
 
             if (string.IsNullOrWhiteSpace(basePath))
-                inMemoryConfigStore.Add("management:endpoints:path", "/cloudfoundryapplication");
+                inMemoryConfigStore["management:endpoints:path"] = "/cloudfoundryapplication";
             else
-                inMemoryConfigStore.Add("management:endpoints:path", $"{basePath.TrimEnd('/')}/cloudfoundryapplication");
+                inMemoryConfigStore["management:endpoints:path"] = $"{basePath.TrimEnd('/')}/cloudfoundryapplication";
 
-            inMemoryConfigStore.Add("management:endpoints:cloudfoundry:validateCertificates", "false");
+            inMemoryConfigStore["management:endpoints:cloudfoundry:validateCertificates"] = "false";
 
-            inMemoryConfigStore.Add("info:ApplicationName", "${vcap:application:name}");
-            inMemoryConfigStore.Add("info:CurrentEnvironment", "${ASPNETCORE_ENVIRONMENT}");
-            inMemoryConfigStore.Add("info:AssemblyInfo", Assembly.GetCallingAssembly().FullName);
+            inMemoryConfigStore["info:ApplicationName"] = "${vcap:application:name}";
+            inMemoryConfigStore["info:CurrentEnvironment"] = "${ASPNETCORE_ENVIRONMENT}";
+            inMemoryConfigStore["info:AssemblyInfo"] = Assembly.GetCallingAssembly().FullName;
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<IActuator>>(instance, "Actuators").Add(new CfActuator());
+
+            instance.AddDefaultConfigurations();
+            instance.AddConfigServer();
 
             return instance;
         }
@@ -49,10 +52,13 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore.Add("management:metrics:exporter:cloudfoundry:validateCertificates", "false");
+            inMemoryConfigStore["management:metrics:exporter:cloudfoundry:validateCertificates"] = "false";
 
             ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<IActuator>>(instance, "Actuators").Add(new CfMetricsForwarder());
+
+            instance.AddDefaultConfigurations();
+            instance.AddConfigServer();
 
             return instance;
         }
