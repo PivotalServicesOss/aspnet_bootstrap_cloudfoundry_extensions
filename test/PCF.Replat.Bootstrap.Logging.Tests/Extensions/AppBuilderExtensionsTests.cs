@@ -17,6 +17,7 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
             AppBuilder.Instance.AddConsoleSerilogLogging();
 
             Assert.Single(TestProxy.ConfigureLoggingDelegatesProxy);
+            Assert.Equal(2, TestProxy.ConfigureServicesDelegatesProxy.Count);
 
             Assert.Contains(TestProxy.HandlersProxy, h => h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.GlobalErrorHandler");
 
@@ -43,6 +44,7 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
             AppBuilder.Instance.AddConsoleSerilogLogging(true);
 
             Assert.Single(TestProxy.ConfigureLoggingDelegatesProxy);
+            Assert.Equal(2, TestProxy.ConfigureServicesDelegatesProxy.Count);
 
             Assert.Contains(TestProxy.HandlersProxy, h =>h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.GlobalErrorHandler");
             Assert.Contains(TestProxy.HandlersProxy, h =>h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers.ScopedLoggingHandler");

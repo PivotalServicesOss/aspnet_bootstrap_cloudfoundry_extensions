@@ -12,7 +12,7 @@ namespace PCF.Replat.Bootstra.Redis.Session.Tests
         {
             TestProxy.ConfigureServicesDelegatesProxy.Clear();
             AppBuilder.Instance.PersistSessionToRedis();
-            Assert.Single(TestProxy.ConfigureServicesDelegatesProxy);
+            Assert.Equal(2, TestProxy.ConfigureServicesDelegatesProxy.Count);
         }
     }
 }
