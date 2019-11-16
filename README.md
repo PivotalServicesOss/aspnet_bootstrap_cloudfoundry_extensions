@@ -16,6 +16,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging)
 - [Base feature (IoC)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-features-ioc)
 - [Base feature (Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-feature-dynamic-handlers)
+- [Sample Implementations](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/samples) 
 
 ### Supported ASP.NET apps
 - WebAPI
@@ -38,7 +39,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - Helps in getting an ASP.Net app to Pivotal Platform (PAS - Cloud Foundry) within short span of time and effort
 - Supports Session persistence to Redis
 - Explicit access to any of the injected dependencies across your code. For e.g to access `IConfiguration` you can access it using `DependencyContainer.GetService<IConfiguration>()`. You can also access them via constructor injection which absolutely depends on the IoC framework and application.
-
+- Real samples are available [here](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/samples) 
 ### Packages
 - Externalizing Configuration - [PivotalServices.AspNet.Replatform.Cf.Configuration](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration)
 - Cloud Native Logging - [PivotalServices.AspNet.Replatform.Cf.Logging](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
@@ -59,7 +60,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 
 ### Externalizing Configuration
 - Make use of the [web config extension buildpack](https://github.com/cloudfoundry-community/web-config-transform-buildpack) which performs token replacement, transformation, etc. during build staging itself. It requires zero code change. Extension buildpacks are preferred way to do, as they do not need any code changes at all. This buildpack is available in [download from pivnet]( https://network.pivotal.io/products/buildpack-extensions/). For more details, refer to [web-config-transform-buildpack](https://docs.pivotal.io/platform/application-service/2-7/buildpacks/hwc/web-config-transform-buildpack.html). You can also find the sampe app at [Github](https://github.com/cloudfoundry-community/webconfig-example-app). However, if you are unable to get the buildpack in the platform, you can continue with this package.
-- Install package [PivotalServices.AspNet.Replatform.Cf.Configuration](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration), which will add its dependency packages including [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
+- Install package [PivotalServices.AspNet.Replatform.Cf.Configuration](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration)
 - Environment variable `ASPNETCORE_ENVIRONMENT` to be set
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
@@ -72,7 +73,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     	...
         AppBuilder.Instance
                 .AddDefaultConfigurations() 
-                .AddConfigServer() //For config server 
+                .AddConfigServer() //If you have config server bounded 
                 .Build()
                 .Start();
     	...
@@ -87,7 +88,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 	- `environment` to override environment variable `ASPNETCORE_ENVIRONMENT`
 	- `configServerLogger` if a seperate logger factory to be provided
 
-- The order is important here. In this case, configurations from config server take over others
+- The order is important here. In this case, configurations from config server take over others, also make sure these configuration extensions methods (`AddDefaultConfigurations` and `AddConfigServer`) should preceed all other extensions methods.
 - Below is the default configurations will be added internally, but can always override using json or yaml or environment variables as below (if at all required)
 
 ```
@@ -129,7 +130,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
  
 ### Persist Session to Redis
 - Make use of the [persist session in redis extension buildpack](https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack) for persisting session to redis. Extension buildpacks are preferred way to do, as they do not need any code changes at all. However, if you are unable to get the buildpack in the platform, you can continue with this package. Refer the article [cf-buildpack-for-asp-net-apps-to-use-redis-as-session-store-no-code-required](https://www.initpals.com/pcf/cf-buildpack-for-asp-net-apps-to-use-redis-as-session-store-no-code-required/) for more details.
-- Install package [PivotalServices.AspNet.Replatform.Cf.Redis.Session](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session), which will add its dependency packages including [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
+- Install package [PivotalServices.AspNet.Replatform.Cf.Redis.Session](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
 - In `Global.asax.cs` and add code as below under `Application_Start`
     
 ```
@@ -165,7 +166,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - This uses Steeltoe Connector for Redis, to know more about Steeltoe Connectors, go to [Steeltoe Service COnnectors](https://steeltoe.io/service-connectors/get-started)
 
 ### Enabling Cloud Foundry Actuators and Metrics Forwarders
-- Install package [PivotalServices.AspNet.Replatform.Cf.Actuators](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators), which will add its dependency packages including [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
+- Install package [PivotalServices.AspNet.Replatform.Cf.Actuators](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators)
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
 ```
@@ -177,7 +178,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     	...
         AppBuilder.Instance
                 .AddCloudFoundryActuators()
-    		.AddCloudFoundryMetricsForwarder()
+    			.AddCloudFoundryMetricsForwarder()
                 .Build()
                 .Start();
     	...
@@ -197,11 +198,11 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
     	...
         AppBuilder.Instance
                 .AddCloudFoundryActuators()
-    		.AddCloudFoundryMetricsForwarder()
-		.ConfigureServices((hostBuilder, services) =>
-		{
-		      	services.AddTransient<IHealthContributor, MyCustomHealthContributor>();
-		})
+    			.AddCloudFoundryMetricsForwarder()
+				.ConfigureServices((hostBuilder, services) =>
+				{
+		      			services.AddTransient<IHealthContributor, MyCustomHealthContributor>();
+				})
                 .Build()
                 .Start();
     	...
@@ -240,7 +241,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - This uses Steeltoe Management, to know more, go to [Steeltoe Management](https://steeltoe.io/cloud-management/get-started)
 
 ### Enable Cloud Native Logging
-- Install package [PivotalServices.AspNet.Replatform.Cf.Logging](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging), which will add its dependency packages including [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
+- Install package [PivotalServices.AspNet.Replatform.Cf.Logging](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
 ```

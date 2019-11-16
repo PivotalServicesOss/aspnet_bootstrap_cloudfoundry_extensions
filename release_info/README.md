@@ -1,6 +1,7 @@
 #### 2.0.0-rc3
-- Added Configuration package as dependency to Logging and Actuator
-- Serilog.Sinks.Debug missing issue fix
+- Samples added for all implementations, under `/samples` folder
+- Logging, Actuator and Redis Package - issue (due to missing config package dependency) fix
+- Logging - Serilog.Sinks.Debug missing dependency issue fix
 
 #### 2.0.0-rc2
 - Added Yaml configuration support
