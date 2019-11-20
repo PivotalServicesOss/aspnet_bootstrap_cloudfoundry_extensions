@@ -1,8 +1,8 @@
 <Project>
   <PropertyGroup>
     <PivotalServicesBootstrapVersion>2.0.0</PivotalServicesBootstrapVersion>
-    <PivotalServicesBootstrapVersionSuffix>-rc3</PivotalServicesBootstrapVersionSuffix>
-    <PivotalServicesBootstrapVersionRevision>4</PivotalServicesBootstrapVersionRevision>
+    <PivotalServicesBootstrapVersionSuffix>-rc4</PivotalServicesBootstrapVersionSuffix>
+    <PivotalServicesBootstrapVersionRevision>1</PivotalServicesBootstrapVersionRevision>
     <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
     <PivotalServicesBootstrapPackageVersion>$(PivotalServicesBootstrapVersion)$(PivotalServicesBootstrapVersionSuffix)</PivotalServicesBootstrapPackageVersion>
@@ -13,6 +13,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <MicrosoftAspNetVersion>5.2.7</MicrosoftAspNetVersion>
+    <MicrosoftAspNetCoreVersion>2.2.0</MicrosoftAspNetCoreVersion>
     <MicrosoftWebVersion>1.0.0</MicrosoftWebVersion>
     <MicrosoftWebRedisVersion>4.0.1</MicrosoftWebRedisVersion>
     <MicrosoftExtensionsVersion>2.2.0</MicrosoftExtensionsVersion>
@@ -22,6 +23,7 @@
     <SteeltoeManagementVersion>2.4.0-rc1</SteeltoeManagementVersion>
     <SerilogSinksDebug>1.0.1</SerilogSinksDebug>
     <NetEscapadesConfigurationVersion>1.6.0</NetEscapadesConfigurationVersion>
+    <KerberosNetVersion>2.7.508.1</KerberosNetVersion>
     <GitInfoVersion>2.0.21</GitInfoVersion>
     <TargetFrameworkGeneral>net461</TargetFrameworkGeneral>
     <TargetFrameworkRedisSession>net462</TargetFrameworkRedisSession>

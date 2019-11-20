@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\versions.props" />
+  <PropertyGroup>
+    <TargetFramework>$(TargetFrameworkGeneral)</TargetFramework>
+    <RootNamespace>PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth</RootNamespace>
+    <AssemblyName>PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth</AssemblyName>
+    <InformationalVersion>$(PivotalServicesBootstrapInformationalVersion)</InformationalVersion>
+    <AssemblyVersion>$(PivotalServicesBootstrapAssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(PivotalServicesBootstrapFileVersion)</FileVersion>
+    <Copyright>$(PivotalServicesBootstrapCopyright)</Copyright>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="$(MicrosoftAspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="$(MicrosoftAspNetCoreVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions">
+      <Version>$(MicrosoftExtensionsVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Web.Infrastructure">
+      <Version>$(MicrosoftWebVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Kerberos.NET" Version="$(KerberosNetVersion)" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj" />
+    <ProjectReference Include="..\PCF.Replatform.Bootstrap.Configuration\PCF.Replatform.Bootstrap.Configuration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  
+</Project>
