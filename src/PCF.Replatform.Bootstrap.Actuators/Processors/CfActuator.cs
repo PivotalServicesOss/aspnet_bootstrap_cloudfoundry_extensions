@@ -10,7 +10,6 @@ using Steeltoe.Common.HealthChecks;
 using Steeltoe.Extensions.Logging;
 using Steeltoe.Management.Endpoint;
 using Steeltoe.Management.Endpoint.Health.Contributor;
-using Steeltoe.Management.Hypermedia;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -26,13 +25,28 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
             var configuration = DependencyContainer.GetService<IConfiguration>();
             var loggerFactory = GetLoggerFactory(configuration);
 
-            ActuatorConfigurator.UseCloudFoundryActuators(configuration,
-                                                            dynamicLoggerProvider,
-                                                            MediaTypeVersion.V1,
-                                                            ActuatorContext.ActuatorAndCloudFoundry,
-                                                            GetHealthContributors(),
-                                                            GlobalConfiguration.Configuration.Services.GetApiExplorer(),
-                                                            loggerFactory);
+            #region Obsolete nd to be removed after the fix for https://github.com/SteeltoeOSS/steeltoe/issues/161
+            ActuatorConfiguratorOverrides.UseHypermediaActuator(configuration, loggerFactory);
+            ActuatorConfigurator.UseCloudFoundrySecurity(configuration, null, loggerFactory);
+            ActuatorConfigurator.UseCloudFoundryActuator(configuration, loggerFactory);
+            ActuatorConfiguratorOverrides.UseHealthActuator(configuration, null, GetHealthContributors(), loggerFactory);
+            ActuatorConfigurator.UseHeapDumpActuator(configuration, null, loggerFactory);
+            ActuatorConfigurator.UseThreadDumpActuator(configuration, MediaTypeVersion.V1, null, loggerFactory);
+            ActuatorConfiguratorOverrides.UseInfoActuator(configuration, null, loggerFactory);
+            ActuatorConfigurator.UseLoggerActuator(configuration, dynamicLoggerProvider, loggerFactory);
+            ActuatorConfigurator.UseTraceActuator(configuration, MediaTypeVersion.V1, null, loggerFactory);
+            ActuatorConfigurator.UseMappingsActuator(configuration, GlobalConfiguration.Configuration.Services.GetApiExplorer(), loggerFactory);
+            #endregion
+
+            #region Uncoment after the fix for https://github.com/SteeltoeOSS/steeltoe/issues/161
+            //ActuatorConfigurator.UseCloudFoundryActuators(configuration,
+            //                                                dynamicLoggerProvider,
+            //                                                MediaTypeVersion.V1,
+            //                                                ActuatorContext.ActuatorAndCloudFoundry,
+            //                                                GetHealthContributors(),
+            //                                                GlobalConfiguration.Configuration.Services.GetApiExplorer(),
+            //                                                loggerFactory);
+            #endregion
 
             ActuatorConfigurator.UseMetricsActuator(configuration, loggerFactory);
         }

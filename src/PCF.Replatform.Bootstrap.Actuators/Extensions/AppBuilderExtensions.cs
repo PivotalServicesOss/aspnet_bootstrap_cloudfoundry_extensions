@@ -10,6 +10,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     {
         /// <summary>
         /// Enables all CF Actuators for Apps Manager
+        /// Only actuator/health and actuator/info endpoints are exposed due to issue https://github.com/SteeltoeOSS/steeltoe/issues/161
         /// </summary>
         /// <param name="instance"></param>
         /// <param name="basePath"></param>
