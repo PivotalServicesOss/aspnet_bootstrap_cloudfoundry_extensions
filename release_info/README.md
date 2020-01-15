@@ -1,3 +1,6 @@
+#### 2.0.0
+- Package and Samples updgraded to Steeltoe version 2.4.0
+
 #### 2.0.0-rc3
 - Samples added for all implementations, under `/samples` folder
 - Logging, Actuator and Redis Package - issue (due to missing config package dependency) fix
