@@ -25,7 +25,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Actuators
             var configuration = DependencyContainer.GetService<IConfiguration>();
             var loggerFactory = GetLoggerFactory(configuration);
 
-            #region Obsolete nd to be removed after the fix for https://github.com/SteeltoeOSS/steeltoe/issues/161
+            #region Obsolete and to be removed after the fix for https://github.com/SteeltoeOSS/steeltoe/issues/161
             ActuatorConfiguratorOverrides.UseHypermediaActuator(configuration, loggerFactory);
             ActuatorConfigurator.UseCloudFoundrySecurity(configuration, null, loggerFactory);
             ActuatorConfigurator.UseCloudFoundryActuator(configuration, loggerFactory);
