@@ -3,7 +3,4 @@ ConnectionStrings:
   conn1: conn1 value from appsettings.yaml
 Providers:
   conn1: conn1 provider from appsettings.yaml
-management:
-  endpoints:
-    enabled: true
 
