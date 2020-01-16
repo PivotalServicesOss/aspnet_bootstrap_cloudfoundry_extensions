@@ -143,10 +143,10 @@
       <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.0.0-pre\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.0.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
     </Reference>
     <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.0.0-pre\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.0.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Serilog.2.5.0\lib\net46\Serilog.dll</HintPath>
