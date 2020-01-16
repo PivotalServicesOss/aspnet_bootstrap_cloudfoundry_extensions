@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <PivotalServicesBootstrapVersion>2.0.0</PivotalServicesBootstrapVersion>
-    <PivotalServicesBootstrapVersionSuffix></PivotalServicesBootstrapVersionSuffix>
+    <PivotalServicesBootstrapVersion>2.0.1</PivotalServicesBootstrapVersion>
+    <PivotalServicesBootstrapVersionSuffix>-rc1</PivotalServicesBootstrapVersionSuffix>
     <PivotalServicesBootstrapVersionRevision>1</PivotalServicesBootstrapVersionRevision>
     <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
@@ -20,6 +20,7 @@
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
     <SteeltoeVersion>2.4.0</SteeltoeVersion>
     <SteeltoeManagementVersion>2.4.0</SteeltoeManagementVersion>
+    <SteeltoeManagementEndpointWebVersion>2.4.1-ci1602</SteeltoeManagementEndpointWebVersion>
     <SerilogSinksDebug>1.0.1</SerilogSinksDebug>
     <NetEscapadesConfigurationVersion>1.6.0</NetEscapadesConfigurationVersion>
     <GitInfoVersion>2.0.21</GitInfoVersion>
