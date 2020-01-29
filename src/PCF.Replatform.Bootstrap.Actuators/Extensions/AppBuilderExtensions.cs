@@ -32,6 +32,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             else
                 inMemoryConfigStore["management:endpoints:path"] = $"{basePath.TrimEnd('/')}/cloudfoundryapplication";
 
+            inMemoryConfigStore["management:endpoints:enabled"] = "true";
             inMemoryConfigStore["management:endpoints:cloudfoundry:validateCertificates"] = "false";
 
             inMemoryConfigStore["info:ApplicationName"] = "${vcap:application:name}";
