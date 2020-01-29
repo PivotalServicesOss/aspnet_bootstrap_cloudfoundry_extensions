@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.352
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{27181691-9684-4254-AE70-DBF6444BCA73}"
 EndProject
@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "release_info", "release_inf
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replatform.Bootstrap.WinAuth", "src\PCF.Replatform.Bootstrap.WinAuth\PCF.Replatform.Bootstrap.WinAuth.csproj", "{6D0D53D7-FAD6-4A57-883B-6EA9200507BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCF.Replat.Bootstrap.WinAuth.Tests", "test\PCF.Replat.Bootstrap.WinAuth.Tests\PCF.Replat.Bootstrap.WinAuth.Tests.csproj", "{ABA18B1F-DEFA-468D-9036-08F999FFF026}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +102,10 @@ Global
 		{6D0D53D7-FAD6-4A57-883B-6EA9200507BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D0D53D7-FAD6-4A57-883B-6EA9200507BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D0D53D7-FAD6-4A57-883B-6EA9200507BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABA18B1F-DEFA-468D-9036-08F999FFF026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA18B1F-DEFA-468D-9036-08F999FFF026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA18B1F-DEFA-468D-9036-08F999FFF026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA18B1F-DEFA-468D-9036-08F999FFF026}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{CB639EE8-26AD-4569-B681-E8DDBB3EF32A} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
 		{A86021D0-484B-4CDA-8D2D-EE5D77857131} = {2FDD2735-3158-43EB-94C8-3FB0F9264BEE}
 		{6D0D53D7-FAD6-4A57-883B-6EA9200507BD} = {27181691-9684-4254-AE70-DBF6444BCA73}
+		{ABA18B1F-DEFA-468D-9036-08F999FFF026} = {D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D9BB3E3-9A60-436E-AFD6-65E0ED835FB8}
