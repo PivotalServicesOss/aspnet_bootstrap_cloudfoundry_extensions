@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using System;
 using System.Web;
 
@@ -10,11 +11,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 {
     public class SpnegoAuthenticator : ISpnegoAuthenticator
     {
-        public const string DefaultScheme = "Negotiate";
         private readonly IConfiguration configuration;
         private readonly ITicketIssuer issuer;
         private readonly ILogger<SpnegoAuthenticator> logger;
-        private KerberosAuthenticator authenticator;
 
         public SpnegoAuthenticator(IConfiguration configuration, ITicketIssuer issuer, ILogger<SpnegoAuthenticator> logger)
         {
@@ -30,12 +29,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
             if (authenticateResult?.Failure == null)
             {
                 if ((authenticateResult?.Ticket)?.Principal != null)
-                    logger.LogDebug($"AuthenticationSchemeAuthenticated, {DefaultScheme}");
+                    logger.LogDebug($"AuthenticationSchemeAuthenticated, {AuthConstants.SPNEGO_DEFAULT_SCHEME}");
                 else
-                    logger.LogError($"AuthenticationSchemeNotAuthenticated, {DefaultScheme}");
+                    logger.LogError($"AuthenticationSchemeNotAuthenticated, {AuthConstants.SPNEGO_DEFAULT_SCHEME}");
             }
             else
-                logger.LogError($"AuthenticationSchemeNotAuthenticatedWithFailure, {DefaultScheme}, {authenticateResult.Failure.Message}");
+                logger.LogError($"AuthenticationSchemeNotAuthenticatedWithFailure, {AuthConstants.SPNEGO_DEFAULT_SCHEME}, {authenticateResult.Failure.Message}");
 
             return authenticateResult;
         }
@@ -44,7 +43,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
         {
             properties = properties ?? new AuthenticationProperties();
             HandleChallenge(properties, contextBase);
-            logger.LogError($"AuthenticationSchemeChallenged, {DefaultScheme}");
+            logger.LogError($"AuthenticationSchemeChallenged, {AuthConstants.SPNEGO_DEFAULT_SCHEME}");
         }
 
         private AuthenticateResult HandleAuthenticate(HttpContextBase contextBase)
@@ -57,10 +56,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
             if (string.IsNullOrEmpty(authorizationHeader))
                 return AuthenticateResult.NoResult();
 
-            if (!authorizationHeader.StartsWith("Negotiate ", StringComparison.OrdinalIgnoreCase))
+            if (!authorizationHeader.StartsWith($"{AuthConstants.SPNEGO_DEFAULT_SCHEME} ", StringComparison.OrdinalIgnoreCase))
                 return AuthenticateResult.NoResult();
 
-            var base64Token = authorizationHeader.Substring(DefaultScheme.Length).Trim();
+            var base64Token = authorizationHeader.Substring(AuthConstants.SPNEGO_DEFAULT_SCHEME.Length).Trim();
 
             if (string.IsNullOrEmpty(base64Token))
             {
@@ -95,7 +94,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
         private void HandleChallenge(AuthenticationProperties properties, HttpContextBase contextBase)
         {
             contextBase.Response.StatusCode = 401;
-            contextBase.Response.Headers.Set(HeaderNames.WWWAuthenticate, DefaultScheme);
+            contextBase.Response.Headers.Set(HeaderNames.WWWAuthenticate, AuthConstants.SPNEGO_DEFAULT_SCHEME);
         }
     }
 }

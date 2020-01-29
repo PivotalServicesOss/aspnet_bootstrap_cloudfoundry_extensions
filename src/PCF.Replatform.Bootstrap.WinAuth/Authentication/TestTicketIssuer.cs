@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authentication
 {
@@ -11,9 +12,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
                             new ClaimsPrincipal(
                                 new ClaimsIdentity(new[]
                                 {
-                                        new Claim(ClaimTypes.Name,"Alfus"),
-                                }, "Negotiate")),
-                            "Negotiate");
+                                        new Claim(ClaimTypes.Name,"Test User"),
+                                }, AuthConstants.SPNEGO_DEFAULT_SCHEME)),
+                            AuthConstants.SPNEGO_DEFAULT_SCHEME);
         }
     }
 }
