@@ -366,6 +366,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="manifest.yml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -464,20 +465,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Pcf.Replatform.Bootstrap.Base\PCF.Replatform.Bootstrap.Base.csproj">
-      <Project>{b67c3fa9-c36a-4b5e-8f9e-100d13daadb9}</Project>
-      <Name>PCF.Replatform.Bootstrap.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\PCF.Replatform.Bootstrap.Configuration\PCF.Replatform.Bootstrap.Configuration.csproj">
-      <Project>{1270324e-e2d1-4706-81b6-e96803ccbdb2}</Project>
-      <Name>PCF.Replatform.Bootstrap.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\PCF.Replatform.Bootstrap.WinAuth\PCF.Replatform.Bootstrap.WinAuth.csproj">
-      <Project>{dfed46af-e9a3-4bdc-965b-ad308bbebcfe}</Project>
-      <Name>PCF.Replatform.Bootstrap.WinAuth</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

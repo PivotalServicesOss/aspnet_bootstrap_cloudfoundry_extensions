@@ -4,9 +4,9 @@
 
 
 
-Build | Configuration | Logging | Actuators | Redis.Session | Base |
+Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base |
 --- | --- | --- | --- |--- | --- |
-[![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base) 
+[![Build Status](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_apis/build/status/alfusinigoj.pivotal_cloudfoundry_replatform_bootstrap?branchName=master)](https://dev.azure.com/ajaganathan-home/pivotal-cloudfoundry-replatform-bootstrap/_build/latest?definitionId=2&branchName=master) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.WinAuth.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base) 
 
 ### Quick Links
 - [Supported ASP.NET apps](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#supported-aspnet-apps)
@@ -18,6 +18,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - [Persist Session to Redis](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis)
 - [Enabling Cloud Foundry Actuators and Metrics Forwarders](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders)
 - [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging)
+- [Enable Windows Auth](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#windows-authentication)
 - [Base feature (IoC)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-features-ioc)
 - [Base feature (Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-feature-dynamic-handlers)
 - [Sample Implementations](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/samples) 
@@ -42,6 +43,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - Injects all above configuration into WebConfiguration (appsettings, connection strings and providers) at runtime so as to be used by legacy libraries relying on.
 - Helps in getting an ASP.Net app to Pivotal Platform (PAS - Cloud Foundry) within short span of time and effort
 - Supports Session persistence to Redis
+- Supports Windows Authentication using Kerberos for ASP.NET Web applications (except WCF)
 - Explicit access to any of the injected dependencies across your code. For e.g to access `IConfiguration` you can access it using `DependencyContainer.GetService<IConfiguration>()`. You can also access them via constructor injection which absolutely depends on the IoC framework and application.
 - Real samples are available [here](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/samples) 
 ### Packages
@@ -49,6 +51,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 - Cloud Native Logging - [PivotalServices.AspNet.Replatform.Cf.Logging](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
 - Spring Boot Actuators - [PivotalServices.AspNet.Replatform.Cf.Actuators](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators)
 - Externalizing Session - [PivotalServices.AspNet.Replatform.Cf.Redis.Session](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
+- Enable Windows Auth - [PivotalServices.AspNet.Replatform.Cf.WinAuth](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth)
 - Base package - [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
  
 ### Steps - High level
@@ -301,6 +304,48 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 	```
 	- Using Contructor Injection `.ctor(ILogger<ValuesController>> logger)`
 
+### Windows Authentication
+- Install package [PivotalServices.AspNet.Replatform.Cf.WinAuth](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth)
+- In `Global.asax.cs`, add code as below under `Application_Start`
+
+```
+    using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
+    ...
+    
+    protected void Application_Start()
+    {
+    	...
+        AppBuilder.Instance
+                .AddWindowsAuthentication()
+                .Build()
+                .Start();
+    	...
+    }
+``` 
+
+- Once you setup the service account and SPN (as mentioned below), you need to set `PRINCIPAL_PASSWORD` with the service account's password, via environment variable or any other configuration sources you are using for the application (e.g. config server, yaml, json, etc.)
+- By default the package tries to resolve from credhub with key `principal_password`. e.g. `{["principal_password":"som secret password"]}`. 
+
+**Note that, in the case of credhub, key should be in lowercase**
+
+#### Create SPN (Service Principal Name)
+
+**Note: This is mandate for front end browser applications, but for services it is not required. In other words, if you want to access your application via browser, you need to have the SPN created, as mentioned below.**
+
+Identify the service account for which the application should be running under (imagine as your application running in IIS on an APP POOL, under a service account). If your application's url is `http://foo.bar`, then you have to create a SPN for the service account as `http/foo.bar`
+
+Command Syntax(using the above sample SPN):
+
+```text
+SetSpn -S http/foo.bar <domain\service_account_name>
+```
+To check to see which SPNs are currently registered with your service account, run the following command:
+
+```text
+SetSpn -L <domain\service_account_name>
+```
+
+**Note: You should have elevated privileges to execute the above command. Eventually this should be executed part of the deployment pipeline, for each application**
 
 ### Base features (Ioc)
 - Install package [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
@@ -508,9 +553,9 @@ Build | Configuration | Logging | Actuators | Redis.Session | Base |
 
 ### Ongoing development packages in MyGet
 
-Feed | Configuration | Logging | Actuators | Redis.Session | Base |
+Feed | Configuration | Logging | Actuators | Redis.Session | Windows Authentication | Base |
 --- | --- | --- | --- |--- | --- |
-[V3](https://www.myget.org/F/ajaganathan/api/v3/index.json) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Logging) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base) 
+[V3](https://www.myget.org/F/ajaganathan/api/v3/index.json) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Configuration.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Configuration) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Logging.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Logging) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Actuators.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Actuators) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Redis.Session.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Redis.Session) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.WinAuth.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.WinAuth) | [![MyGet](https://img.shields.io/myget/ajaganathan/v/PivotalServices.AspNet.Replatform.Cf.Base.svg?style=flat-square)](https://www.myget.org/feed/ajaganathan/package/nuget/PivotalServices.AspNet.Replatform.Cf.Base) 
 
 ### Issues
 - Kindly raise any issues under [GitHub Issues](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/issues)

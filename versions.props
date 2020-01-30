@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <PivotalServicesBootstrapVersion>2.0.1</PivotalServicesBootstrapVersion>
-    <PivotalServicesBootstrapVersionSuffix>-rc1</PivotalServicesBootstrapVersionSuffix>
+    <PivotalServicesBootstrapVersionSuffix></PivotalServicesBootstrapVersionSuffix>
     <PivotalServicesBootstrapVersionRevision>1</PivotalServicesBootstrapVersionRevision>
     <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
@@ -19,9 +19,9 @@
     <MicrosoftExtensionsVersion>2.2.0</MicrosoftExtensionsVersion>
     <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>2.2.0</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
-    <SteeltoeVersion>2.4.0</SteeltoeVersion>
-    <SteeltoeManagementVersion>2.4.0</SteeltoeManagementVersion>
-    <SteeltoeManagementEndpointWebVersion>2.4.1-ci1602</SteeltoeManagementEndpointWebVersion>
+    <SteeltoeVersion>2.4.1</SteeltoeVersion>
+    <SteeltoeManagementVersion>2.4.1</SteeltoeManagementVersion>
+    <SteeltoeManagementEndpointWebVersion>2.4.1</SteeltoeManagementEndpointWebVersion>
     <SerilogSinksDebug>1.0.1</SerilogSinksDebug>
     <NetEscapadesConfigurationVersion>1.6.0</NetEscapadesConfigurationVersion>
     <KerberosNetVersion>2.7.508.1</KerberosNetVersion>

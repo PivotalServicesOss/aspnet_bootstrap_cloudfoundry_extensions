@@ -1,3 +1,8 @@
+#### 2.0.1
+- Package and Samples updgraded to use Steeltoe version 2.4.1 which resolved the issue https://github.com/SteeltoeOSS/steeltoe/issues/161
+- A package for Windows Authentication using Kerberos is added, including samples
+
+
 #### 2.0.1-rc1
 - Using steeltoe prerelease version 2.4.1-ci1602 from https://www.myget.org/F/steeltoedev/api/v3/index.json for the fix of https://github.com/SteeltoeOSS/steeltoe/issues/161
 - Note: Make sure to add the above myget feed for Steeltoe Dev
@@ -23,7 +28,7 @@
 1. Unable to configure log levels dynamically via AppsManager
 
 #### Issues - Closed
-##### v2.0.1-rc1
+##### v2.0.1-rc1, v2.0.1
 1. Endpoint Actuators are available only for health and info due to a bug (https://github.com/SteeltoeOSS/steeltoe/issues/161)
 
 #### Reference/Usage Guide
