@@ -18,7 +18,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - [Persist Session to Redis](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#persist-session-to-redis)
 - [Enabling Cloud Foundry Actuators and Metrics Forwarders](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enabling-cloud-foundry-actuators-and-metrics-forwarders)
 - [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap#enable-cloud-native-logging)
-- [Enable Windows Auth](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#windows-authentication)
+- [Enable Windows Auth](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#enable-windows-authentication)
 - [Base feature (IoC)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-features-ioc)
 - [Base feature (Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#base-feature-dynamic-handlers)
 - [Sample Implementations](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/samples) 
@@ -304,7 +304,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 	```
 	- Using Contructor Injection `.ctor(ILogger<ValuesController>> logger)`
 
-### Windows Authentication
+### Enable Windows Authentication
 - Install package [PivotalServices.AspNet.Replatform.Cf.WinAuth](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth)
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
@@ -323,7 +323,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
     }
 ``` 
 
-- Once you setup the service account and SPN (as mentioned below), you need to set `PRINCIPAL_PASSWORD` with the service account's password, via environment variable or any other configuration sources you are using for the application (e.g. config server, yaml, json, etc.)
+- Once you setup the service account and SPN (as mentioned [below](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#create-spn-service-principal-name)), you need to set `PRINCIPAL_PASSWORD` with the service account's password, via environment variable or any other configuration sources you are using for the application (e.g. config server, yaml, json, etc.)
 - By default the package tries to resolve from credhub with key `principal_password`. e.g. `{["principal_password":"som secret password"]}`. 
 
 **Note that, in the case of credhub, key should be in lowercase**
