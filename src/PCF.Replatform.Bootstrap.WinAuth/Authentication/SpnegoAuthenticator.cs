@@ -11,13 +11,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 {
     public class SpnegoAuthenticator : ISpnegoAuthenticator
     {
-        private readonly IConfiguration configuration;
         private readonly ITicketIssuer issuer;
         private readonly ILogger<SpnegoAuthenticator> logger;
 
-        public SpnegoAuthenticator(IConfiguration configuration, ITicketIssuer issuer, ILogger<SpnegoAuthenticator> logger)
+        public SpnegoAuthenticator(ITicketIssuer issuer, ILogger<SpnegoAuthenticator> logger)
         {
-            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.issuer = issuer ?? throw new ArgumentNullException(nameof(issuer));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
