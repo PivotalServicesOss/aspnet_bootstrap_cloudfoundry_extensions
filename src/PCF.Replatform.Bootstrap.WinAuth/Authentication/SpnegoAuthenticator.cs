@@ -74,10 +74,6 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
                 {
                     logger.LogTrace($"===SPNEGO Token==={Environment.NewLine}{base64Token}");
 
-                    
-
-                    
-
                     return AuthenticateResult.Success(issuer.Authenticate(base64Token));
                 }
                 catch (KerberosValidationException e)

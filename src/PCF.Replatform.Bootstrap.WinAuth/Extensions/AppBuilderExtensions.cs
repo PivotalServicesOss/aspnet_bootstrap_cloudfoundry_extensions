@@ -15,6 +15,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     {
         public const string SPNEGO_DEFAULT_SCHEME = "Negotiate";
         public const string PRINCIPAL_PASSWORD_FROM_CREDHUB = "${vcap:services:credhub:0:credentials:principal_password}";
+        public const string AUTH_COOKIE_NM = "K_AUTH_TICKET";
     }
 
     public static class AppBuilderExtensions

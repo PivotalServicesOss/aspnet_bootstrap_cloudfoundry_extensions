@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,14 +11,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 {
     public class CookieAuthenticator : ICookieAuthenticator
     {
-        const string AUTH_COOKIE_NM = "K_AUTH_TICKET";
-        private readonly IConfiguration configuration;
         private readonly ILogger<CookieAuthenticator> logger;
         private readonly TicketSerializer serializer;
 
-        public CookieAuthenticator(IConfiguration configuration, ILogger<CookieAuthenticator> logger)
+        public CookieAuthenticator(ILogger<CookieAuthenticator> logger)
         {
-            this.configuration = configuration;
             this.logger = logger;
             serializer = new TicketSerializer();
         }
@@ -30,7 +28,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
                 return AuthenticateResult.NoResult();
             }
 
-            var authCookie = contextBase.Request.Cookies.Get(AUTH_COOKIE_NM);
+            var authCookie = contextBase.Request.Cookies.Get(AuthConstants.AUTH_COOKIE_NM);
 
             if (authCookie != null)
             {
@@ -45,8 +43,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
                 }
                 catch (Exception)
                 {
-                    logger.LogWarning($"{AUTH_COOKIE_NM} cookie is corrupted!");
-                    return AuthenticateResult.Fail($"{AUTH_COOKIE_NM} cookie is corrupted!");
+                    logger.LogWarning($"{AuthConstants.AUTH_COOKIE_NM} cookie is corrupted!");
+                    return AuthenticateResult.Fail($"{AuthConstants.AUTH_COOKIE_NM} cookie is corrupted!");
                 }
             }
             return AuthenticateResult.NoResult();
@@ -59,7 +57,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
                 var encodedTicket = Convert.ToBase64String(serializer.Serialize(authResult.Ticket));
                 contextBase.Cache[authResult.Ticket.Principal.Identity.Name] = ComputeHash(encodedTicket);
 
-                var cookie = new HttpCookie(AUTH_COOKIE_NM)
+                var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
                 {
                     Expires = DateTime.Now.AddDays(90),
                     Secure = contextBase.Request.Url.Scheme == "https",

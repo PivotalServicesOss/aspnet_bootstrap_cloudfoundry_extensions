@@ -1,9 +1,11 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authentication
 {
+    [Obsolete("Only meant for testing purpose")]
     internal class TestTicketIssuer : ITicketIssuer
     {
         public AuthenticationTicket Authenticate(string base64Token)
