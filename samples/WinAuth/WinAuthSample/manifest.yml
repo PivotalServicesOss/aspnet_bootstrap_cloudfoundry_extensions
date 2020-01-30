@@ -1,0 +1,9 @@
+﻿---
+applications:
+- name: windows_auth_sample
+  memory: 1024M
+  stack: windows
+  buildpacks:
+   - hwc_buildpack
+  env:
+    PRINCIPAL_PASSWORD: foo

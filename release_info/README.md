@@ -1,3 +1,12 @@
+#### 2.0.1
+- Package and Samples updgraded to use Steeltoe version 2.4.1 which resolved the issue https://github.com/SteeltoeOSS/steeltoe/issues/161
+- A package for Windows Authentication using Kerberos is added, including a sample
+
+
+#### 2.0.1-rc1
+- Using steeltoe prerelease version 2.4.1-ci1602 from https://www.myget.org/F/steeltoedev/api/v3/index.json for the fix of https://github.com/SteeltoeOSS/steeltoe/issues/161
+- Note: Make sure to add the above myget feed for Steeltoe Dev
+
 #### 2.0.0
 - Package and Samples updgraded to use Steeltoe version 2.4.0
 
@@ -13,13 +22,14 @@
 #### 2.0.0-rc1
 - Initial pre-release version (stable)
 - Depends on Steeltoe prerelease version 2.4.0-rc1
-- Caution: Endpoint Actuators are available only for health and info due to a bug (https://github.com/SteeltoeOSS/steeltoe/issues/161). Will not be able to enable other endpoints until the issue is fixed.
+- Note: Endpoint Actuators are available only for health and info due to a bug (https://github.com/SteeltoeOSS/steeltoe/issues/161). Will not be able to enable other endpoints until the issue is fixed.
 
 #### Issues - Open
 1. Unable to configure log levels dynamically via AppsManager
-2. Endpoint Actuators are available only for health and info due to a bug (https://github.com/SteeltoeOSS/steeltoe/issues/161)
 
 #### Issues - Closed
+##### v2.0.1-rc1, v2.0.1
+1. Endpoint Actuators are available only for health and info due to a bug (https://github.com/SteeltoeOSS/steeltoe/issues/161)
 
 #### Reference/Usage Guide
 https://www.initpals.com/pcf/move-your-asp-net-workloads-to-pivotal-platform-pas-cloudfoundry/

@@ -27,7 +27,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Steeltoe.Management.EndpointWeb">
-      <Version>$(SteeltoeManagementVersion)</Version>
+      <Version>$(SteeltoeManagementEndpointWebVersion)</Version>
     </PackageReference>
     <PackageReference Include="Steeltoe.Management.ExporterBase">
       <Version>$(SteeltoeManagementVersion)</Version>

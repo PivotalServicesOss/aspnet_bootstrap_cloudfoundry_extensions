@@ -111,10 +111,13 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
             return false;
         }
 
+        HttpContextWrapper contextWrapper;
+
         private void HandleRequest(object sender, EventArgs e)
         {
-            var context = new HttpContextWrapper(((HttpApplication)sender).Context);
-            FilterAndProcessRequest(context, HttpContext.Current.ApplicationInstance.CompleteRequest);
+            //contextWrapper = contextWrapper ?? new HttpContextWrapper(((HttpApplication)sender).Context);
+            contextWrapper = new HttpContextWrapper(((HttpApplication)sender).Context);
+            FilterAndProcessRequest(contextWrapper, HttpContext.Current.ApplicationInstance.CompleteRequest);
         }
 
         private void FilterAndProcessRequest(HttpContextBase context, Action completeRequest)

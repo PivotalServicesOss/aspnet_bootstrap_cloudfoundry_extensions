@@ -14,13 +14,17 @@ using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 {
+    public class LoggingConstants
+    {
+        public static bool IncludeDistributedTracing;
+    }
+
     public static class AppBuilderExtensions
     {
-        internal static bool IncludeDistributedTracing;
 
         public static AppBuilder AddConsoleSerilogLogging(this AppBuilder instance, bool includeDistributedTracing = false)
         {
-            IncludeDistributedTracing = includeDistributedTracing;
+            LoggingConstants.IncludeDistributedTracing = includeDistributedTracing;
 
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
