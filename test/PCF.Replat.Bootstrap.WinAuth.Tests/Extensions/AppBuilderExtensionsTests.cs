@@ -19,7 +19,7 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
 
             Assert.Contains(TestProxy.HandlersProxy, h => h.FullName == "PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers.WindowsAuthenticationHandler");
 
-            Assert.Equal("${vcap:services:credhub:0:credentials:principal_password}", TestProxy.InMemoryConfigStoreProxy["PRINCIPAL_PASSWORD"]);
+            Assert.Equal("${vcap:services:credhub:0:credentials:principal_password}", TestProxy.InMemoryConfigStoreProxy[AuthConstants.PRINCIPAL_PASSWORD_NM]);
         }
     }
 }

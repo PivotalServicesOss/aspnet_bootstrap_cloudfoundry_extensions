@@ -328,6 +328,13 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 
 **Note that, in the case of credhub, key should be in lowercase**
 
+- If not exists already, add the `machineKey` section to `web.config` as below. You can generate a new one from [Developer Fusion](https://www.developerfusion.com/tools/generatemachinekey). This is for data protection purposes.
+
+```
+    <machineKey validationKey="B2FFA07BEA941CBFD2F2450A5BE4D8F6ABFFE624F3DBB35BC589D34C5647F65235634AEC71B5C1E2453BE8D466B6818A9438AC2FFE0C09024052FFF27C85EB3C" 
+            decryptionKey="4AFFE5CFAE4F97BFAE7736E5A6B85E921EF209FA84F4BC665993E72393B080DC" validation="SHA1" decryption="AES" />
+```
+
 ### Create SPN (Service Principal Name)
 
 **Note: This is mandate for front end browser applications, but for services it is not required. In other words, if you want to access your application via browser, you need to have the SPN created, as mentioned below.**

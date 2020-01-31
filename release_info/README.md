@@ -1,7 +1,8 @@
-#### 2.0.1
-- Package and Samples updgraded to use Steeltoe version 2.4.1 which resolved the issue https://github.com/SteeltoeOSS/steeltoe/issues/161
+#### 2.1.0-rc1
 - A package for Windows Authentication using Kerberos is added, including a sample
 
+#### 2.0.1
+- Package and Samples updgraded to use Steeltoe version 2.4.1 which resolved the issue https://github.com/SteeltoeOSS/steeltoe/issues/161
 
 #### 2.0.1-rc1
 - Using steeltoe prerelease version 2.4.1-ci1602 from https://www.myget.org/F/steeltoedev/api/v3/index.json for the fix of https://github.com/SteeltoeOSS/steeltoe/issues/161

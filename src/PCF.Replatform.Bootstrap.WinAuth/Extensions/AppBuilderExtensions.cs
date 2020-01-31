@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Reflection;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authentication;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.DataProtection;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         public const string SPNEGO_DEFAULT_SCHEME = "Negotiate";
         public const string PRINCIPAL_PASSWORD_FROM_CREDHUB = "${vcap:services:credhub:0:credentials:principal_password}";
         public const string AUTH_COOKIE_NM = "K_AUTH_TICKET";
+        public const string DATA_PROTECTION_PURPOSE_DEFAULT = "${vcap:application:name}";
+        public const string DATA_PROTECTION_KEY_NM = "DATA_PROTECTION_KEY";
+        public const string PRINCIPAL_PASSWORD_NM = "PRINCIPAL_PASSWORD";
     }
 
     public static class AppBuilderExtensions
@@ -25,7 +29,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore["PRINCIPAL_PASSWORD"] = AuthConstants.PRINCIPAL_PASSWORD_FROM_CREDHUB;
+            inMemoryConfigStore[AuthConstants.PRINCIPAL_PASSWORD_NM] = AuthConstants.PRINCIPAL_PASSWORD_FROM_CREDHUB;
+            inMemoryConfigStore[AuthConstants.DATA_PROTECTION_KEY_NM] = AuthConstants.DATA_PROTECTION_PURPOSE_DEFAULT;
 
             var handlers = ReflectionHelper
                 .GetNonPublicInstanceFieldValue<List<Type>>(instance, "Handlers");
@@ -36,8 +41,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                  .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, IServiceCollection>>>(instance, "ConfigureServicesDelegates")
                  .Add((builderContext, services) =>
                  {
-                     services.AddSingleton<KerberosAuthenticator>((provider) => GetAuthenticator(provider));
-                     services.AddSingleton<ITicketIssuer, TestTicketIssuer>();
+                     services.AddSingleton<IDataProtector, MachineKeyDataProtector>();
+                     services.AddSingleton((provider) => GetAuthenticator(provider));
+                     services.AddSingleton<ITicketIssuer, KerberosTicketIssuer>();
                      services.AddSingleton<ISpnegoAuthenticator, SpnegoAuthenticator>();
                      services.AddSingleton<ICookieAuthenticator, CookieAuthenticator>();
                  });
