@@ -157,15 +157,14 @@ Providers:
 - The package will setup `sessionState` section automatically, but will leave the keys under `machineKey` section with a place holder, as below.
 
 ```xml
-	<system.web>
-		<machineKey validationKey="{Validation Key}" decryptionKey="{Decryption Key} validation="SHA1" decryption="AES" />
-		<sessionState mode="Custom" customProvider="RedisSessionStateStore">
-			<providers>
-			<add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider" settingsClassName="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.RedisConnectionHelper" settingsMethodName="GetConnectionString" />
-			</providers>
-		</sessionState>
-	</system.web>
-
+<system.web>
+	<machineKey validationKey="{Validation Key}" decryptionKey="{Decryption Key}" validation="SHA1" decryption="AES" />
+	<sessionState mode="Custom" customProvider="RedisSessionStateStore">
+		<providers>
+			<add name="RedisSessionStateStore" type="Microsoft.Web.Redis.RedisSessionStateProvider"     settingsClassName="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.RedisConnectionHelper" settingsMethodName="GetConnectionString" />
+		</providers>
+	</sessionState>
+</system.web>
 ```
 
 - Make sure to generate the machine key section using [generatemachinekey](https://www.developerfusion.com/tools/generatemachinekey) and replace the validation and decryption key in the appropriate place holders in web.config. This is a one time activity.
