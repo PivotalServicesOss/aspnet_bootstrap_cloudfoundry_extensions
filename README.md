@@ -99,22 +99,22 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Below is the default configurations will be added internally, but can always override using json or yaml or environment variables as below (if at all required)
 
 ```yaml
-    ---
-    spring:
-      application:
-    	name: "${vcap:application:name}"
-	  cloud:
-	    config:
-	      validate_certificates: false
-              failFast: false
-	      name: "${vcap:application:name}"
-	      env: "${ASPNETCORE_ENVIRONMENT}"
-	   AppSettings:
-	      Key1: value1
-	   ConnectionStrings:
-	      Database1: connection1
-	   Providers:
-	      Database1: provider1
+---
+spring:
+  application:
+    name: "${vcap:application:name}"
+  cloud:
+    config:
+      validate_certificates: false
+      failFast: false
+      name: "${vcap:application:name}"
+      env: "${ASPNETCORE_ENVIRONMENT}"
+AppSettings:
+  Key1: value1
+ConnectionStrings:
+  Database1: connection1
+Providers:
+  Database1: provider1
 
 ```
 - Push the app and bind your app to a config server instance and you are good to go.
@@ -225,25 +225,25 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
 ```yaml
-    ---
-    Logging:
-	LogLevel:
-	    Default: Information
-	    Steeltoe: Warning
-	    Pivotal: Warning
-	    System: Warning
-	    Microsoft: Warning
-	Console:
-		IncludeScopes: true
-    management:
-	endpoints:
-            path: "/cloudfoundryapplication"
-	    cloudfoundry:
-		  validateCertificates: false
-        metrics:
-	    exporter:
-		  cloudfoundry:
-			validateCertificates: false
+---
+Logging:
+  LogLevel:
+    Default: Information
+    Steeltoe: Warning
+    Pivotal: Warning
+    System: Warning
+    Microsoft: Warning
+  Console:
+    IncludeScopes: true
+management:
+  endpoints:
+    path: "/cloudfoundryapplication" 
+    cloudfoundry: 
+      validateCertificates: false
+  metrics:
+    exporter:
+      cloudfoundry:
+        validateCertificates: false
 
 ```
 - Push the app, you will be able to see actuators enabled (health, info, etc.) in Apps Manager, but endpoint actuators are limited to `/actuator/health` and `/actuator/info`. Refer to [release notes]( https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/tree/master/release_info) for more details.
@@ -273,27 +273,27 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
 ```yaml
-    ---
-    management:
-      tracing:
-	  AlwaysSample: true
-	  UseShortTraceIds: false
-	  EgressIgnorePattern: "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
-    Serilog:
-      MinimumLevel:
-	    Default: Information
-	    Override:
-	         Microsoft: Warning
-	         System: Warning
-	         Pivotal: Warning
-	         Steeltoe: Warning
-      WriteTo:
-       - Name: Console
-		 Args:
-			outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
-       - Name: Debug
-		 Args:
-			outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+---
+management:
+  tracing:
+  AlwaysSample: true
+  UseShortTraceIds: false
+  EgressIgnorePattern: "/api/v2/spans|/v2/apps/.*/permissions|/eureka/.*|/oauth/.*"
+Serilog:
+  MinimumLevel:
+    Default: Information
+    Override:
+      Microsoft: Warning
+      System: Warning
+      Pivotal: Warning
+      Steeltoe: Warning
+  WriteTo:
+   - Name: Console
+     Args:
+       outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
+   - Name: Debug
+     Args:
+       outputTemplate: "[{Level}]{CorrelationContext}=> RequestPath:{RequestPath} => {SourceContext} => {Message} {Exception}{NewLine}"
 ```
 
 - This uses Steeltoe Management Dynamic Loging, to know more, go to [Steeltoe Management Dynamic Loging](https://steeltoe.io/cloud-management/get-started/logging)
