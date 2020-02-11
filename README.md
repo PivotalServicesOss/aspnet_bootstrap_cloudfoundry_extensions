@@ -71,7 +71,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Environment variable `ASPNETCORE_ENVIRONMENT` to be set
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
     
@@ -98,7 +98,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - The order is important here. In this case, configurations from config server take over others, also make sure these configuration extensions methods (`AddDefaultConfigurations` and `AddConfigServer`) should preceed all other extensions methods.
 - Below is the default configurations will be added internally, but can always override using json or yaml or environment variables as below (if at all required)
 
-```
+```yaml
     ---
     spring:
       application:
@@ -140,7 +140,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Install package [PivotalServices.AspNet.Replatform.Cf.Redis.Session](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Redis.Session)
 - In `Global.asax.cs` and add code as below under `Application_Start`
     
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
     
@@ -156,7 +156,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 ```
 - The package will setup `sessionState` section automatically, but will leave the keys under `machineKey` section with a place holder, as below.
 
-```
+```xml
 	<system.web>
 		<machineKey validationKey="{Validation Key}" decryptionKey="{Decryption Key} validation="SHA1" decryption="AES" />
 		<sessionState mode="Custom" customProvider="RedisSessionStateStore">
@@ -176,7 +176,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Install package [PivotalServices.AspNet.Replatform.Cf.Actuators](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Actuators)
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
     
@@ -196,7 +196,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 	- `basePath` to use in case if the app uses context routing
 - If you need to inject additional `Health Contributor`, you can create your own implementation of `Steeltoe.Common.HealthChecks.IHealthContributor` and inject them as below. Lets assume that we have a custom health contributor called `MyCustomHealthContributor`.
 
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
     
@@ -217,12 +217,14 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 ```
 
 - In `Global.asax.cs`, add code as below under `Application_End`
- ```
+
+ ```c#
     AppBuilder.Instance.Stop();
  ```
+ 
 - Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
-```
+```yaml
     ---
     Logging:
 	LogLevel:
@@ -251,7 +253,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Install package [PivotalServices.AspNet.Replatform.Cf.Logging](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Logging)
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
     
@@ -270,7 +272,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 	- `includeDistributedTracing` if you want to enable distributed tracing logging.To know more about distributed tracing refer to the article [asp-net-core-distributed-tracing-using-steeltoe](https://www.initpals.com/net-core/asp-net-core-distributed-tracing-using-steeltoe/)
 - Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
-```
+```yaml
     ---
     management:
       tracing:
@@ -308,7 +310,7 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 - Install package [PivotalServices.AspNet.Replatform.Cf.WinAuth](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth)
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
     
@@ -351,7 +353,7 @@ SetSpn -L <domain\service_account_name>
 - Install package [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)
 - Can add more `Actions` exposed where you can configure; `application configurations`, `inject services` and even modify `logging configurations` as needed.
   
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
@@ -378,7 +380,7 @@ SetSpn -L <domain\service_account_name>
 
 - If the application uses `Unity` as its dependency container, you can hook them together as below
       
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
@@ -404,7 +406,7 @@ SetSpn -L <domain\service_account_name>
 ```
 - Sample `UnityConfig` class 
     
-```
+```c#
     using System;
     using Unity;
         
@@ -433,7 +435,7 @@ SetSpn -L <domain\service_account_name>
 
 - If the application uses `Autofac` as its dependency container, you can hook them together as below
   
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     ...
 
@@ -457,7 +459,7 @@ SetSpn -L <domain\service_account_name>
 ```
 - Sample `AutofacConfig` class 
         
-```
+```c#
     using Autofac;
     using System;
         
@@ -488,7 +490,7 @@ SetSpn -L <domain\service_account_name>
 - Provision to inject any custom http handler using an implementation of abstract `DynamicHttpHandlerBase`
 - Below is a sample api handler `FooHandler` below which responds to a `GET` operation with request path `/foo`. 
 
-```
+```c#
     using Microsoft.Extensions.Logging;
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
@@ -535,7 +537,7 @@ SetSpn -L <domain\service_account_name>
 
 - Inject the above handler into the pipeline, as in the code below
 
-```
+```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 	using Bar;
     ...
