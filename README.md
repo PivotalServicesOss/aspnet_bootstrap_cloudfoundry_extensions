@@ -73,17 +73,14 @@ Build | Configuration | Logging | Actuators | Redis.Session | WindowsAuth | Base
 
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
     
     protected void Application_Start()
     {
-    	...
         AppBuilder.Instance
                 .AddDefaultConfigurations() 
                 .AddConfigServer() //If you have config server bounded 
                 .Build()
                 .Start();
-    	...
     }
 ```
 - `AddDefaultConfigurations()` have optional parameters
@@ -142,16 +139,13 @@ Providers:
     
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
     
     protected void Application_Start()
     {
-    	...
         AppBuilder.Instance
                 .PersistSessionToRedis()
                 .Build()
                 .Start();
-    	...
     }
 ```
 - The package will setup `sessionState` section automatically, but will leave the keys under `machineKey` section with a place holder, as below.
@@ -177,17 +171,14 @@ Providers:
 
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
     
     protected void Application_Start()
     {
-    	...
         AppBuilder.Instance
                 .AddCloudFoundryActuators()
     			.AddCloudFoundryMetricsForwarder()
                 .Build()
                 .Start();
-    	...
     }
 ```
 
@@ -197,11 +188,9 @@ Providers:
 
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
     
     protected void Application_Start()
     {
-    	...
         AppBuilder.Instance
                 .AddCloudFoundryActuators()
     			.AddCloudFoundryMetricsForwarder()
@@ -211,7 +200,6 @@ Providers:
 				})
                 .Build()
                 .Start();
-    	...
     }
 ```
 
@@ -254,16 +242,13 @@ management:
 
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
     
     protected void Application_Start()
     {
-    	...
         AppBuilder.Instance
                 .AddConsoleSerilogLogging()
                 .Build()
                 .Start();
-    	...
     }
 ```
 
@@ -311,16 +296,13 @@ Serilog:
 
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
     
     protected void Application_Start()
     {
-    	...
         AppBuilder.Instance
                 .AddWindowsAuthentication()
                 .Build()
                 .Start();
-    	...
     }
 ``` 
 
@@ -354,7 +336,6 @@ SetSpn -L <domain\service_account_name>
   
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
 
     protected void Application_Start()
     {
@@ -381,7 +362,6 @@ SetSpn -L <domain\service_account_name>
       
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
 
     protected void Application_Start()
     {
@@ -436,7 +416,6 @@ SetSpn -L <domain\service_account_name>
   
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
-    ...
 
     protected void Application_Start()
     {
@@ -539,16 +518,13 @@ SetSpn -L <domain\service_account_name>
 ```c#
     using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 	using Bar;
-    ...
     
     protected void Application_Start()
     {
-    	...
         AppBuilder.Instance
                 .AddDynamicHttpHandler<FooHandler>()
                 .Build()
                 .Start();
-    	...
     }
 ```
 
