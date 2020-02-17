@@ -1,9 +1,6 @@
-#### 2.1.0
+#### 2.1.1
 - A package for Windows Authentication using Kerberos is added, including a sample. https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth
 - Steeltoe 2.4.2 is consumed (fix for Issue, https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/issues/12)
-
-#### 2.1.0-rc1
-- A package for Windows Authentication using Kerberos is added, including a sample
 
 #### 2.0.1
 - Package and Samples updgraded to use Steeltoe version 2.4.1 which resolved the issue https://github.com/SteeltoeOSS/steeltoe/issues/161

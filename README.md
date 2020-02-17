@@ -291,6 +291,7 @@ Serilog:
 	- Using Contructor Injection `.ctor(ILogger<ValuesController>> logger)`
 
 ### Enable Windows Authentication
+- Uses Kerberos based authentication
 - Install package [PivotalServices.AspNet.Replatform.Cf.WinAuth](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth)
 - In `Global.asax.cs`, add code as below under `Application_Start`
 
