@@ -44,10 +44,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                      services.AddSingleton<IDataProtector, MachineKeyDataProtector>();
                      services.AddSingleton((provider) => GetAuthenticator(provider));
 
-                     if (System.Diagnostics.Debugger.IsAttached)
-                         services.AddSingleton<ITicketIssuer, TestTicketIssuer>();
-                     else
-                         services.AddSingleton<ITicketIssuer, KerberosTicketIssuer>();
+                     services.AddSingleton<ITicketIssuer, KerberosTicketIssuer>();
 
                      services.AddSingleton<ISpnegoAuthenticator, SpnegoAuthenticator>();
                      services.AddSingleton<ICookieAuthenticator, CookieAuthenticator>();
