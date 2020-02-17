@@ -7,6 +7,8 @@ using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authentication;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.DataProtection;
 using System;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Caching;
 using Xunit;
@@ -15,7 +17,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 {
     public class CookieAuthenticatorTests
     {
-        Mock<IDataProtector> dataProtector;
+        IDataProtector dataProtector;
         Mock<ILogger<CookieAuthenticator>> logger;
         Mock<HttpServerUtilityBase> server;
         Mock<HttpResponseBase> response;
@@ -28,7 +30,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 
         public CookieAuthenticatorTests()
         {
-            dataProtector = new Mock<IDataProtector>();
+            dataProtector = new DataProtectorStub();
             logger = new Mock<ILogger<CookieAuthenticator>>();
             server = new Mock<HttpServerUtilityBase>(MockBehavior.Loose);
             response = new Mock<HttpResponseBase>(MockBehavior.Loose);
@@ -44,7 +46,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
         [Fact]
         public void Test_IsOfTypeICookieAuthenticator()
         {
-            Assert.IsAssignableFrom<ICookieAuthenticator>(new CookieAuthenticator(dataProtector.Object, logger.Object));
+            Assert.IsAssignableFrom<ICookieAuthenticator>(new CookieAuthenticator(dataProtector, logger.Object));
         }
 
         [Fact]
@@ -52,7 +54,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
         {
             browser.SetupGet(b => b.Cookies).Returns(false);
 
-            var authenticator = new CookieAuthenticator(dataProtector.Object, logger.Object);
+            var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
             Assert.False(authenticator.Authenticate(context.Object).Succeeded);
         }
@@ -70,7 +72,8 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
                             AuthConstants.SPNEGO_DEFAULT_SCHEME);
 
             var serializedTicket = serializer.Serialize(ticket);
-            var encodedTicket = Convert.ToBase64String(serializedTicket);
+            var protectedTicket = dataProtector.Protect(serializedTicket);
+            var encodedTicket = Convert.ToBase64String(protectedTicket);
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
@@ -81,11 +84,10 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
             cookies.Set(cookie);
 
             browser.SetupGet(b => b.Cookies).Returns(true);
-            dataProtector.Setup(dp => dp.UnProtect(serializedTicket)).Returns(serializedTicket);
 
-            var authenticator = new CookieAuthenticator(dataProtector.Object, logger.Object);
+            var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
-            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", encodedTicket);
+            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", Convert.ToBase64String(serializedTicket));
 
             cache["Foo User"] = cookieHashValue;
 
@@ -107,7 +109,10 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
                                         new Claim(ClaimTypes.Name,"Foo User"),
                                 }, AuthConstants.SPNEGO_DEFAULT_SCHEME)),
                             AuthConstants.SPNEGO_DEFAULT_SCHEME);
-            var encodedTicket = Convert.ToBase64String(serializer.Serialize(ticket));
+
+            var serializedTicket = serializer.Serialize(ticket);
+            var protectedTicket = dataProtector.Protect(serializedTicket);
+            var encodedTicket = Convert.ToBase64String(protectedTicket);
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
@@ -119,9 +124,9 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 
             browser.SetupGet(b => b.Cookies).Returns(true);
 
-            var authenticator = new CookieAuthenticator(dataProtector.Object, logger.Object);
+            var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
-            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", encodedTicket);
+            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", Convert.ToBase64String(serializedTicket));
 
             cache["Foo User"] = cookieHashValue;
 
@@ -136,7 +141,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
         {
             browser.SetupGet(b => b.Cookies).Returns(true);
 
-            var authenticator = new CookieAuthenticator(dataProtector.Object, logger.Object);
+            var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
             var result = authenticator.Authenticate(context.Object);
 
@@ -146,7 +151,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
         [Fact]
         public void Test_SignIn_DoesNotAddCookie_IfAuthResultIsNotSuccess()
         {
-            var authenticator = new CookieAuthenticator(dataProtector.Object, logger.Object);
+            var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
             authenticator.SignIn(AuthenticateResult.NoResult(), context.Object);
 
@@ -167,7 +172,8 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
                             AuthConstants.SPNEGO_DEFAULT_SCHEME);
 
             var serializedTicket = serializer.Serialize(ticket);
-            var encodedTicket = Convert.ToBase64String(serializedTicket);
+            var protectedTicket = dataProtector.Protect(serializedTicket);
+            var encodedTicket = Convert.ToBase64String(protectedTicket);
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
@@ -175,15 +181,13 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
                 Value = encodedTicket
             };
 
-            dataProtector.Setup(dp => dp.Protect(serializedTicket)).Returns(serializedTicket);
+            var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
-            var authenticator = new CookieAuthenticator(dataProtector.Object, logger.Object);
-
-            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", encodedTicket);
+            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", Convert.ToBase64String(serializedTicket));
 
             authenticator.SignIn(AuthenticateResult.Success(ticket), context.Object);
 
-            response.Verify(r => r.AppendCookie(It.Is<HttpCookie>(c => c.Value == encodedTicket 
+            response.Verify(r => r.AppendCookie(It.Is<HttpCookie>(c => Convert.ToBase64String(dataProtector.UnProtect(Convert.FromBase64String(c.Value))) == Convert.ToBase64String(dataProtector.UnProtect(Convert.FromBase64String(encodedTicket)))
                                                                     && c.Expires.Date.Day == DateTime.Now.AddDays(1).Date.Day
                                                                     && c.Expires.Date.Month == DateTime.Now.AddDays(1).Date.Month
                                                                     && c.Expires.Date.Year == DateTime.Now.AddDays(1).Date.Year)), Times.Once);
@@ -204,6 +208,19 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
             response.SetupGet(r => r.Cookies).Returns(cookies);
             request.SetupGet(r => r.Browser).Returns(browser.Object);
             request.SetupGet(r => r.Url).Returns(new Uri("http://localhost"));
+        }
+    }
+
+    internal class DataProtectorStub: IDataProtector
+    {
+        public byte[] Protect(byte[] unsecuredData)
+        {
+            return ProtectedData.Protect(unsecuredData, null, DataProtectionScope.LocalMachine);
+        }
+
+        public byte[] UnProtect(byte[] securedData)
+        {
+            return ProtectedData.Unprotect(securedData, null, DataProtectionScope.LocalMachine);
         }
     }
 }

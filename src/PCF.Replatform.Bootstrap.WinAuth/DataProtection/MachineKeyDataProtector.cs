@@ -21,7 +21,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.DataProtecti
 
         public byte[] UnProtect(byte[] securedData)
         {
-            return MachineKey.Protect(securedData, configuration[AuthConstants.DATA_PROTECTION_KEY_NM]);
+            return MachineKey.Unprotect(securedData, configuration[AuthConstants.DATA_PROTECTION_KEY_NM]);
         }
     }
 }

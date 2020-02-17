@@ -1,3 +1,7 @@
+#### 2.1.0
+- A package for Windows Authentication using Kerberos is added, including a sample. https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth
+- Steeltoe 2.4.2 is consumed (fix for Issue, https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/issues/12)
+
 #### 2.1.0-rc1
 - A package for Windows Authentication using Kerberos is added, including a sample
 
@@ -26,9 +30,12 @@
 - Note: Endpoint Actuators are available only for health and info due to a bug (https://github.com/SteeltoeOSS/steeltoe/issues/161). Will not be able to enable other endpoints until the issue is fixed.
 
 #### Issues - Open
-1. Unable to configure log levels dynamically via AppsManager
+1. Nothing open
 
 #### Issues - Closed
+##### v2.1.0-rc2
+1. https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/issues/12
+
 ##### v2.0.1-rc1, v2.0.1
 1. Endpoint Actuators are available only for health and info due to a bug (https://github.com/SteeltoeOSS/steeltoe/issues/161)
 
