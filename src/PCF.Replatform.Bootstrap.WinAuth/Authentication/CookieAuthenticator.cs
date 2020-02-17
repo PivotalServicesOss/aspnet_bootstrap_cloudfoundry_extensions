@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.DataProtection;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,12 +11,14 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 {
     public class CookieAuthenticator : ICookieAuthenticator
     {
+        private readonly IDataProtector dataProtector;
         private readonly ILogger<CookieAuthenticator> logger;
         private readonly TicketSerializer serializer;
 
-        public CookieAuthenticator(ILogger<CookieAuthenticator> logger)
+        public CookieAuthenticator(IDataProtector dataProtector, ILogger<CookieAuthenticator> logger)
         {
-            this.logger = logger;
+            this.dataProtector = dataProtector ?? throw new ArgumentNullException(nameof(dataProtector));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             serializer = new TicketSerializer();
         }
 
@@ -34,9 +36,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
             {
                 try
                 {
-                    var ticket = serializer.Deserialize(Convert.FromBase64String(authCookie.Value));
+                    var unprotectedCookieBytes = dataProtector.UnProtect(Convert.FromBase64String(authCookie.Value));
+                    var ticket = serializer.Deserialize(unprotectedCookieBytes);
+
                     var storedHash = contextBase.Cache[ticket.Principal.Identity.Name]?.ToString();
-                    var currentHash = ComputeHash(authCookie.Value);
+                    var currentHash = ComputeHash(Convert.ToBase64String(unprotectedCookieBytes));
 
                     if(currentHash == storedHash)
                         return AuthenticateResult.Success(ticket);
@@ -54,15 +58,18 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
         {
             if (authResult.Succeeded)
             {
-                var encodedTicket = Convert.ToBase64String(serializer.Serialize(authResult.Ticket));
-                contextBase.Cache[authResult.Ticket.Principal.Identity.Name] = ComputeHash(encodedTicket);
+                var serializedUnprotectedTicket = Convert.ToBase64String(serializer.Serialize(authResult.Ticket));
+                contextBase.Cache[authResult.Ticket.Principal.Identity.Name] = ComputeHash(serializedUnprotectedTicket);
+
+                var protectedTicket = dataProtector.Protect(serializer.Serialize(authResult.Ticket));
+                var encodedProtectedTicket = Convert.ToBase64String(protectedTicket);
 
                 var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
                 {
-                    Expires = DateTime.Now.AddDays(90),
+                    Expires = DateTime.Now.AddDays(1),
                     Secure = contextBase.Request.Url.Scheme == "https",
                     HttpOnly = true,
-                    Value = encodedTicket
+                    Value = encodedProtectedTicket
                 };
 
                 contextBase.Response.AppendCookie(cookie);

@@ -156,14 +156,14 @@
     <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Pipelines.Sockets.Unofficial.1.0.7\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.0.1\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.1.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.0.1\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.1.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session, Version=2.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Redis.Session.2.0.1\lib\net462\PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Redis.Session.2.1.0\lib\net462\PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Serilog.2.5.0\lib\net46\Serilog.dll</HintPath>
@@ -174,32 +174,32 @@
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\StackExchange.Redis.2.0.519\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.CloudFoundry.ConnectorBase, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.CloudFoundry.ConnectorBase.2.4.1\lib\netstandard2.0\Steeltoe.CloudFoundry.ConnectorBase.dll</HintPath>
+    <Reference Include="Steeltoe.CloudFoundry.ConnectorBase, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.CloudFoundry.ConnectorBase.2.4.2\lib\netstandard2.0\Steeltoe.CloudFoundry.ConnectorBase.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.CloudFoundry.ConnectorCore, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.CloudFoundry.ConnectorCore.2.4.1\lib\netstandard2.0\Steeltoe.CloudFoundry.ConnectorCore.dll</HintPath>
+    <Reference Include="Steeltoe.CloudFoundry.ConnectorCore, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.CloudFoundry.ConnectorCore.2.4.2\lib\netstandard2.0\Steeltoe.CloudFoundry.ConnectorCore.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.Common, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.Common.2.4.1\lib\netstandard2.0\Steeltoe.Common.dll</HintPath>
+    <Reference Include="Steeltoe.Common, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.Common.2.4.2\lib\netstandard2.0\Steeltoe.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.Common.Http, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.Common.Http.2.4.1\lib\netstandard2.0\Steeltoe.Common.Http.dll</HintPath>
+    <Reference Include="Steeltoe.Common.Http, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.Common.Http.2.4.2\lib\netstandard2.0\Steeltoe.Common.Http.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.Extensions.Configuration.CloudFoundryBase, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.CloudFoundryBase.2.4.1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.CloudFoundryBase.dll</HintPath>
+    <Reference Include="Steeltoe.Extensions.Configuration.CloudFoundryBase, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.CloudFoundryBase.2.4.2\lib\netstandard2.0\Steeltoe.Extensions.Configuration.CloudFoundryBase.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.CloudFoundryCore.2.4.1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.CloudFoundryCore.dll</HintPath>
+    <Reference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.CloudFoundryCore.2.4.2\lib\netstandard2.0\Steeltoe.Extensions.Configuration.CloudFoundryCore.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.Extensions.Configuration.ConfigServerBase, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.ConfigServerBase.2.4.1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.ConfigServerBase.dll</HintPath>
+    <Reference Include="Steeltoe.Extensions.Configuration.ConfigServerBase, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.ConfigServerBase.2.4.2\lib\netstandard2.0\Steeltoe.Extensions.Configuration.ConfigServerBase.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.Extensions.Configuration.PlaceholderBase, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.PlaceholderBase.2.4.1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.PlaceholderBase.dll</HintPath>
+    <Reference Include="Steeltoe.Extensions.Configuration.PlaceholderBase, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.PlaceholderBase.2.4.2\lib\netstandard2.0\Steeltoe.Extensions.Configuration.PlaceholderBase.dll</HintPath>
     </Reference>
-    <Reference Include="Steeltoe.Extensions.Configuration.PlaceholderCore, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.PlaceholderCore.2.4.1\lib\netstandard2.0\Steeltoe.Extensions.Configuration.PlaceholderCore.dll</HintPath>
+    <Reference Include="Steeltoe.Extensions.Configuration.PlaceholderCore, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Steeltoe.Extensions.Configuration.PlaceholderCore.2.4.2\lib\netstandard2.0\Steeltoe.Extensions.Configuration.PlaceholderCore.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>

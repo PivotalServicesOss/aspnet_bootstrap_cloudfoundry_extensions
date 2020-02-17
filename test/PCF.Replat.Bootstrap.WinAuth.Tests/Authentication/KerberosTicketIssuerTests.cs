@@ -1,6 +1,7 @@
 ﻿using Kerberos.NET;
 using Kerberos.NET.Crypto;
 using Microsoft.Extensions.Configuration;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authentication;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
         [Fact]
         public void Test_Authenticates_And_Issues_A_Ticket_If_PrincipalPassword_Is_Set()
         {
-            var configuration = GetMockConfiguration(new Dictionary<string, string>() { { "PRINCIPAL_PASSWORD", "foo" } });
+            var configuration = GetMockConfiguration(new Dictionary<string, string>() { { AuthConstants.PRINCIPAL_PASSWORD_NM, "foo" } });
 
             var issuer = new KerberosTicketIssuer(GetAuthenticatorStub("bar"), configuration);
 

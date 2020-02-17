@@ -77,7 +77,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
-                Expires = DateTime.Now.AddDays(90),
+                Expires = DateTime.Now.AddDays(1),
                 Value = encodedTicket
             };
 
@@ -108,7 +108,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
-                Expires = DateTime.Now.AddDays(90),
+                Expires = DateTime.Now.AddDays(1),
                 Value = encodedTicket
             };
 
@@ -141,7 +141,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
-                Expires = DateTime.Now.AddDays(90),
+                Expires = DateTime.Now.AddDays(1),
                 Value = encodedTicket
             };
 
