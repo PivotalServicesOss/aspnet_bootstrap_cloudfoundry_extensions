@@ -3,9 +3,9 @@
   <system.web>
     <machineKey xdt:Transform="InsertIfMissing" validationKey="{Validation Key}"
                 decryptionKey="{Decryption Key}"
-                validation="SHA1" decryption="AES"/>
-    <!--One time activity, please generate machine key using any tools like, for e.g 'https://www.developerfusion.com/tools/generatemachinekey'-->
-    
+                validation="SHA1" decryption="AES">
+      <!--One time activity, please generate machine key using any tools like, for e.g 'https://www.developerfusion.com/tools/generatemachinekey'-->
+    </machineKey>
     <sessionState xdt:Transform="Remove"></sessionState>
     <sessionState mode="Custom" customProvider="RedisSessionStateStore" xdt:Transform="InsertIfMissing">
       <providers>

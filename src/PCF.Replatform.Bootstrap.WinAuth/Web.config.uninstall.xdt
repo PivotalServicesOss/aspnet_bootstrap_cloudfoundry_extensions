@@ -2,7 +2,9 @@
 <configuration  xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <system.webServer>
     <security>
-      <authentication xdt:Transform="Remove"/>
+      <authentication>
+        <windowsAuthentication xdt:Transform="Remove"/>
+      </authentication>
     </security>
   </system.webServer>
 </configuration>

@@ -3,19 +3,21 @@
   <system.web>
     <machineKey xdt:Transform="InsertIfMissing" validationKey="{Validation Key}"
                 decryptionKey="{Decryption Key}"
-                validation="SHA1" decryption="AES"/>
-    <!--One time activity, please generate machine key using any tools like, for e.g 'https://www.developerfusion.com/tools/generatemachinekey'-->
+                validation="SHA1" decryption="AES">
+      <!--One time activity, please generate machine key using any tools like, for e.g 'https://www.developerfusion.com/tools/generatemachinekey'-->
+    </machineKey>
+    
     <authentication xdt:Transform="Remove"/>
     <authorization xdt:Transform="Remove"/>
   </system.web>
-  <system.webServer>
-    <security>
+  <system.webServer xdt:Transform="InsertIfMissing">
+    <security xdt:Transform="InsertIfMissing">
       <authentication xdt:Transform="Remove"/>
     </security>
   </system.webServer>
   <system.webServer>
     <security>
-      <authentication>
+      <authentication xdt:Transform="InsertIfMissing">
         <windowsAuthentication enabled="false" xdt:Transform="InsertIfMissing"/>
       </authentication>
     </security>

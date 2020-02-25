@@ -19,9 +19,9 @@ namespace WinAuthSample
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             AppBuilder.Instance
-                //.AddCloudFoundryActuators()
+                .AddCloudFoundryActuators()
                 //.AddConsoleSerilogLogging(true)
-                //.AddCloudFoundryMetricsForwarder()
+                .AddCloudFoundryMetricsForwarder()
                 .AddWindowsAuthentication()
                 .Build()
                 .Start();
