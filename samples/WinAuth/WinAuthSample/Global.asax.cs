@@ -18,7 +18,18 @@ namespace WinAuthSample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            AppBuilder.Instance.AddWindowsAuthentication().Build().Start();
+            AppBuilder.Instance
+                //.AddCloudFoundryActuators()
+                //.AddConsoleSerilogLogging(true)
+                //.AddCloudFoundryMetricsForwarder()
+                .AddWindowsAuthentication()
+                .Build()
+                .Start();
+        }
+
+        protected void Application_Stop()
+        {
+            AppBuilder.Instance.Stop();
         }
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authentication;
 using System;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
@@ -22,28 +21,32 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
 
         public override string Path => null;
 
-        public override DynamicHttpHandlerEvent ApplicationEvent => DynamicHttpHandlerEvent.AuthenticateRequest;
+        public override DynamicHttpHandlerEvent ApplicationEvent => DynamicHttpHandlerEvent.PostAuthenticateRequest;
 
         public override void HandleRequest(HttpContextBase contextBase)
         {
+            if (IsAuthenticated(contextBase))
+                return;
+
             var cookieAuthResult = cookieAuthenticator.Authenticate(contextBase);
             if (cookieAuthResult.Succeeded)
             {
                 contextBase.User = cookieAuthResult.Ticket.Principal;
+                logger.LogDebug($"Logged in user (cookie): {contextBase.User.Identity.Name}");
                 return;
             }
 
             var spnegoAuthResult = spnegoAuthenticator.Authenticate(contextBase);
 
-            if(spnegoAuthResult.Succeeded)
+            if (spnegoAuthResult.Succeeded)
             {
                 cookieAuthenticator.SignIn(spnegoAuthResult, contextBase);
                 contextBase.User = spnegoAuthResult.Ticket.Principal;
+                logger.LogDebug($"Logged in user (spnego): {contextBase.User.Identity.Name}");
                 return;
             }
             else
             {
-                logger.LogDebug("User authentication failed, issuing WWW-Authenticate challenge");
                 spnegoAuthenticator.Challenge(new AuthenticationProperties(), contextBase);
                 return;
             }
@@ -51,12 +54,14 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
 
         private bool IsAuthenticated(HttpContextBase context)
         {
-            return !(context.User == null || context.User.Identity == null || !context.User.Identity.IsAuthenticated);
+            var isAuthenticated = !(context.User == null || context.User.Identity == null || !context.User.Identity.IsAuthenticated);
+            logger.LogDebug($"Is Authenticated: {isAuthenticated}");
+            return isAuthenticated;
         }
 
-        public override async Task<bool> ContinueNextAsync(HttpContextBase context)
+        public override bool ContinueNext(HttpContextBase context)
         {
-            return await Task.FromResult(result: IsAuthenticated(context));
+            return IsAuthenticated(context);
         }
     }
 }

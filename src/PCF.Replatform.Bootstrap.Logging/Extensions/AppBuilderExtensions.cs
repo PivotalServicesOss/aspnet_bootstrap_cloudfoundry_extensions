@@ -22,7 +22,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     public static class AppBuilderExtensions
     {
 
-        public static AppBuilder AddConsoleSerilogLogging(this AppBuilder instance, bool includeDistributedTracing = false)
+        public static AppBuilder AddConsoleSerilogLogging(this AppBuilder instance, bool includeDistributedTracing = false, bool addDebug = false)
         {
             LoggingConstants.IncludeDistributedTracing = includeDistributedTracing;
 
@@ -73,6 +73,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                 .GetNonPublicInstanceFieldValue<List<Action<HostBuilderContext, ILoggingBuilder>>>(instance, "ConfigureLoggingDelegates")
                     .Add((builderContext, loggingBuilder) =>
                     {
+                        loggingBuilder.ClearProviders();
+
                         var loggerConfiguration = new LoggerConfiguration()
                                                                 .ReadFrom.Configuration(builderContext.Configuration)
                                                                 .Enrich.FromLogContext()
@@ -86,12 +88,17 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
                         Log.Logger = logger;
 
-                        loggingBuilder.Services.AddSingleton<IDynamicLoggerProvider>(sp => new SerilogDynamicProvider(sp.GetRequiredService<IConfiguration>(), logger, levelSwitch));
+                        loggingBuilder.Services.AddSingleton<IDynamicLoggerProvider>(sp => new SerilogDynamicProvider(sp.GetRequiredService<IConfiguration>(), serilogOptions, logger, levelSwitch));
                         loggingBuilder.Services.AddSingleton<ILoggerFactory>(sp => new SerilogDynamicLoggerFactory(sp.GetRequiredService<IDynamicLoggerProvider>()));
 
                         if (includeDistributedTracing)
                         {
                             loggingBuilder.Services.AddDefaultDiagnosticsDependencies(builderContext.Configuration);
+                        }
+
+                        if (addDebug)
+                        {
+                            loggingBuilder.AddDebug();
                         }
                     });
 

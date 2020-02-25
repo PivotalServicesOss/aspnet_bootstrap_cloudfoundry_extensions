@@ -8,8 +8,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
         string Path { get; }
         DynamicHttpHandlerEvent ApplicationEvent { get; }
         void HandleRequest(HttpContextBase context);
-        Task<bool> IsEnabledAsync(HttpContextBase context);
-        Task<bool> ContinueNextAsync(HttpContextBase context);
+        bool IsEnabled(HttpContextBase context);
+        bool ContinueNext(HttpContextBase context);
         void RegisterEvent(HttpApplication application);
     }
 }

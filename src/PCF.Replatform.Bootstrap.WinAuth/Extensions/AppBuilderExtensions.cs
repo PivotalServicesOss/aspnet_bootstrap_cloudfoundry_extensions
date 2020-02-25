@@ -16,7 +16,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     {
         public const string SPNEGO_DEFAULT_SCHEME = "Negotiate";
         public const string PRINCIPAL_PASSWORD_FROM_CREDHUB = "${vcap:services:credhub:0:credentials:principal_password}";
-        public const string AUTH_COOKIE_NM = "K_AUTH_TICKET";
+        public const string AUTH_COOKIE_NM = "AUTH";
         public const string DATA_PROTECTION_PURPOSE_DEFAULT = "${vcap:application:name}";
         public const string DATA_PROTECTION_KEY_NM = "DATA_PROTECTION_KEY";
         public const string PRINCIPAL_PASSWORD_NM = "PRINCIPAL_PASSWORD";
@@ -50,7 +50,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                      services.AddSingleton<ICookieAuthenticator, CookieAuthenticator>();
                  });
 
-            instance.AddDefaultConfigurations();
+            instance.AddDefaultConfigurations(jsonSettingsOptional: false);
             instance.AddConfigServer();
 
             return instance;

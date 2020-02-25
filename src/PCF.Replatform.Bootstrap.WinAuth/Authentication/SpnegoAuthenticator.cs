@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
 using System;
 using System.Web;
 
@@ -22,30 +23,8 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 
         public AuthenticateResult Authenticate(HttpContextBase contextBase)
         {
-            AuthenticateResult authenticateResult = HandleAuthenticate(contextBase);
+            var configuration = DependencyContainer.GetService<IConfiguration>();
 
-            if (authenticateResult?.Failure == null)
-            {
-                if ((authenticateResult?.Ticket)?.Principal != null)
-                    logger.LogDebug($"AuthenticationSchemeAuthenticated, {AuthConstants.SPNEGO_DEFAULT_SCHEME}");
-                else
-                    logger.LogError($"AuthenticationSchemeNotAuthenticated, {AuthConstants.SPNEGO_DEFAULT_SCHEME}");
-            }
-            else
-                logger.LogError($"AuthenticationSchemeNotAuthenticatedWithFailure, {AuthConstants.SPNEGO_DEFAULT_SCHEME}, {authenticateResult.Failure.Message}");
-
-            return authenticateResult;
-        }
-
-        public void Challenge(AuthenticationProperties properties, HttpContextBase contextBase)
-        {
-            properties = properties ?? new AuthenticationProperties();
-            HandleChallenge(properties, contextBase);
-            logger.LogError($"AuthenticationSchemeChallenged, {AuthConstants.SPNEGO_DEFAULT_SCHEME}");
-        }
-
-        private AuthenticateResult HandleAuthenticate(HttpContextBase contextBase)
-        {
             if (contextBase == null)
                 throw new ArgumentNullException(nameof(contextBase));
 
@@ -58,11 +37,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
                 return AuthenticateResult.NoResult();
 
             var base64Token = authorizationHeader.Substring(AuthConstants.SPNEGO_DEFAULT_SCHEME.Length).Trim();
-
             if (string.IsNullOrEmpty(base64Token))
             {
                 const string noCredentialsMessage = "No credentials";
-                logger.LogInformation(noCredentialsMessage);
+                logger.LogWarning(noCredentialsMessage);
                 return AuthenticateResult.Fail(noCredentialsMessage);
             }
 
@@ -70,9 +48,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
             {
                 try
                 {
-                    logger.LogTrace($"===SPNEGO Token==={Environment.NewLine}{base64Token}");
-
-                    return AuthenticateResult.Success(issuer.Authenticate(base64Token));
+                    logger.LogTrace($"SPNEGO Token: {base64Token}");
+                    var ticket = issuer.Authenticate(base64Token);
+                    logger.LogDebug($"Authenticated successfully, kerberos ticket recieved...");
+                    return AuthenticateResult.Success(ticket);
                 }
                 catch (KerberosValidationException e)
                 {
@@ -85,10 +64,12 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
             }
         }
 
-        private void HandleChallenge(AuthenticationProperties properties, HttpContextBase contextBase)
+        public void Challenge(AuthenticationProperties properties, HttpContextBase contextBase)
         {
+            properties = properties ?? new AuthenticationProperties();
             contextBase.Response.StatusCode = 401;
             contextBase.Response.Headers.Set(HeaderNames.WWWAuthenticate, AuthConstants.SPNEGO_DEFAULT_SCHEME);
+            logger.LogDebug("Issuing WWW-Authenticate challenge");
         }
     }
 }
