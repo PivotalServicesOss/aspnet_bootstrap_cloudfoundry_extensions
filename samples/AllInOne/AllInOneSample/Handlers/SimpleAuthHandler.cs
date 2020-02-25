@@ -18,9 +18,9 @@ namespace AllInOneSample.Handlers
             context.User = new ClaimsPrincipal(identity);
         }
 
-        public override async Task<bool> ContinueNextAsync(HttpContextBase context)
+        public override bool ContinueNext(HttpContextBase context)
         {
-            return await Task.FromResult(result: true);
+            return true;
         }
     }
 }

@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <PivotalServicesBootstrapVersion>2.2.2</PivotalServicesBootstrapVersion>
-    <PivotalServicesBootstrapVersionSuffix>-local</PivotalServicesBootstrapVersionSuffix>
+    <PivotalServicesBootstrapVersion>2.2.0</PivotalServicesBootstrapVersion>
+    <PivotalServicesBootstrapVersionSuffix></PivotalServicesBootstrapVersionSuffix>
     <PivotalServicesBootstrapVersionRevision>0</PivotalServicesBootstrapVersionRevision>
     <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
