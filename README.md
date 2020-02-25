@@ -308,9 +308,10 @@ Serilog:
 ``` 
 
 - Once you setup the service account and SPN (as mentioned [below](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#create-spn-service-principal-name)), you need to set `PRINCIPAL_PASSWORD` with the service account's password, via environment variable or any other configuration sources you are using for the application (e.g. config server, yaml, json, etc.)
+- Add the application's url to trusted sites. If your application's url is `http://foo.bar`, add `http://foo.bar` into trusted sites.
 - By default the package tries to resolve from credhub with key `principal_password`. e.g. `{["principal_password":"som secret password"]}`. 
 
-**Note that, in the case of credhub, key should be in lowercase**
+**Note: In the case of credhub, key should be in lowercase**
 
 - If not exists already, add the `machineKey` section to `web.config` as below. You can generate a new one from [Developer Fusion](https://www.developerfusion.com/tools/generatemachinekey). This is for data protection purposes.
 
@@ -318,6 +319,10 @@ Serilog:
     <machineKey validationKey="B2FFA07BEA941CBFD2F2450A5BE4D8F6ABFFE624F3DBB35BC589D34C5647F65235634AEC71B5C1E2453BE8D466B6818A9438AC2FFE0C09024052FFF27C85EB3C" 
             decryptionKey="4AFFE5CFAE4F97BFAE7736E5A6B85E921EF209FA84F4BC665993E72393B080DC" validation="SHA1" decryption="AES" />
 ```
+
+**Note: The skeleton of the machine key section will be added while installing the package**
+
+**Note: Make sure you are browsing the application from a domain joined computer (same domain where the SPN is created)**
 
 ### Create SPN (Service Principal Name)
 

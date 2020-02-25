@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
@@ -34,8 +35,8 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
             spnegoAuthenticator = new Mock<ISpnegoAuthenticator>();
             logger = new Mock<ILogger<WindowsAuthenticationHandler>>();
             server = new Mock<HttpServerUtilityBase>(MockBehavior.Loose);
-            response = new Mock<HttpResponseBase>(MockBehavior.Strict);
-            request = new Mock<HttpRequestBase>(MockBehavior.Strict);
+            response = new Mock<HttpResponseBase>(MockBehavior.Loose);
+            request = new Mock<HttpRequestBase>(MockBehavior.Loose);
             session = new Mock<HttpSessionStateBase>();
             context = new Mock<HttpContextBase>();
             cookies = new HttpCookieCollection();
@@ -45,21 +46,21 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
         [Fact]
         public void Test_IsOfType_DynamicHttpHandlerBase()
         {
-            Assert.IsAssignableFrom<DynamicHttpHandlerBase>(new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, logger.Object));
+            Assert.IsAssignableFrom<DynamicHttpHandlerBase>(new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(), logger.Object));
         }
 
         [Fact]
         public void Test_PathIsNull()
         {
-            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, logger.Object);
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(), logger.Object);
             Assert.Null(handler.Path);
         }
 
         [Fact]
-        public void Test_ApplicationEvent_Is_AuthenticateRequest()
+        public void Test_ApplicationEvent_Is_PostAuthenticateRequest()
         {
-            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, logger.Object);
-            Assert.Equal(DynamicHttpHandlerEvent.AuthenticateRequest, handler.ApplicationEvent);
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(), logger.Object);
+            Assert.Equal(DynamicHttpHandlerEvent.PostAuthenticateRequest, handler.ApplicationEvent);
         }
 
         [Fact]
@@ -73,6 +74,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
                                         new Claim(ClaimTypes.Name,"Foo User"),
                                 }, AuthConstants.SPNEGO_DEFAULT_SCHEME)),
                             AuthConstants.SPNEGO_DEFAULT_SCHEME);
+
             var encodedTicket = Convert.ToBase64String(serializer.Serialize(ticket));
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
@@ -84,7 +86,13 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
             cookies.Set(cookie);
             cookieAuthenticator.Setup(ca => ca.Authenticate(context.Object)).Returns(AuthenticateResult.Success(ticket));
 
-            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, logger.Object);
+            var whitelistPath = "/whitelistpath";
+            var mockConfiguration = new Dictionary<string, string>() { { AuthConstants.WHITELIST_PATHS_CSV_NM, whitelistPath } };
+            request.SetupGet(r => r.Path).Returns("/anypath");
+
+            context.SetupGet(c => c.User).Returns(()=> { return null; });
+
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(), logger.Object);
             handler.HandleRequest(context.Object);
 
             spnegoAuthenticator.Verify(sa => sa.Authenticate(context.Object), Times.Never);
@@ -104,6 +112,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
                                         new Claim(ClaimTypes.Name,"Foo User"),
                                 }, AuthConstants.SPNEGO_DEFAULT_SCHEME)),
                             AuthConstants.SPNEGO_DEFAULT_SCHEME);
+
             var encodedTicket = Convert.ToBase64String(serializer.Serialize(ticket));
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
@@ -116,7 +125,13 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
             cookieAuthenticator.Setup(ca => ca.Authenticate(context.Object)).Returns(AuthenticateResult.NoResult());
             spnegoAuthenticator.Setup(sa => sa.Authenticate(context.Object)).Returns(AuthenticateResult.Success(ticket));
 
-            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, logger.Object);
+            var whitelistPath = "/whitelistpath";
+            var mockConfiguration = new Dictionary<string, string>() { { AuthConstants.WHITELIST_PATHS_CSV_NM, whitelistPath } };
+            request.SetupGet(r => r.Path).Returns("/anypath");
+
+            context.SetupGet(c => c.User).Returns(() => { return null; });
+
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(), logger.Object);
             handler.HandleRequest(context.Object);
 
             cookieAuthenticator.Verify(ca => ca.Authenticate(context.Object), Times.Once);
@@ -137,6 +152,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
                                         new Claim(ClaimTypes.Name,"Foo User"),
                                 }, AuthConstants.SPNEGO_DEFAULT_SCHEME)),
                             AuthConstants.SPNEGO_DEFAULT_SCHEME);
+
             var encodedTicket = Convert.ToBase64String(serializer.Serialize(ticket));
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
@@ -146,10 +162,17 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
             };
 
             cookies.Set(cookie);
+
             cookieAuthenticator.Setup(ca => ca.Authenticate(context.Object)).Returns(AuthenticateResult.NoResult());
             spnegoAuthenticator.Setup(sa => sa.Authenticate(context.Object)).Returns(AuthenticateResult.NoResult());
 
-            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, logger.Object);
+            var whitelistPath = "/whitelistpath";
+            var mockConfiguration = new Dictionary<string, string>() { { AuthConstants.WHITELIST_PATHS_CSV_NM, whitelistPath } };
+            request.SetupGet(r => r.Path).Returns("/anypath");
+
+            context.SetupGet(c => c.User).Returns(() => { return null; });
+
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(), logger.Object);
             handler.HandleRequest(context.Object);
 
             cookieAuthenticator.Verify(ca => ca.Authenticate(context.Object), Times.Once);
@@ -157,6 +180,66 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
             spnegoAuthenticator.Verify(sa => sa.Challenge(It.IsAny<AuthenticationProperties>(), context.Object), Times.Once);
             cookieAuthenticator.Verify(ca => ca.SignIn(It.IsAny<AuthenticateResult>(), context.Object), Times.Never);
             context.VerifySet(c => c.User = ticket.Principal, Times.Never);
+        }
+
+        [Fact]
+        public void Test_If_NoneOfThe_Authenticators_Are_Called_If_Whitelisted()
+        {
+            var whitelistPath = "/whitelistpath";
+            var mockConfiguration = new Dictionary<string, string>() { { AuthConstants.WHITELIST_PATHS_CSV_NM, whitelistPath } };
+            request.SetupGet(r => r.Path).Returns("/whitelistpath");
+
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(mockConfiguration), logger.Object);
+            handler.HandleRequest(context.Object);
+
+            cookieAuthenticator.Verify(ca => ca.Authenticate(context.Object), Times.Never);
+            spnegoAuthenticator.Verify(sa => sa.Authenticate(context.Object), Times.Never);
+            spnegoAuthenticator.Verify(sa => sa.Challenge(It.IsAny<AuthenticationProperties>(), context.Object), Times.Never);
+            cookieAuthenticator.Verify(ca => ca.SignIn(It.IsAny<AuthenticateResult>(), context.Object), Times.Never);
+        }
+
+        //For cloud foundry actuators
+        [InlineData("/cloudfoundryapplication")]
+        [InlineData("/cloudfoundryapplication/")]
+        [InlineData("/actuator")]
+        [InlineData("/actuator/")]
+        [Theory]
+        public void Test_If_NoneOfThe_Authenticators_Are_Called_ForDefaultWhitelistedPath(string path)
+        {
+            request.SetupGet(r => r.Path).Returns(path);
+
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(), logger.Object);
+            handler.HandleRequest(context.Object);
+
+            cookieAuthenticator.Verify(ca => ca.Authenticate(context.Object), Times.Never);
+            spnegoAuthenticator.Verify(sa => sa.Authenticate(context.Object), Times.Never);
+            spnegoAuthenticator.Verify(sa => sa.Challenge(It.IsAny<AuthenticationProperties>(), context.Object), Times.Never);
+            cookieAuthenticator.Verify(ca => ca.SignIn(It.IsAny<AuthenticateResult>(), context.Object), Times.Never);
+        }
+
+
+        [Fact]
+        public void Test_If_NoneOfThe_Authenticators_Are_Called_If_Already_Whitelisted_And_Authenticated()
+        {
+            var claimsPrincipal = new ClaimsPrincipal(
+                                new ClaimsIdentity(new[]
+                                {
+                                        new Claim(ClaimTypes.Name,"Foo User"),
+                                }, AuthConstants.SPNEGO_DEFAULT_SCHEME));
+
+            var whitelistPath = "/whitelistpath";
+            var mockConfiguration = new Dictionary<string, string>() { { AuthConstants.WHITELIST_PATHS_CSV_NM, whitelistPath } };
+            request.SetupGet(r => r.Path).Returns("/whitelistpath");
+
+            context.SetupGet(c => c.User).Returns(claimsPrincipal);
+
+            var handler = new WindowsAuthenticationHandler(cookieAuthenticator.Object, spnegoAuthenticator.Object, GetConfiguration(mockConfiguration), logger.Object);
+            handler.HandleRequest(context.Object);
+
+            cookieAuthenticator.Verify(ca => ca.Authenticate(context.Object), Times.Never);
+            spnegoAuthenticator.Verify(sa => sa.Authenticate(context.Object), Times.Never);
+            spnegoAuthenticator.Verify(sa => sa.Challenge(It.IsAny<AuthenticationProperties>(), context.Object), Times.Never);
+            cookieAuthenticator.Verify(ca => ca.SignIn(It.IsAny<AuthenticateResult>(), context.Object), Times.Never);
         }
 
         private void SetHttpContext()
@@ -168,6 +251,11 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Handlers
             context.SetupGet(c => c.Server).Returns(server.Object);
             context.SetupGet(c => c.Session).Returns(session.Object);
             request.SetupGet(r => r.Cookies).Returns(cookies);
+        }
+
+        private IConfiguration GetConfiguration(Dictionary<string, string> keyValuePairs = null)
+        {
+            return new ConfigurationBuilder().AddInMemoryCollection(keyValuePairs ?? new Dictionary<string, string>()).Build();
         }
     }
 }

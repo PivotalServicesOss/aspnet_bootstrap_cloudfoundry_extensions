@@ -23,8 +23,6 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 
         public AuthenticateResult Authenticate(HttpContextBase contextBase)
         {
-            var configuration = DependencyContainer.GetService<IConfiguration>();
-
             if (contextBase == null)
                 throw new ArgumentNullException(nameof(contextBase));
 

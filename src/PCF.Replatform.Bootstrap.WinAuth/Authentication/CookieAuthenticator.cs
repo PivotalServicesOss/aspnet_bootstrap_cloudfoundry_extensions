@@ -12,6 +12,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
         private readonly IDataProtector dataProtector;
         private readonly ILogger<CookieAuthenticator> logger;
         private readonly TicketSerializer serializer;
+        public const int COOKIE_TIMEOUT_IN_MINUTES = 20;
 
         public CookieAuthenticator(IDataProtector dataProtector, ILogger<CookieAuthenticator> logger)
         {
@@ -32,10 +33,18 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 
             if (authCookie != null)
             {
-                var unprotectedCookieBytes = dataProtector.UnProtect(Convert.FromBase64String(authCookie.Value));
-                var ticket = serializer.Deserialize(unprotectedCookieBytes);
-                logger.LogDebug("Cookie authentication succeeded");
-                return AuthenticateResult.Success(ticket);
+                try
+                {
+                    var unprotectedCookieBytes = dataProtector.UnProtect(Convert.FromBase64String(authCookie.Value));
+                    var ticket = serializer.Deserialize(unprotectedCookieBytes);
+                    logger.LogDebug("Cookie authentication succeeded");
+                    return AuthenticateResult.Success(ticket);
+                }
+                catch (Exception)
+                {
+                    return AuthenticateResult.Fail($"Unable to extract cookie '{AuthConstants.AUTH_COOKIE_NM}', cookie might be damaged/modified");
+                }
+                
             }
 
             logger.LogDebug("Cookie authentication failed");
@@ -51,7 +60,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authenticati
 
                 var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
                 {
-                    Expires = DateTime.Now.AddMinutes(20),
+                    Expires = DateTime.Now.AddMinutes(COOKIE_TIMEOUT_IN_MINUTES),
                     Secure = contextBase.Request.Url.Scheme == "https",
                     HttpOnly = true,
                     Value = encodedProtectedTicket

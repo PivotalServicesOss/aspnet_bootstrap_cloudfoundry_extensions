@@ -29,6 +29,8 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="Web.config.install.xdt" target="Content" />
+    <file src="Web.config.uninstall.xdt" target="Content" />
     <file src="readme.txt" target="" />
   </files>
 </package>

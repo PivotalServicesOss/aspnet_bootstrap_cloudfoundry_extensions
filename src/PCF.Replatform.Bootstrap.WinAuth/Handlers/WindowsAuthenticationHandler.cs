@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
 using PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Authentication;
 using System;
+using System.Linq;
 using System.Web;
 
 namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
@@ -11,12 +14,15 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
     {
         private readonly ICookieAuthenticator cookieAuthenticator;
         private readonly ISpnegoAuthenticator spnegoAuthenticator;
+        private readonly IConfiguration configuration;
+        public const string WHITELIST_PATHS_CSV_DEFAULT = "/cloudfoundryapplication,/cloudfoundryapplication/,/actuator,/actuator/";
 
-        public WindowsAuthenticationHandler(ICookieAuthenticator cookieAuthenticator, ISpnegoAuthenticator spnegoAuthenticator, ILogger<WindowsAuthenticationHandler> logger)
+        public WindowsAuthenticationHandler(ICookieAuthenticator cookieAuthenticator, ISpnegoAuthenticator spnegoAuthenticator, IConfiguration configuration, ILogger<WindowsAuthenticationHandler> logger)
             : base(logger)
         {
             this.cookieAuthenticator = cookieAuthenticator ?? throw new ArgumentNullException(nameof(cookieAuthenticator));
             this.spnegoAuthenticator = spnegoAuthenticator ?? throw new ArgumentNullException(nameof(spnegoAuthenticator));
+            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         public override string Path => null;
@@ -25,6 +31,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
 
         public override void HandleRequest(HttpContextBase contextBase)
         {
+            if (IsWhitelisted(contextBase))
+                return;
+
             if (IsAuthenticated(contextBase))
                 return;
 
@@ -32,7 +41,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
             if (cookieAuthResult.Succeeded)
             {
                 contextBase.User = cookieAuthResult.Ticket.Principal;
-                logger.LogDebug($"Logged in user (cookie): {contextBase.User.Identity.Name}");
+                logger.LogDebug($"Logged in user (cookie): {cookieAuthResult.Ticket.Principal}");
                 return;
             }
 
@@ -42,7 +51,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
             {
                 cookieAuthenticator.SignIn(spnegoAuthResult, contextBase);
                 contextBase.User = spnegoAuthResult.Ticket.Principal;
-                logger.LogDebug($"Logged in user (spnego): {contextBase.User.Identity.Name}");
+                logger.LogDebug($"Logged in user (spnego): {spnegoAuthResult.Ticket.Principal}");
                 return;
             }
             else
@@ -61,7 +70,22 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.Handlers
 
         public override bool ContinueNext(HttpContextBase context)
         {
-            return IsAuthenticated(context);
+            return IsWhitelisted(context) || IsAuthenticated(context);
+        }
+
+        private bool IsWhitelisted(HttpContextBase context)
+        {
+            var whitelistedPaths = WHITELIST_PATHS_CSV_DEFAULT.Split(',').ToList();
+
+            if (!string.IsNullOrWhiteSpace(configuration[AuthConstants.WHITELIST_PATHS_CSV_NM]))
+                whitelistedPaths.AddRange(configuration[AuthConstants.WHITELIST_PATHS_CSV_NM].Split(',').ToList());
+
+            foreach (var path in whitelistedPaths)
+            {
+                if (context.Request.Path.Contains(path))
+                    return true;
+            }
+            return false;
         }
     }
 }
