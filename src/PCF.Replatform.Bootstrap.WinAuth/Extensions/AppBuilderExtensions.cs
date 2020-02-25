@@ -30,10 +30,15 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     {
         public static AppBuilder AddWindowsAuthentication(this AppBuilder instance)
         {
+            return instance.AddWindowsAuthentication(null);
+        }
+
+        public static AppBuilder AddWindowsAuthentication(this AppBuilder instance, string principalPassword = null)
+        {
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore[AuthConstants.PRINCIPAL_PASSWORD_NM] = AuthConstants.PRINCIPAL_PASSWORD_FROM_CREDHUB;
+            inMemoryConfigStore[AuthConstants.PRINCIPAL_PASSWORD_NM] = principalPassword ?? AuthConstants.PRINCIPAL_PASSWORD_FROM_CREDHUB;
             inMemoryConfigStore[AuthConstants.DATA_PROTECTION_KEY_NM] = AuthConstants.DATA_PROTECTION_PURPOSE_DEFAULT;
 
             var handlers = ReflectionHelper

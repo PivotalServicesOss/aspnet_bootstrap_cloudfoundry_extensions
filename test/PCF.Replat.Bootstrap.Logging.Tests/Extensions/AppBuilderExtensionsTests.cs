@@ -24,7 +24,7 @@ namespace PCF.Replat.Bootstrap.Logging.Tests.Extensions
             Assert.Equal("Information", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Default"]);
             Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:Microsoft"]);
             Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:System"]);
-            Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:Pivotal"]);
+            Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:PivotalServices"]);
             Assert.Equal("Warning", TestProxy.InMemoryConfigStoreProxy["Serilog:MinimumLevel:Override:Steeltoe"]);
             Assert.Equal("Serilog.Sinks.Console", TestProxy.InMemoryConfigStoreProxy["Serilog:Using:0"]);
             Assert.Equal("Serilog.Sinks.Debug", TestProxy.InMemoryConfigStoreProxy["Serilog:Using:1"]);

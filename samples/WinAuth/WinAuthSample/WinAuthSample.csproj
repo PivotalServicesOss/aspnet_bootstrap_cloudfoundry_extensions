@@ -220,6 +220,9 @@
     <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.2.2-local\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Logging.2.2.2-local\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.WinAuth.2.2.2-local\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.WinAuth.dll</HintPath>
     </Reference>
@@ -512,9 +515,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="manifest.yml" />
-    <None Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

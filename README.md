@@ -252,7 +252,7 @@ management:
     }
 ```
 
-- `AddConsoleSerilogLogging()` have optional parameter
+- `AddConsoleSerilogLogging()` have an optional parameter
 	- `includeDistributedTracing` if you want to enable distributed tracing logging.To know more about distributed tracing refer to the article [asp-net-core-distributed-tracing-using-steeltoe](https://www.initpals.com/net-core/asp-net-core-distributed-tracing-using-steeltoe/)
 - Below is the default configurations will be added internally, but can always override using json or yml or environment variables as below (if at all required)
 
@@ -306,12 +306,12 @@ Serilog:
                 .Start();
     }
 ``` 
-
+- `AddWindowsAuthentication()` have an optional parameter
+	- `principalPassword` can be used incase of pushing the secret from any external sources like vault
 - Once you setup the service account and SPN (as mentioned [below](https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap/#create-spn-service-principal-name)), you need to set `PRINCIPAL_PASSWORD` with the service account's password, via environment variable or any other configuration sources you are using for the application (e.g. config server, yaml, json, etc.)
-- Add the application's url to trusted sites. If your application's url is `http://foo.bar`, add `http://foo.bar` into trusted sites.
 - By default the package tries to resolve from credhub with key `principal_password`. e.g. `{["principal_password":"som secret password"]}`. 
 
-**Note: In the case of credhub, key should be in lowercase**
+**NOTE: In the case of credhub, key should be in lowercase**
 
 - If not exists already, add the `machineKey` section to `web.config` as below. You can generate a new one from [Developer Fusion](https://www.developerfusion.com/tools/generatemachinekey). This is for data protection purposes.
 
@@ -320,13 +320,15 @@ Serilog:
             decryptionKey="4AFFE5CFAE4F97BFAE7736E5A6B85E921EF209FA84F4BC665993E72393B080DC" validation="SHA1" decryption="AES" />
 ```
 
-**Note: The skeleton of the machine key section will be added while installing the package**
+**NOTE: The skeleton of the machine key section will be added while installing the package**
 
-**Note: Make sure you are browsing the application from a domain joined computer (same domain where the SPN is created)**
+- Add the application's url to trusted sites. If your application's url is `http://foo.bar`, add `http://foo.bar` into trusted sites.
+
+**NOTE: Make sure you are browsing the application from a domain joined computer (same domain where the SPN is created)**
 
 ### Create SPN (Service Principal Name)
 
-**Note: This is mandate for front end browser applications, but for services it is not required. In other words, if you want to access your application via browser, you need to have the SPN created, as mentioned below.**
+**NOTE: This is mandate for front end browser applications, but for services it is not required. In other words, if you want to access your application via browser, you need to have the SPN created, as mentioned below.**
 
 Identify the service account for which the application should be running under (imagine as your application running in IIS on an APP POOL, under a service account). If your application's url is `http://foo.bar`, then you have to create a SPN for the service account as `http/foo.bar`
 
@@ -341,7 +343,7 @@ To check to see which SPNs are currently registered with your service account, r
 SetSpn -L <domain\service_account_name>
 ```
 
-**Note: You should have elevated privileges to execute the above command. Eventually this should be executed part of the deployment pipeline, for each application**
+**NOTE: You should have elevated privileges to execute the above command. Eventually this should be executed part of the deployment pipeline, for each application**
 
 ### Base features (Ioc)
 - Install package [PivotalServices.AspNet.Replatform.Cf.Base](https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.Base)

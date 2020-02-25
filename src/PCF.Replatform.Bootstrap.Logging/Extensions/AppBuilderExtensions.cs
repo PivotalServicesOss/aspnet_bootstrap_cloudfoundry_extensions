@@ -32,7 +32,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
             inMemoryConfigStore["Serilog:MinimumLevel:Default"] = "Information";
             inMemoryConfigStore["Serilog:MinimumLevel:Override:Microsoft"] = "Warning";
             inMemoryConfigStore["Serilog:MinimumLevel:Override:System"] = "Warning";
-            inMemoryConfigStore["Serilog:MinimumLevel:Override:Pivotal"] = "Warning";
+            inMemoryConfigStore["Serilog:MinimumLevel:Override:PivotalServices"] = "Warning";
             inMemoryConfigStore["Serilog:MinimumLevel:Override:Steeltoe"] = "Warning";
 
             inMemoryConfigStore["Serilog:Using:0"] = "Serilog.Sinks.Console";
