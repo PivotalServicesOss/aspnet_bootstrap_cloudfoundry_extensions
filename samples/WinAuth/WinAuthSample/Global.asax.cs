@@ -16,8 +16,6 @@ namespace WinAuthSample
 
             AppBuilder.Instance
                 .AddCloudFoundryActuators()
-                .AddConsoleSerilogLogging(true)
-                .AddCloudFoundryMetricsForwarder()
                 .AddWindowsAuthentication()
                 .Build()
                 .Start();
