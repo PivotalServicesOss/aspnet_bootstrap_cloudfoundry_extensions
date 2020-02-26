@@ -314,6 +314,9 @@ Serilog:
 
 **NOTE: In the case of credhub, key should be in lowercase**
 
+- To whitelist any specific `path` like `actuator/health` or `actuator/info`, you need to set `WHITELIST_PATH_CSV` with the service account's password, via environment variable or any other configuration sources you are using for the application (e.g. config server, yaml, json, etc.)
+- By default `/cloudfoundryapplication,/cloudfoundryapplication/,/actuator,/actuator/` are whitelisted
+
 - If not exists already, add the `machineKey` section to `web.config` as below. You can generate a new one from [Developer Fusion](https://www.developerfusion.com/tools/generatemachinekey). This is for data protection purposes.
 
 ```
