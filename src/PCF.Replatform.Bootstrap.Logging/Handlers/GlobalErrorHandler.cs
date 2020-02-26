@@ -36,9 +36,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers
             }
         }
 
-        public override async Task<bool> ContinueNextAsync(HttpContextBase context)
+        public override bool ContinueNext(HttpContextBase context)
         {
-            return await Task.FromResult(result: true);
+            return true;
         }
 
         private void LogError(Exception exception)

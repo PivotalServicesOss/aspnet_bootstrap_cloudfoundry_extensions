@@ -17,17 +17,17 @@ namespace PCF.Replat.Bootstrap.Base.Tests.Handlers
         }
 
         [Fact]
-        public async Task Test_ContinueNextShouldReturnFalseByDefault()
+        public void Test_ContinueNextShouldReturnFalseByDefault()
         {
             var handler = new DynamicHttpHandlerSpy(logger.Object);
-            Assert.False(await handler.ContinueNextAsync(null));
+            Assert.False(handler.ContinueNext(null));
         }
 
         [Fact]
-        public async Task Test_IsEnabledShouldReturnTrueByDefault()
+        public void Test_IsEnabledShouldReturnTrueByDefault()
         {
             var handler = new DynamicHttpHandlerSpy(logger.Object);
-            Assert.True(await handler.IsEnabledAsync(null));
+            Assert.True(handler.IsEnabled(null));
         }
     }
 

@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration  xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <system.web>
-    <machineKey xdt:Transform="Remove" xdt:Locator="Match(validationKey)" validationKey="1FBB97B9F3F400BDF0D0848590655D11692FFF939C0A1AB072076EE79C8BE1DA5B09DB0DF5A565059094974794D8E3025B287EFF0641E55E52C252A3899FAA87"
-                decryptionKey="1E8B7B2B1C21B91230D983823A3ED55D47898AE60A859753F502E27436056032"
-                validation="SHA1" decryption="AES"/>
-    
-    <sessionState xdt:Transform="Remove" xdt:Locator="Match(mode)"></sessionState>
+    <sessionState xdt:Transform="Remove" xdt:Locator="Match(mode)" mode="Custom"></sessionState>
   </system.web>
 </configuration>

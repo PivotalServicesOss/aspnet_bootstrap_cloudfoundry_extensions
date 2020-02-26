@@ -129,6 +129,15 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Console, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Console.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Debug, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Debug.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Debug.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.ObjectPool.2.1.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
     </Reference>
@@ -156,14 +165,14 @@
     <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Pipelines.Sockets.Unofficial.1.0.7\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.1.1\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.2.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.1.1\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.2.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Redis.Session.2.1.1\lib\net462\PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.dll</HintPath>
+    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Redis.Session.2.2.0\lib\net462\PivotalServices.CloudFoundry.Replatform.Bootstrap.Redis.Session.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Serilog.2.5.0\lib\net46\Serilog.dll</HintPath>

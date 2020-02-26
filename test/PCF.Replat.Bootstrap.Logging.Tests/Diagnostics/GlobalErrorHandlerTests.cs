@@ -23,17 +23,17 @@ namespace PCF.Replat.Bootstrap.Logging.Tests
         }
 
         [Fact]
-        public async Task Test_ContinueNextShouldReturnTrue()
+        public void Test_ContinueNextShouldReturnTrue()
         {
             var handler = new GlobalErrorHandler(logger.Object);
-            Assert.True(await handler.ContinueNextAsync(null));
+            Assert.True(handler.ContinueNext(null));
         }
 
         [Fact]
-        public async Task Test_IsEnabledShouldReturnTrue()
+        public void Test_IsEnabledShouldReturnTrue()
         {
             var handler = new GlobalErrorHandler(logger.Object);
-            Assert.True(await handler.IsEnabledAsync(null));
+            Assert.True(handler.IsEnabled(null));
         }
 
         [Fact]

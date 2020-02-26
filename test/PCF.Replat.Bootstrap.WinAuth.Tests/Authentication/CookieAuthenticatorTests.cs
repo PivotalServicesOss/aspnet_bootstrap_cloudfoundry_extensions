@@ -26,7 +26,6 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
         Mock<HttpContextBase> context;
         Mock<HttpBrowserCapabilitiesBase> browser;
         HttpCookieCollection cookies;
-        Cache cache;
 
         public CookieAuthenticatorTests()
         {
@@ -39,7 +38,6 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
             context = new Mock<HttpContextBase>();
             browser = new Mock<HttpBrowserCapabilitiesBase>();
             cookies = new HttpCookieCollection();
-            cache = new Cache();
             SetHttpContext();
         }
 
@@ -77,7 +75,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddDays(CookieAuthenticator.COOKIE_TIMEOUT_IN_MINUTES),
                 Value = encodedTicket
             };
 
@@ -87,10 +85,6 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 
             var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
-            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", Convert.ToBase64String(serializedTicket));
-
-            cache["Foo User"] = cookieHashValue;
-
             var result = authenticator.Authenticate(context.Object);
 
             Assert.True(result.Succeeded);
@@ -99,7 +93,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
         }
 
         [Fact]
-        public void Test_ReturnsFailureIf_InValidCookieEsistsOrIfCookieIsCorrupted()
+        public void Test_ReturnsFailureIf_InValidCookieEsistsOrIfCookieIsDamaged()
         {
             var serializer = new TicketSerializer();
             var ticket = new AuthenticationTicket(
@@ -116,7 +110,7 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddDays(CookieAuthenticator.COOKIE_TIMEOUT_IN_MINUTES),
                 Value = encodedTicket + "Corrupt"
             };
 
@@ -126,14 +120,10 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 
             var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
-            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", Convert.ToBase64String(serializedTicket));
-
-            cache["Foo User"] = cookieHashValue;
-
             var result = authenticator.Authenticate(context.Object);
 
             Assert.False(result.Succeeded);
-            Assert.Equal($"{AuthConstants.AUTH_COOKIE_NM} cookie is corrupted!", result.Failure.Message);
+            Assert.Equal($"Unable to extract cookie '{AuthConstants.AUTH_COOKIE_NM}', cookie might be damaged/modified", result.Failure.Message);
         }
 
         [Fact]
@@ -177,22 +167,16 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
 
             var cookie = new HttpCookie(AuthConstants.AUTH_COOKIE_NM)
             {
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddDays(CookieAuthenticator.COOKIE_TIMEOUT_IN_MINUTES),
                 Value = encodedTicket
             };
 
             var authenticator = new CookieAuthenticator(dataProtector, logger.Object);
 
-            var cookieHashValue = TestHelper.InvokeNonPublicInstanceMethod(authenticator, "ComputeHash", Convert.ToBase64String(serializedTicket));
-
             authenticator.SignIn(AuthenticateResult.Success(ticket), context.Object);
 
             response.Verify(r => r.AppendCookie(It.Is<HttpCookie>(c => Convert.ToBase64String(dataProtector.UnProtect(Convert.FromBase64String(c.Value))) == Convert.ToBase64String(dataProtector.UnProtect(Convert.FromBase64String(encodedTicket)))
-                                                                    && c.Expires.Date.Day == DateTime.Now.AddDays(1).Date.Day
-                                                                    && c.Expires.Date.Month == DateTime.Now.AddDays(1).Date.Month
-                                                                    && c.Expires.Date.Year == DateTime.Now.AddDays(1).Date.Year)), Times.Once);
-
-            Assert.Equal(cache["Foo User"], cookieHashValue);
+                                                                    && c.Expires.Date.Minute == DateTime.Now.AddMinutes(CookieAuthenticator.COOKIE_TIMEOUT_IN_MINUTES).Date.Minute)), Times.Once);
         }
 
         private void SetHttpContext()
@@ -203,7 +187,6 @@ namespace PCF.Replat.Bootstrap.WinAuth.Tests.Authentication
             context.SetupGet(c => c.Response).Returns(response.Object);
             context.SetupGet(c => c.Server).Returns(server.Object);
             context.SetupGet(c => c.Session).Returns(session.Object);
-            context.SetupGet(c => c.Cache).Returns(cache);
             request.SetupGet(r => r.Cookies).Returns(cookies);
             response.SetupGet(r => r.Cookies).Returns(cookies);
             request.SetupGet(r => r.Browser).Returns(browser.Object);

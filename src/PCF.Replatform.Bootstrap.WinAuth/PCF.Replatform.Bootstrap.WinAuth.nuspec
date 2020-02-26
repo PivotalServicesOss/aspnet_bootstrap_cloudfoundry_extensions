@@ -8,7 +8,7 @@
     <owners>ajaganathan</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <description>Package helps to bootstrap a full framework application to PCF by adding WIndows Auth using Kerberos</description>
+    <description>Package helps to bootstrap a full framework application to PCF by adding Windows Auth using Kerberos</description>
     <copyright>$PivotalServicesBootstrapCopyright$</copyright>
     <repository type="git" url="https://github.com/alfusinigoj/pivotal_cloudfoundry_replatform_bootstrap.git"/>
     <tags>ASP.NET; CloudFoundry; Replatform; Windows; Authentication</tags>
@@ -29,6 +29,8 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="Web.config.install.xdt" target="Content" />
+    <file src="Web.config.uninstall.xdt" target="Content" />
     <file src="readme.txt" target="" />
   </files>
 </package>

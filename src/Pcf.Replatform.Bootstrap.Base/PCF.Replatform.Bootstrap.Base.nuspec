@@ -19,6 +19,8 @@
         <dependency id="Microsoft.Extensions.Hosting" version ="$MicrosoftExtensionsVersion$"/>
         <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
         <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version ="$MicrosoftExtensionsConfigurationEnvironmentVariableVersion$"/>
+        <dependency id="Microsoft.Extensions.Logging.Console" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Microsoft.Extensions.Logging.Debug" version ="$MicrosoftExtensionsVersion$"/>
       </group>
     </dependencies>
     <frameworkAssemblies>

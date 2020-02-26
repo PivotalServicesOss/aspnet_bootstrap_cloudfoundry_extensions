@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration  xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.web>
+    <machineKey xdt:Transform="InsertIfMissing" validationKey="{Validation Key}"
+                decryptionKey="{Decryption Key}"
+                validation="SHA1" decryption="AES">
+      <!--One time activity, please generate machine key using any tools like, for e.g 'https://www.developerfusion.com/tools/generatemachinekey'-->
+    </machineKey>
+    
+    <authentication xdt:Transform="Remove"/>
+    <authorization xdt:Transform="Remove"/>
+  </system.web>
+  <system.webServer xdt:Transform="InsertIfMissing">
+    <security xdt:Transform="InsertIfMissing">
+      <authentication xdt:Transform="Remove"/>
+    </security>
+  </system.webServer>
+  <system.webServer>
+    <security>
+      <authentication xdt:Transform="InsertIfMissing">
+        <windowsAuthentication enabled="false" xdt:Transform="InsertIfMissing"/>
+      </authentication>
+    </security>
+  </system.webServer>
+</configuration>

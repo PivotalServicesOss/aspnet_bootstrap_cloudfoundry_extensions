@@ -86,9 +86,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public virtual async Task<bool> IsEnabledAsync(HttpContextBase context)
+        public virtual bool IsEnabled(HttpContextBase context)
         {
-            return await Task.FromResult(result: true);
+            return true;
         }
 
         /// <summary>
@@ -96,9 +96,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public virtual async Task<bool> ContinueNextAsync(HttpContextBase context)
+        public virtual bool ContinueNext(HttpContextBase context)
         {
-            return await Task.FromResult(result: false);
+            return false;
         }
 
         internal bool IsPathMatched(HttpContextBase context)
@@ -111,23 +111,20 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
             return false;
         }
 
-        HttpContextWrapper contextWrapper;
-
         private void HandleRequest(object sender, EventArgs e)
         {
-            //contextWrapper = contextWrapper ?? new HttpContextWrapper(((HttpApplication)sender).Context);
-            contextWrapper = new HttpContextWrapper(((HttpApplication)sender).Context);
-            FilterAndProcessRequest(contextWrapper, HttpContext.Current.ApplicationInstance.CompleteRequest);
+            var context = new HttpContextWrapper(((HttpApplication)sender).Context);
+            FilterAndProcessRequest(context, context.ApplicationInstance.CompleteRequest);
         }
 
         private void FilterAndProcessRequest(HttpContextBase context, Action completeRequest)
         {
             if (IsPathMatched(context))
             {
-                if (IsEnabledAsync(context).Result)
+                if (IsEnabled(context))
                     HandleRequest(context);
 
-                if (!ContinueNextAsync(context).Result)
+                if (!ContinueNext(context))
                     completeRequest();
             }
         }
@@ -135,7 +132,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
         private async Task HandleAsyncRequest(object sender, EventArgs e)
         {
             var context = new HttpContextWrapper(((HttpApplication)sender).Context);
-            await FilterAndProcessRequestAsync(context, HttpContext.Current.ApplicationInstance.CompleteRequest)
+            await FilterAndProcessRequestAsync(context, context.ApplicationInstance.CompleteRequest)
                                             .ConfigureAwait(continueOnCapturedContext: false);
         }
 
@@ -143,10 +140,10 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers
         {
             if (IsPathMatched(context))
             {
-                if (await IsEnabledAsync(context).ConfigureAwait(continueOnCapturedContext: false))
+                if (await Task.Run(() => IsEnabled(context)))
                     HandleRequest(context);
 
-                if (!await ContinueNextAsync(context))
+                if (!await Task.Run(() => ContinueNext(context)))
                     completeRequest();
             }
         }

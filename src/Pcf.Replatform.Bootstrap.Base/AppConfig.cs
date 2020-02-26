@@ -31,6 +31,11 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                 .ConfigureServices((builderContext, services) =>
                 {
                     services.AddOptions();
+                    services.AddLogging((builder) => {
+                        builder.AddConfiguration(builderContext.Configuration.GetSection("Logging"));
+                        builder.AddConsole();
+                        builder.AddDebug();
+                    });
 
                     foreach (var configureServicesDelegate in configureServicesDelegates)
                     {
@@ -56,7 +61,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
 
         public static IServiceProvider ServiceProvider
         {
-            get{ return host.Services; }
+            get { return host.Services; }
         }
     }
 }

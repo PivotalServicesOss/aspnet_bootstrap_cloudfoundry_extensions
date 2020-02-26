@@ -29,9 +29,9 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.Handlers
             observer.ProcessEvent(InboundRequestObserver.ERR_EVNT, context);
         }
 
-        public override async Task<bool> ContinueNextAsync(HttpContextBase context)
+        public override bool ContinueNext(HttpContextBase context)
         {
-            return await Task.FromResult(result: true);
+            return true;
         }
     }
 }

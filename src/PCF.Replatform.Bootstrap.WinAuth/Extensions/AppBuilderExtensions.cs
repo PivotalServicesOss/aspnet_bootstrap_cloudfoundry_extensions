@@ -15,21 +15,30 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
     public class AuthConstants
     {
         public const string SPNEGO_DEFAULT_SCHEME = "Negotiate";
-        public const string PRINCIPAL_PASSWORD_FROM_CREDHUB = "${vcap:services:credhub:0:credentials:principal_password}";
-        public const string AUTH_COOKIE_NM = "K_AUTH_TICKET";
-        public const string DATA_PROTECTION_PURPOSE_DEFAULT = "${vcap:application:name}";
+        public const string AUTH_COOKIE_NM = "AUTH";
+
         public const string DATA_PROTECTION_KEY_NM = "DATA_PROTECTION_KEY";
+        public const string DATA_PROTECTION_PURPOSE_DEFAULT = "${vcap:application:name}";
+
         public const string PRINCIPAL_PASSWORD_NM = "PRINCIPAL_PASSWORD";
+        public const string PRINCIPAL_PASSWORD_FROM_CREDHUB = "${vcap:services:credhub:0:credentials:principal_password}";
+
+        public const string WHITELIST_PATHS_CSV_NM = "WHITELIST_PATH_CSV";
     }
 
     public static class AppBuilderExtensions
     {
         public static AppBuilder AddWindowsAuthentication(this AppBuilder instance)
         {
+            return instance.AddWindowsAuthentication(null);
+        }
+
+        public static AppBuilder AddWindowsAuthentication(this AppBuilder instance, string principalPassword = null)
+        {
             var inMemoryConfigStore = ReflectionHelper
                 .GetNonPublicInstancePropertyValue<Dictionary<string, string>>(instance, "InMemoryConfigStore");
 
-            inMemoryConfigStore[AuthConstants.PRINCIPAL_PASSWORD_NM] = AuthConstants.PRINCIPAL_PASSWORD_FROM_CREDHUB;
+            inMemoryConfigStore[AuthConstants.PRINCIPAL_PASSWORD_NM] = principalPassword ?? AuthConstants.PRINCIPAL_PASSWORD_FROM_CREDHUB;
             inMemoryConfigStore[AuthConstants.DATA_PROTECTION_KEY_NM] = AuthConstants.DATA_PROTECTION_PURPOSE_DEFAULT;
 
             var handlers = ReflectionHelper
@@ -50,7 +59,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
                      services.AddSingleton<ICookieAuthenticator, CookieAuthenticator>();
                  });
 
-            instance.AddDefaultConfigurations();
+            instance.AddDefaultConfigurations(jsonSettingsOptional: false);
             instance.AddConfigServer();
 
             return instance;
@@ -60,7 +69,7 @@ namespace PivotalServices.CloudFoundry.Replatform.Bootstrap.Base
         {
             var configuration = provider.GetRequiredService<IConfiguration>();
 
-            return new KerberosAuthenticator(new KerberosValidator(new KerberosKey(configuration["PRINCIPAL_PASSWORD"])))
+            return new KerberosAuthenticator(new KerberosValidator(new KerberosKey(configuration[AuthConstants.PRINCIPAL_PASSWORD_NM])))
             {
                 UserNameFormat = UserNameFormat.DownLevelLogonName
             };
