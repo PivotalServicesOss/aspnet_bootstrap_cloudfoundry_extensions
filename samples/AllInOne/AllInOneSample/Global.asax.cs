@@ -2,7 +2,7 @@
 using AllInOneSample.Health;
 using AllInOneSample.Services;
 using Microsoft.Extensions.DependencyInjection;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+using PivotalServices.AspNet.Bootstrap.Extensions;
 using Steeltoe.Common.HealthChecks;
 using System;
 using System.Collections.Generic;

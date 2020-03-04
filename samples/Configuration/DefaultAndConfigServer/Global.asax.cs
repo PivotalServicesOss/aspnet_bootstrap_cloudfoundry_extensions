@@ -1,4 +1,4 @@
-﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base;
+﻿using PivotalServices.AspNet.Bootstrap.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

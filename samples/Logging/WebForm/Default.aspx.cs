@@ -1,8 +1,8 @@
-﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
-using System;
+﻿using System;
 using System.Web.UI;
 using Microsoft.Extensions.Logging;
+using PivotalServices.AspNet.Bootstrap.Extensions.Cf.Logging;
+using PivotalServices.AspNet.Bootstrap.Extensions.Ioc;
 
 namespace WebForm
 {

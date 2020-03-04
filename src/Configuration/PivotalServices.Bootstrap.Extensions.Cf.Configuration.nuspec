@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration</id>
+    <version>$Version$</version>
+    <title>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration</title>
+    <authors>ajaganathan,Pivotal</authors>
+    <owners>ajaganathan</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This also overrides the AppSettings and ConnectionString Sections in Web.config file from other external sources</description>
+    <copyright>$PivotalServicesBootstrapCopyright$</copyright>
+    <repository type="git" url="https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions.git"/>
+    <tags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Configuration; ConfigServer</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web"  targetFramework="$TargetFrameworkGeneral$"/>
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework="$TargetFrameworkGeneral$"/>
+    </frameworkAssemblies>
+    <dependencies>
+      <group targetFramework="$TargetFrameworkGeneral$">
+        <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version ="$MicrosoftExtensionsConfigurationEnvironmentVariableVersion$"/>
+        <dependency id="Microsoft.Extensions.Configuration.Json" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Microsoft.Extensions.Hosting.Abstractions" version ="$MicrosoftExtensionsVersion$"/>
+        <dependency id="Steeltoe.Extensions.Configuration.CloudFoundryCore" version ="$SteeltoeVersion$"/>
+        <dependency id="Steeltoe.Extensions.Configuration.ConfigServerBase" version ="$SteeltoeVersion$"/>
+        <dependency id="Steeltoe.Extensions.Configuration.PlaceholderCore" version ="$SteeltoeVersion$"/>
+        <dependency id="PivotalServices.AspNet.Bootstrap.Extensions" version ="$PivotalServicesAspnetBootstrapExtensionsVersion$"/>
+        <dependency id="Serilog.Sinks.Debug" version ="$SerilogSinksDebug$"/>
+        <dependency id="NetEscapades.Configuration.Yaml" version ="$NetEscapadesConfigurationVersion$"/>
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="readme.txt" target="" />
+  </files>
+</package>
