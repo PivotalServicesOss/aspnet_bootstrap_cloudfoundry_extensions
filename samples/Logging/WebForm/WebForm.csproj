@@ -156,14 +156,14 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Base, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Base.2.2.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.dll</HintPath>
+    <Reference Include="PivotalServices.AspNet.Bootstrap.Extensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Bootstrap.Extensions.1.0.0\lib\net461\PivotalServices.AspNet.Bootstrap.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Configuration.2.2.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Configuration.dll</HintPath>
+    <Reference Include="PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration.1.0.0\lib\net461\PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PivotalServices.AspNet.Replatform.Cf.Logging.2.2.0\lib\net461\PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging.dll</HintPath>
+    <Reference Include="PivotalServices.AspNet.Bootstrap.Extensions.Cf.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PivotalServices.AspNet.Bootstrap.Extensions.Cf.Logging.1.0.0\lib\net461\PivotalServices.AspNet.Bootstrap.Extensions.Cf.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Serilog.2.7.1\lib\net46\Serilog.dll</HintPath>

@@ -1,4 +1,4 @@
-﻿using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
+﻿using PivotalServices.AspNet.Bootstrap.Extensions.Handlers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;

@@ -1,7 +1,0 @@
-﻿---
-applications:
-- name: base_dynamic_handler_sample
-  memory: 1024M
-  stack: windows
-  buildpacks:
-   - hwc_buildpack

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Logging;
+using PivotalServices.AspNet.Bootstrap.Extensions.Cf.Logging;
+using PivotalServices.AspNet.Bootstrap.Extensions.Ioc;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 using System;
 using System.Collections.Generic;

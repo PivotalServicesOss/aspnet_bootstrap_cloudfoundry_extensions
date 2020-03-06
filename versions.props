@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <PivotalServicesBootstrapVersion>2.2.0</PivotalServicesBootstrapVersion>
+    <PivotalServicesBootstrapVersion>1.0.0</PivotalServicesBootstrapVersion>
     <PivotalServicesBootstrapVersionSuffix></PivotalServicesBootstrapVersionSuffix>
     <PivotalServicesBootstrapVersionRevision>0</PivotalServicesBootstrapVersionRevision>
     <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
@@ -26,6 +26,7 @@
     <NetEscapadesConfigurationVersion>1.6.0</NetEscapadesConfigurationVersion>
     <KerberosNetVersion>2.7.508.1</KerberosNetVersion>
     <GitInfoVersion>2.0.21</GitInfoVersion>
+    <PivotalServicesAspnetBootstrapExtensionsVersion>1.0.0</PivotalServicesAspnetBootstrapExtensionsVersion>
     <TargetFrameworkGeneral>net461</TargetFrameworkGeneral>
     <TargetFrameworkRedisSession>net462</TargetFrameworkRedisSession>
   </PropertyGroup>

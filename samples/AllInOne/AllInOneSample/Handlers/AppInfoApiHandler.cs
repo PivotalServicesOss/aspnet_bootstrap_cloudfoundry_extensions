@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Handlers;
-using PivotalServices.CloudFoundry.Replatform.Bootstrap.Base.Ioc;
+using PivotalServices.AspNet.Bootstrap.Extensions.Handlers;
+using PivotalServices.AspNet.Bootstrap.Extensions.Ioc;
 using System;
 using System.Web;
 

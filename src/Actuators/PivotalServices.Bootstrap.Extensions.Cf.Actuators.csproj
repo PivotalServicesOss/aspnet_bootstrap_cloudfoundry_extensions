@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\versions.props" />
+  <PropertyGroup>
+    <TargetFramework>$(TargetFrameworkGeneral)</TargetFramework>
+    <RootNamespace>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Actuators</RootNamespace>
+    <AssemblyName>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Actuators</AssemblyName>
+    <InformationalVersion>$(PivotalServicesBootstrapInformationalVersion)</InformationalVersion>
+    <AssemblyVersion>$(PivotalServicesBootstrapAssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(PivotalServicesBootstrapFileVersion)</FileVersion>
+    <Copyright>$(PivotalServicesBootstrapCopyright)</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="GitInfo" Version="$(GitInfoVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>-->
+    <PackageReference Include="Microsoft.AspNet.Mvc">
+      <Version>$(MicrosoftAspNetVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <Version>$(MicrosoftExtensionsVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Net.Compilers">
+      <Version>$(MicrosoftNetVersion)</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Steeltoe.Management.EndpointWeb">
+      <Version>$(SteeltoeManagementEndpointWebVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="Steeltoe.Management.ExporterBase">
+      <Version>$(SteeltoeManagementVersion)</Version>
+    </PackageReference>
+    <PackageReference Include="PivotalServices.AspNet.Bootstrap.Extensions" Version="$(PivotalServicesAspnetBootstrapExtensionsVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration\PivotalServices.Bootstrap.Extensions.Cf.Configuration.csproj" />
+  </ItemGroup>
+</Project>
