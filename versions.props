@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <PivotalServicesBootstrapVersion>1.0.0</PivotalServicesBootstrapVersion>
+    <PivotalServicesBootstrapVersion>1.1.0</PivotalServicesBootstrapVersion>
     <PivotalServicesBootstrapVersionSuffix></PivotalServicesBootstrapVersionSuffix>
     <PivotalServicesBootstrapVersionRevision>0</PivotalServicesBootstrapVersionRevision>
     <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
@@ -13,20 +13,19 @@
   </PropertyGroup>
   <PropertyGroup>
     <MicrosoftAspNetVersion>5.2.7</MicrosoftAspNetVersion>
-    <MicrosoftAspNetCoreVersion>2.2.0</MicrosoftAspNetCoreVersion>
     <MicrosoftWebVersion>1.0.0</MicrosoftWebVersion>
     <MicrosoftWebRedisVersion>4.0.1</MicrosoftWebRedisVersion>
-    <MicrosoftExtensionsVersion>2.2.0</MicrosoftExtensionsVersion>
-    <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>2.2.0</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
+    <MicrosoftExtensionsVersion>3.1.7</MicrosoftExtensionsVersion>
+    <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>3.1.7</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
-    <SteeltoeVersion>2.4.2</SteeltoeVersion>
-    <SteeltoeManagementVersion>2.4.2</SteeltoeManagementVersion>
-    <SteeltoeManagementEndpointWebVersion>2.4.1</SteeltoeManagementEndpointWebVersion>
+    <SteeltoeVersion>2.4.4</SteeltoeVersion>
+    <SteeltoeManagementVersion>2.4.4</SteeltoeManagementVersion>
+    <SteeltoeManagementEndpointWebVersion>2.4.4</SteeltoeManagementEndpointWebVersion>
     <SerilogSinksDebug>1.0.1</SerilogSinksDebug>
     <NetEscapadesConfigurationVersion>1.6.0</NetEscapadesConfigurationVersion>
     <KerberosNetVersion>2.7.508.1</KerberosNetVersion>
     <GitInfoVersion>2.0.21</GitInfoVersion>
-    <PivotalServicesAspnetBootstrapExtensionsVersion>1.0.0</PivotalServicesAspnetBootstrapExtensionsVersion>
+    <PivotalServicesAspnetBootstrapExtensionsVersion>1.1.0</PivotalServicesAspnetBootstrapExtensionsVersion>
     <TargetFrameworkGeneral>net461</TargetFrameworkGeneral>
     <TargetFrameworkRedisSession>net462</TargetFrameworkRedisSession>
   </PropertyGroup>

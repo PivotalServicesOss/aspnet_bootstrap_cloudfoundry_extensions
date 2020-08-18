@@ -1,4 +1,8 @@
 #### 1.0.0
+- Upgraded to use Steeltoe version 2.4.4
+- Upgraded to use MicrosoftExtensions version 3.1.7 (LTS)
+
+#### 1.0.0
 - Packages and Namespaces renamed/moved to `PivotalServices.AspNet.Bootstrap.Extensions.Cf.*` for consistency purposes
 - Removed `PivotalServices.AspNet.Replatform.Cf.WinAuth` and `PivotalServices.AspNet.Replatform.Cf.Base` which are now moved to seperate repositories along with new package names `PivotalServices.AspNet.Bootstrap.Extensions` and `PivotalServices.AspNet.Auth.Extensions` respectively
 
