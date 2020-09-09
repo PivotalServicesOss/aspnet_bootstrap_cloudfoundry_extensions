@@ -26,7 +26,7 @@
       <Version>$(MicrosoftExtensionsVersion)</Version>
     </PackageReference>
     <PackageReference Include="NetEscapades.Configuration.Yaml" Version="$(NetEscapadesConfigurationVersion)" />
-    <PackageReference Include="PivotalServices.AspNet.Bootstrap.Extensions" Version="$(PivotalServicesAspnetBootstrapExtensionsVersion)" />
+    <PackageReference Include="PivotalServices.AspNet.Bootstrap.Extensions" Version="1.1.1" />
     <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore">
       <Version>$(SteeltoeVersion)</Version>
     </PackageReference>

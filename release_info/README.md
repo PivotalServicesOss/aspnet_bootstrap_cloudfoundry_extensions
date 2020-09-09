@@ -1,4 +1,7 @@
 #### 1.0.0
+- Consumed base 1.1.1 on safe error handling
+
+#### 1.0.0
 - Upgraded to use Steeltoe version 2.4.4
 - Upgraded to use MicrosoftExtensions version 3.1.7 (LTS)
 
