@@ -24,7 +24,7 @@
     <PackageReference Include="Steeltoe.Management.TracingBase">
       <Version>$(SteeltoeManagementVersion)</Version>
     </PackageReference>
-    <PackageReference Include="PivotalServices.AspNet.Bootstrap.Extensions" Version="$(PivotalServicesAspnetBootstrapExtensionsVersion)" />
+    <PackageReference Include="PivotalServices.AspNet.Bootstrap.Extensions" Version="1.1.1" />
   </ItemGroup>
   
   <ItemGroup>
