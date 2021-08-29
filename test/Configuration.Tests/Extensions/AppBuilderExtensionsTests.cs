@@ -27,11 +27,9 @@ namespace PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration.Tests
             TestProxy.ConfigureAppConfigurationDelegatesProxy.Clear();
             TestProxy.ConfigureServicesDelegatesProxy.Clear();
 
-            
-
             try
             {
-                AppBuilder.Instance.AddConfigServer();
+                AppBuilder.Instance.AddConfigServer(null);
             }
             catch (Exception ex)
             {
