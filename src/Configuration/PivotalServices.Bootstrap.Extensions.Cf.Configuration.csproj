@@ -3,11 +3,29 @@
   <PropertyGroup>
     <TargetFramework>$(TargetFrameworkGeneral)</TargetFramework>
     <RootNamespace>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration</RootNamespace>
-    <AssemblyName>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration</AssemblyName>
-    <InformationalVersion>$(PivotalServicesBootstrapInformationalVersion)</InformationalVersion>
-    <AssemblyVersion>$(PivotalServicesBootstrapAssemblyVersion)</AssemblyVersion>
-    <FileVersion>$(PivotalServicesBootstrapFileVersion)</FileVersion>
+    <DebugType>Embedded</DebugType>
+    <EmbedAllSources>true</EmbedAllSources>
+    <UpdateAssemblyInfo>true</UpdateAssemblyInfo>
+    <UpdateVersionProperties>true</UpdateVersionProperties>
+    <IsPackable>true</IsPackable>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration</PackageId>
+    <Title>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration</Title>
+    <Version>1.0.0</Version>
+    <Authors>ajaganathan</Authors>
+    <Company>Pivotal</Company>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>$(PivotalServicesBootstrapCopyright)</Copyright>
+    <RepositoryUrl>https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ASP.NET; CloudFoundry; Replatform; Steeltoe; Configuration; ConfigServer</PackageTags>
+    <Description>Package helps to bootstrap a full framework application to PCF by adding various configuration sources such as Json Files, Environment variables, VCAP Services and Config Server. This also overrides the AppSettings and ConnectionString Sections in Web.config file from other external sources</Description>
+    <PackageProjectUrl>https://www.alfusjaganathan.com/projects/</PackageProjectUrl>
   </PropertyGroup>
   
   <ItemGroup>
@@ -16,6 +34,10 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" Version="$(GitVersionMsBuildVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables">
       <Version>$(MicrosoftExtensionsConfigurationEnvironmentVariableVersion)</Version>
     </PackageReference>
@@ -34,5 +56,9 @@
       <Version>$(SteeltoeVersion)</Version>
     </PackageReference>
     <PackageReference Include="Steeltoe.Extensions.Configuration.PlaceholderCore" Version="$(SteeltoeVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="readme.txt" pack="true" PackagePath="." />
   </ItemGroup>
 </Project>

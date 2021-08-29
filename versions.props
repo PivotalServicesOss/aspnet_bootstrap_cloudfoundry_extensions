@@ -1,21 +1,13 @@
 <Project>
   <PropertyGroup>
-    <PivotalServicesBootstrapVersion>1.1.1</PivotalServicesBootstrapVersion>
-    <PivotalServicesBootstrapVersionSuffix></PivotalServicesBootstrapVersionSuffix>
-    <PivotalServicesBootstrapVersionRevision>0</PivotalServicesBootstrapVersionRevision>
-    <PivotalServicesBootstrapBuildNumber>$([System.DateTime]::Now.ToString(yyyyMMddHHmmss))</PivotalServicesBootstrapBuildNumber>
     <PivotalServicesBootstrapCopyright>All rights reserved.</PivotalServicesBootstrapCopyright>
-    <PivotalServicesBootstrapPackageVersion>$(PivotalServicesBootstrapVersion)$(PivotalServicesBootstrapVersionSuffix)</PivotalServicesBootstrapPackageVersion>
-    <PivotalServicesBootstrapAssemblyVersion>$(PivotalServicesBootstrapVersion).$(PivotalServicesBootstrapVersionRevision)</PivotalServicesBootstrapAssemblyVersion>
-    <PivotalServicesBootstrapFileVersion>$(PivotalServicesBootstrapVersion).$(PivotalServicesBootstrapVersionRevision)</PivotalServicesBootstrapFileVersion>
-    <PivotalServicesBootstrapInformationalVersion>$(PivotalServicesBootstrapPackageVersion)-$(PivotalServicesBootstrapVersionRevision)-$(PivotalServicesBootstrapBuildNumber)</PivotalServicesBootstrapInformationalVersion>
-    <PivotalServicesBootstrapPackageVersion>$(PivotalServicesBootstrapPackageVersion)</PivotalServicesBootstrapPackageVersion>
   </PropertyGroup>
   <PropertyGroup>
+    <GitVersionMsBuildVersion>5.6.11</GitVersionMsBuildVersion>
     <MicrosoftAspNetVersion>5.2.7</MicrosoftAspNetVersion>
+    <MicrosoftExtensionsVersion>3.1.18</MicrosoftExtensionsVersion>
     <MicrosoftWebVersion>1.0.0</MicrosoftWebVersion>
     <MicrosoftWebRedisVersion>4.0.1</MicrosoftWebRedisVersion>
-    <MicrosoftExtensionsVersion>3.1.7</MicrosoftExtensionsVersion>
     <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>3.1.7</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
     <SteeltoeVersion>2.4.4</SteeltoeVersion>

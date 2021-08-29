@@ -3,15 +3,36 @@
   <PropertyGroup>
     <TargetFramework>$(TargetFrameworkRedisSession)</TargetFramework>
     <RootNamespace>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Redis.Session</RootNamespace>
-    <AssemblyName>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Redis.Session</AssemblyName>
-    <InformationalVersion>$(PivotalServicesBootstrapInformationalVersion)</InformationalVersion>
-    <AssemblyVersion>$(PivotalServicesBootstrapAssemblyVersion)</AssemblyVersion>
-    <FileVersion>$(PivotalServicesBootstrapFileVersion)</FileVersion>
-    <Version>$(PivotalServicesBootstrapInformationalVersion)</Version>
+    <DebugType>Embedded</DebugType>
+    <EmbedAllSources>true</EmbedAllSources>
+    <UpdateAssemblyInfo>true</UpdateAssemblyInfo>
+    <UpdateVersionProperties>true</UpdateVersionProperties>
+    <IsPackable>true</IsPackable>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Redis.Session</PackageId>
+    <Title>PivotalServices.AspNet.Bootstrap.Extensions.Cf.Redis.Session</Title>
+    <Version>1.0.0</Version>
+    <Authors>ajaganathan</Authors>
+    <Company>Pivotal</Company>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>$(PivotalServicesBootstrapCopyright)</Copyright>
+    <RepositoryUrl>https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ASP.NET; CloudFoundry; Replatform; Redis; Steeltoe; Session</PackageTags>
+    <Description>Package helps to bootstrap a full framework application to PCF with persisting session to Redis</Description>
+    <PackageProjectUrl>https://www.alfusjaganathan.com/projects/</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" Version="$(GitVersionMsBuildVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Web.RedisSessionStateProvider">
       <Version>$(MicrosoftWebRedisVersion)</Version>
     </PackageReference>
@@ -24,6 +45,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration\PivotalServices.Bootstrap.Extensions.Cf.Configuration.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
@@ -36,6 +58,12 @@
     <None Update="Web.config.uninstall.xdt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="readme.txt" pack="true" PackagePath="." />
+    <Content Include="Web.config.install.xdt" pack="true" PackagePath="." />
+    <Content Include="Web.config.uninstall.xdt" pack="true" PackagePath="." />
   </ItemGroup>
   
 </Project>

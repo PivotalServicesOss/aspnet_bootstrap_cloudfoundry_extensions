@@ -13,7 +13,15 @@ if(-Not($has_vsSetup)) {
     #install VSSetup
     Write-Host "No VSSetup Module Found: Installing now" -ForegroundColor Red
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-    Install-Module VSSetup -Scope CurrentUser
+    Install-Module VSSetup -Scope CurrentUser -Force
+}
+
+$has_buildUtils = Get-Module -ListAvailable | Select-String -Pattern "BuildUtils" -Quiet
+if(-Not($has_buildUtils)) {
+    #install BuildUtils
+    Write-Host "No BuildUtils Module Found: Installing now" -ForegroundColor Red
+    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+    Install-Module BuildUtils -Scope CurrentUser -Force
 }
 
 $has_psake = Get-Module -ListAvailable | Select-String -Pattern "Psake" -Quiet

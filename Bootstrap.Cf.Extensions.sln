@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{27181691-9684-4254-AE70-DBF6444BCA73}"
 EndProject
@@ -15,13 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PivotalServices.Bootstrap.E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution_items", "solution_items", "{2FDD2735-3158-43EB-94C8-3FB0F9264BEE}"
 	ProjectSection(SolutionItems) = preProject
-		azure-pipelines.yml = azure-pipelines.yml
-		build.bat = build.bat
+		build.cmd = build.cmd
 		configure-build.ps1 = configure-build.ps1
 		default.ps1 = default.ps1
 		nuget.config = nuget.config
 		README.md = README.md
 		versions.props = versions.props
+		.github\workflows\pre-release-pipeline.yml = .github\workflows\pre-release-pipeline.yml
+		.github\workflows\prod-release-pipeline.yml = .github\workflows\prod-release-pipeline.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D8CA1673-BC3C-4518-BA6C-A23A0A201E6F}"
@@ -44,7 +45,11 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4D1FA024-2DFC-4876-9BD2-9878FE1234C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

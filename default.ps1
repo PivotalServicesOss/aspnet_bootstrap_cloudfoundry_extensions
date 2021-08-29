@@ -1,47 +1,37 @@
 $script:project_config = "Debug"
+
 properties {
-  Framework '4.7'
   $base_dir = resolve-path .
-  $build_dir = ".\build-artifacts"
-  $publish_dir = ".\publish-artifacts"
+  $publish_dir = "$base_dir\publish-artifacts"
   $solution_file = "$base_dir\$solution_name.sln"
   $test_dir = "$base_dir\test"
-  $nuget_exe = "nuget.exe"
+  $nuget = "nuget.exe"
+  $msbuild = Get-LatestMsbuildLocation
+  $vstest = get_vstest_executable
   $local_nuget_repo = "c:\MyLocalNugetRepo"
   $remote_nuget_repo = "https://api.nuget.org/v3/index.json"
   $remote_myget_repo = "https://www.myget.org/F/ajaganathan/api/v3/index.json"
-  $repo_api_key = $api_key
-  $version = get_version
   $date = Get-Date 
-  $ReleaseNumber = $version
-  
-  Write-Host "**********************************************************************"
-  Write-Host "Release Number: $ReleaseNumber"
-  Write-Host "**********************************************************************"
-  
-  $packageId = if ($env:package_id) { $env:package_id } else { "$solution_name" }
 }
 
 #These are aliases for other build tasks. They typically are named after the camelcase letters (rd = Rebuild Databases)
 task default -depends DevBuild
 task cib -depends CiBuild
-task cip -depends CiPublish
+task cipk -depends CiPack
+task dpk -depends DevPack
+task dr -depends DevPublish
+task cirn -depends CiPublish2Nuget
+task cirm -depends CiPublish2Myget
 task ? -depends help
-task rl -depends ReleaseLocal
-task rn -depends ReleaseNuget
-task rm -depends ReleaseMyget
 
 
 task emitProperties {
   Write-Host "solution_name=$solution_name"
-  Write-Host "base_dir=$base_dir"
   Write-Host "build_dir=$build_dir"
   Write-Host "solution_file=$solution_file"
   Write-Host "test_dir=$test_dir"
   Write-Host "publish_dir=$publish_dir"
   Write-Host "project_config=$project_config"
-  Write-Host "version=$version"
-  Write-Host "ReleaseNumber=$ReleaseNumber"
 }
 
 task help {
@@ -54,12 +44,13 @@ task help {
 }
 
 #These are the actual build tasks. They should be Pascal case by convention
-task DevBuild -depends SetDebugBuild, emitProperties, Clean, Restore, Compile, UnitTest
-task CiBuild -depends SetReleaseBuild, emitProperties, Clean, Restore, Compile, UnitTest
-task CiPublish -depends CiBuild, NugetPack
-task ReleaseLocal -depends DevBuild, NugetPushLocal
-task ReleaseNuget -depends CiPublish, NugetPack, NugetPush
-task ReleaseMyget -depends CiPublish, NugetPack, MygetPush
+task DevBuild -depends SetDebugBuild, emitProperties, Restore, Clean, Compile, UnitTest
+task DevPack -depends DevBuild, Pack
+task DevPublish -depends DevPack, Push2Local
+task CiBuild -depends SetReleaseBuild, emitProperties, Restore, Clean, Compile, UnitTest
+task CiPack -depends CiBuild, Pack
+task CiPublish2Nuget -depends CiPack, Push2Nuget
+task CiPublish2Myget -depends CiPack, Push2Myget
 
 task SetDebugBuild {
     $script:project_config = "Debug"
@@ -69,79 +60,112 @@ task SetReleaseBuild {
     $script:project_config = "Release"
 }
 
-task NugetPushLocal -depends NugetPack {
-	Push-Location $base_dir
-	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
-	
-	foreach ($package in $packages) {
-		Write-Host "Executing nuget add for the package: $package"
-		exec { & $nuget_exe add $package -Source $local_nuget_repo }
-	}
-
-	Pop-Location
+task Restore {
+    Write-Host "******************* Now restoring the solution dependencies *********************"
+    exec { 
+        & $msbuild /t:restore $solution_file /v:m /p:NuGetInteractive="true"
+        if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+    }
 }
 
-task NugetPush {
-	Push-Location $base_dir
-	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
-	
-	foreach ($package in $packages) {
-		Write-Host "Executing nuget add for the package: $package"
-		exec { & $nuget_exe push $package -Source $remote_nuget_repo -ApiKey $repo_api_key}
-	}
-
-	Pop-Location
+task Clean -depends Restore{
+    Write-Host "******************* Now cleaning the solution and artifacts *********************"
+    if (Test-Path $publish_dir) {
+        delete_directory $publish_dir
+    }
+    exec { 
+        & $msbuild /t:clean /v:m /p:Configuration=$project_config $solution_file 
+    }
+    if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
 }
 
-task MygetPush {
-	Push-Location $base_dir
-	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
-	
-	foreach ($package in $packages) {
-		Write-Host "Executing nuget add for the package: $package"
-		exec { & $nuget_exe push $package -Source $remote_myget_repo -ApiKey $repo_api_key}
-	}
-
-	Pop-Location
+task Compile -depends Restore {
+    Write-Host "******************* Now compiling the solution *********************"
+    exec { 
+        & $msbuild /t:build /v:m /p:Configuration=$project_config /nologo /p:Platform="Any CPU" /nologo $solution_file 
+    }
+    if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
 }
 
-task NugetPack -depends UnitTest{
+task UnitTest -depends Compile{
+    Write-Host "******************* Now running unit tests *********************"
+    Push-Location $base_dir
+    $test_assemblies = @((Get-ChildItem -Recurse -Filter "*Tests.dll" | Where-Object {$_.Directory -like '*test*'}).FullName) -join ' '
+    foreach($test_assembly in $test_assemblies.Split(" "))
+    {
+        Write-Host "Executing tests on assembly: $test_assembly"
+        exec { 
+            & $vstest $test_assembly /logger:"console;verbosity=detailed" 
+        }
+    }
+    Pop-Location
+    if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+ }
+
+ task Pack -depends Compile{
+    Write-Host "******************* Now creating nuget package(s) *********************"
 	Push-Location $base_dir
 	$projects = @(Get-ChildItem -Recurse -Filter "*.csproj" | Where-Object {$_.Directory -like '*src*'}).FullName	
 
 	foreach ($project in $projects) {
 		Write-Host "Executing nuget pack on the project: $project"
-		exec { & $nuget_exe pack $project -Version $version -OutputDirectory $publish_dir -Properties Configuration=$project_config }
+		exec { 
+            & $msbuild /t:pack /v:m $project /p:OutputPath=$publish_dir /p:Configuration=$project_config
+            if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+        }
 	}
 
 	Pop-Location
+    if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
 }
 
-task UnitTest -depends Compile{
-   Write-Host "******************* Now running Unit Tests *********************"
-   $vstest_exe = get_vstest_executable
-   Push-Location $base_dir
-   $test_assemblies = @((Get-ChildItem -Recurse -Filter "*Tests.dll" | Where-Object {$_.Directory -like '*test*'}).FullName) -join ' '
-   Write-Host "Executing tests on the following assemblies: $test_assemblies"
-   Start-Process -FilePath $vstest_exe -ArgumentList $test_assemblies ,"/Parallel" -NoNewWindow -Wait
-   Pop-Location
+task Push2Local -depends Pack {
+    Write-Host "******************* Now pushing available nuget package(s) to $local_nuget_repo *********************"
+	Push-Location $base_dir
+	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
+	if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+
+	foreach ($package in $packages) {
+		Write-Host "Executing nuget add for the package: $package"
+		exec { & $nuget add $package -Source $local_nuget_repo -Force}
+        if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+        Write-Host "Warning: Possible overwrite of existing package $package, possible solution is to clear the cache(S)" -ForegroungColor Yellow
+	}
+
+	Pop-Location
+    if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
 }
 
-task Clean {
-    Get-ChildItem -inc build-artifacts -rec | Remove-Item -rec -Force
-    if (Test-Path $publish_dir) {
-        delete_directory $publish_dir
-    }
-    Write-Host "******************* Now Cleaning the Solution *********************"
-    exec { msbuild /t:clean /v:q /p:Configuration=$project_config /p:Platform="Any CPU" $solution_file }
+task Push2Nuget {
+    Write-Host "******************* Now pushing available nuget package(s) to nuget.org *********************"
+	Push-Location $base_dir
+	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
+	if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+
+	foreach ($package in $packages) {
+		Write-Host "Executing nuget push for the package: $package"
+		exec { & $nuget push $package -Source $remote_nuget_repo -ApiKey $api_key}
+        if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+	}
+
+	Pop-Location
+    if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
 }
 
-task Restore -depends Clean{
-    exec { & $nuget_exe restore $solution_file  }
-}
+task Push2Myget {
+    Write-Host "******************* Now pushing available nuget package(s) to myget.org *********************"
+	Push-Location $base_dir
+	$packages = @(Get-ChildItem -Recurse -Filter "*.nupkg" | Where-Object {$_.Directory -like "*publish-artifacts*"}).FullName
+	if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
 
-task Compile -depends Restore {
-    exec { msbuild.exe /t:build /v:q /p:Configuration=$project_config /p:Platform="Any CPU" /nologo $solution_file }
+	foreach ($package in $packages) {
+		Write-Host "Executing nuget push for the package: $package, apikey: $api_key"
+		exec { & $nuget push $package -Source $remote_myget_repo -ApiKey $api_key}
+        if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
+	}
+
+	Pop-Location
+    if($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}
 }
 
 
@@ -201,13 +225,3 @@ function global:get_vstest_executable() {
     $vstest_exe = join-path $vstest_exe 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe'
     return $vstest_exe
 }
-
-function global:get_version(){
-	$verPropsPath = "$base_dir\versions.props"
-    $verProps = [xml](Get-content $verPropsPath)
-    $versionNumber = $verProps.Project.PropertyGroup[0].PivotalServicesBootstrapVersion
-    $versionSuffix = $verProps.Project.PropertyGroup[0].PivotalServicesBootstrapVersionSuffix
-
-    return  $versionNumber+$versionSuffix
-}
-
