@@ -221,7 +221,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PivotalServices.AspNet.Bootstrap.Extensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PivotalServices.AspNet.Bootstrap.Extensions, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PivotalServices.AspNet.Bootstrap.Extensions.1.1.1\lib\net461\PivotalServices.AspNet.Bootstrap.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
