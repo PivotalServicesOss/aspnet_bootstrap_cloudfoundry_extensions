@@ -1,7 +1,11 @@
-#### 1.0.0
+#### 1.1.3
+- Updated to use Steeltoe version 2.5.4
+- Microsoft dependencies updated to latest supporting ASP.NET full framework (< 5.0)
+
+#### 1.1.1
 - Consumed base 1.1.1 on safe error handling
 
-#### 1.0.0
+#### 1.1.0
 - Upgraded to use Steeltoe version 2.4.4
 - Upgraded to use MicrosoftExtensions version 3.1.7 (LTS)
 
