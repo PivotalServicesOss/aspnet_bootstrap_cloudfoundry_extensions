@@ -95,7 +95,7 @@ task UnitTest -depends Compile{
     {
         Write-Host "Executing tests on assembly: $test_assembly"
         exec { 
-            & $vstest $test_assembly /logger:"console;verbosity=detailed" 
+            & $vstest $test_assembly /logger:"console;verbosity=detailed" /Settings:"$base_dir\.runsettings"
         }
     }
     Pop-Location
