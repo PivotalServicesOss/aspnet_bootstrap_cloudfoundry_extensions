@@ -1,5 +1,5 @@
 #### 1.1.3
-- Updated to use Steeltoe version 2.5.4
+- Updated to use Steeltoe version 2.5.4, except for management/actuators
 - Microsoft dependencies updated to latest supporting ASP.NET full framework (< 5.0)
 
 #### 1.1.1
