@@ -8,7 +8,7 @@
     <MicrosoftExtensionsVersion>3.1.18</MicrosoftExtensionsVersion>
     <MicrosoftWebVersion>1.0.0</MicrosoftWebVersion>
     <MicrosoftWebRedisVersion>4.0.1</MicrosoftWebRedisVersion>
-    <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>3.1.7</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
+    <MicrosoftExtensionsConfigurationEnvironmentVariableVersion>3.1.18</MicrosoftExtensionsConfigurationEnvironmentVariableVersion>
     <MicrosoftNetVersion>2.3.0</MicrosoftNetVersion>
     <SteeltoeVersion>2.5.4</SteeltoeVersion>
     <SteeltoeManagementVersion>2.5.4</SteeltoeManagementVersion>
