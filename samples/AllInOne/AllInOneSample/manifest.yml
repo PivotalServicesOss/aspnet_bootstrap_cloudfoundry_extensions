@@ -2,6 +2,7 @@
 applications:
 - name: pcf_bootstrap_all_sample
   memory: 1024M
+  path: .
   stack: windows
   buildpacks:
    - hwc_buildpack

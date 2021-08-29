@@ -2,6 +2,7 @@
 applications:
 - name: actuator_sample
   memory: 1024M
+  path: .
   stack: windows
   buildpacks:
    - hwc_buildpack

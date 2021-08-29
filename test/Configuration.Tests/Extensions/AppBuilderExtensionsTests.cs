@@ -1,4 +1,5 @@
 ﻿using PivotalServices.AspNet.Bootstrap.Extensions.Testing;
+using System;
 using Xunit;
 
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -26,7 +27,16 @@ namespace PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration.Tests
             TestProxy.ConfigureAppConfigurationDelegatesProxy.Clear();
             TestProxy.ConfigureServicesDelegatesProxy.Clear();
 
-            AppBuilder.Instance.AddConfigServer();
+            
+
+            try
+            {
+                AppBuilder.Instance.AddConfigServer();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"sdafasdfahsdbfljahsdbfljbsfl, {ex.StackTrace}, {ex.InnerException}", ex);
+            }
 
             Assert.Single(TestProxy.ConfigureAppConfigurationDelegatesProxy);
             Assert.Single(TestProxy.ConfigureServicesDelegatesProxy);
