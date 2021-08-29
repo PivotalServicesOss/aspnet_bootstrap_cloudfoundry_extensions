@@ -62,8 +62,8 @@
 
   <ItemGroup>
     <None Include="readme.txt" pack="true" PackagePath="." />
-    <Content Include="Web.config.install.xdt" pack="true" PackagePath="." />
-    <Content Include="Web.config.uninstall.xdt" pack="true" PackagePath="." />
+    <Content Include="Web.config.install.xdt" pack="true" PackagePath="./Content" />
+    <Content Include="Web.config.uninstall.xdt" pack="true" PackagePath="./Content" />
   </ItemGroup>
   
 </Project>
