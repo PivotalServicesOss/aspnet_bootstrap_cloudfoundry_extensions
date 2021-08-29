@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
@@ -22,7 +23,15 @@ namespace PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration
             foreach (var settingKey in appSettings.AllKeys)
             {
                 var key = $"{APP_SETT_PREFIX}:{settingKey}";
-                Data[key] = appSettings[settingKey];
+
+                try
+                {
+                    Data[key] = appSettings[settingKey];
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception("sdafasdfahsdbfljahsdbfljbsfl", ex);
+                }
             }
         }
 
