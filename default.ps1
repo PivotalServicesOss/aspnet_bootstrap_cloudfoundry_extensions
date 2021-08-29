@@ -19,7 +19,7 @@ task default -depends DevBuild
 task cib -depends CiBuild
 task cipk -depends CiPack
 task dpk -depends DevPack
-task dr -depends DevPublish
+task drn -depends DevPublish
 task cirn -depends CiPublish2Nuget
 task cirm -depends CiPublish2Myget
 task ? -depends help
