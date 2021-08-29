@@ -21,6 +21,9 @@ namespace PivotalServices.AspNet.Bootstrap.Extensions
         /// Adds Json, Environment Variables and VCAP Services as configuration sources
         /// appsettings.{ASPNETCORE_ENVIRONMENT}.* files are optional
         /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="jsonSettingsOptional"></param>
+        /// <param name="yamlSettingsOptional"></param>
         /// <param name="environment"></param>
         public static AppBuilder AddDefaultConfigurations(this AppBuilder instance, bool jsonSettingsOptional = true, bool yamlSettingsOptional = true, string environment = null)
         {
@@ -55,6 +58,7 @@ namespace PivotalServices.AspNet.Bootstrap.Extensions
         /// </summary>
         /// <param name="instance"></param>
         /// <param name="environment"></param>
+        /// <param name="configServerLogger"></param>
         /// <returns></returns>
         public static AppBuilder AddConfigServer(this AppBuilder instance, string environment = null, ILoggerFactory configServerLogger = null)
         {
