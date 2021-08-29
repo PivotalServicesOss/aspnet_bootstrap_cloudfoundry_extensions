@@ -117,7 +117,7 @@ window.Modernizr = (function( window, document, undefined ) {
       // when injected with innerHTML. To get around this you need to prepend the 'NoScope' element
       // with a 'scoped' element, in our case the soft-hyphen entity as it won't mess with our measurements.
       // msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx
-      // Documents served as xml will throw if DefaultAndConfigServer &shy; so use xml friendly encoded version. See issue #277
+      // Documents served as xml will throw if using &shy; so use xml friendly encoded version. See issue #277
       style = ['&#173;','<style id="s', mod, '">', rule, '</style>'].join('');
       div.id = mod;
       // IE6 will false positive on some tests due to the style element inside the test div somehow interfering offsetHeight, so insert it into body or fakebody.
@@ -195,7 +195,7 @@ window.Modernizr = (function( window, document, undefined ) {
         element = element || document.createElement(TAGNAMES[eventName] || 'div');
         eventName = 'on' + eventName;
 
-        // When DefaultAndConfigServer `setAttribute`, IE skips "unload", WebKit skips "unload" and "resize", whereas `in` "catches" those
+        // When using `setAttribute`, IE skips "unload", WebKit skips "unload" and "resize", whereas `in` "catches" those
         var isSupported = eventName in element;
 
         if ( !isSupported ) {
@@ -466,7 +466,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // geolocation is often considered a trivial feature detect...
     // Turns out, it's quite tricky to get right:
     //
-    // DefaultAndConfigServer !!navigator.geolocation does two things we don't want. It:
+    // Using !!navigator.geolocation does two things we don't want. It:
     //   1. Leaks memory in IE9: github.com/Modernizr/Modernizr/issues/513
     //   2. Disables page caching in WebKit: webk.it/43956
     //
@@ -483,7 +483,7 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-    // Chrome incognito mode used to throw an exception when DefaultAndConfigServer openDatabase
+    // Chrome incognito mode used to throw an exception when using openDatabase
     // It doesn't anymore.
     tests['websqldatabase'] = function() {
       return !!window.openDatabase;
@@ -713,7 +713,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // These tests evaluate support of the video/audio elements, as well as
     // testing what types of content they support.
     //
-    // We're DefaultAndConfigServer the Boolean constructor here, so that we can extend the value
+    // We're using the Boolean constructor here, so that we can extend the value
     // e.g.  Modernizr.video     // true
     //       Modernizr.video.ogg // 'probably'
     //
@@ -849,7 +849,7 @@ window.Modernizr = (function( window, document, undefined ) {
     function webforms() {
         /*>>input*/
         // Run through HTML5's new input attributes to see if the UA understands any.
-        // We're DefaultAndConfigServer f which is the <input> element created early on
+        // We're using f which is the <input> element created early on
         // Mike Taylr has created a comprehensive resource for testing these attributes
         //   when applied to all input types:
         //   miketaylr.com/code/input-type-attr.html

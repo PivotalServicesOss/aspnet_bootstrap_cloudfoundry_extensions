@@ -120,10 +120,10 @@ namespace DefaultAndConfigServer.Areas.HelpPage
                         {
                             object sample = GetActionSample(controllerName, actionName, parameterNames, type, formatter, mediaType, sampleDirection);
 
-                            // If no sample found, try generate sample DefaultAndConfigServer formatter and sample object
+                            // If no sample found, try generate sample using formatter and sample object
                             if (sample == null && sampleObject != null)
                             {
-                                sample = WriteSampleObjectDefaultAndConfigServerFormatter(formatter, sampleObject, type, mediaType);
+                                sample = WriteSampleObjectUsingFormatter(formatter, sampleObject, type, mediaType);
                             }
 
                             samples.Add(mediaType, WrapSampleIfString(sample));
@@ -168,7 +168,7 @@ namespace DefaultAndConfigServer.Areas.HelpPage
         /// <summary>
         /// Gets the sample object that will be serialized by the formatters. 
         /// First, it will look at the <see cref="SampleObjects"/>. If no sample object is found, it will try to create
-        /// one DefaultAndConfigServer <see cref="DefaultSampleObjectFactory"/> (which wraps an <see cref="ObjectGenerator"/>) and other
+        /// one using <see cref="DefaultSampleObjectFactory"/> (which wraps an <see cref="ObjectGenerator"/>) and other
         /// factories in <see cref="SampleObjectFactories"/>.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -277,7 +277,7 @@ namespace DefaultAndConfigServer.Areas.HelpPage
         }
 
         /// <summary>
-        /// Writes the sample object DefaultAndConfigServer formatter.
+        /// Writes the sample object using formatter.
         /// </summary>
         /// <param name="formatter">The formatter.</param>
         /// <param name="value">The value.</param>
@@ -285,7 +285,7 @@ namespace DefaultAndConfigServer.Areas.HelpPage
         /// <param name="mediaType">Type of the media.</param>
         /// <returns></returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The exception is recorded as InvalidSample.")]
-        public virtual object WriteSampleObjectDefaultAndConfigServerFormatter(MediaTypeFormatter formatter, object value, Type type, MediaTypeHeaderValue mediaType)
+        public virtual object WriteSampleObjectUsingFormatter(MediaTypeFormatter formatter, object value, Type type, MediaTypeHeaderValue mediaType)
         {
             if (formatter == null)
             {
@@ -334,7 +334,7 @@ namespace DefaultAndConfigServer.Areas.HelpPage
             {
                 sample = new InvalidSample(String.Format(
                     CultureInfo.CurrentCulture,
-                    "An exception has occurred while DefaultAndConfigServer the formatter '{0}' to generate sample for media type '{1}'. Exception message: {2}",
+                    "An exception has occurred while using the formatter '{0}' to generate sample for media type '{1}'. Exception message: {2}",
                     formatter.GetType().Name,
                     mediaType.MediaType,
                     UnwrapException(e).Message));
