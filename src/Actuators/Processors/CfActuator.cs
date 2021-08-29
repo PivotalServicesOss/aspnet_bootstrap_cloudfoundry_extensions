@@ -24,13 +24,15 @@ namespace PivotalServices.AspNet.Bootstrap.Extensions.Cf.Actuators
             var configuration = DependencyContainer.GetService<IConfiguration>();
             var loggerFactory = GetLoggerFactory(configuration);
 
-            ActuatorConfigurator.UseAllActuators(configuration,
+            ActuatorConfigurator.UseCloudFoundryActuators(configuration,
                                                             dynamicLoggerProvider,
                                                             MediaTypeVersion.V1,
                                                             ActuatorContext.ActuatorAndCloudFoundry,
                                                             GetHealthContributors(),
                                                             GlobalConfiguration.Configuration.Services.GetApiExplorer(),
                                                             loggerFactory);
+
+            ActuatorConfigurator.UseMetricsActuator(configuration, loggerFactory);
         }
 
         public void Start()
