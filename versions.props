@@ -17,7 +17,7 @@
     <NetEscapadesConfigurationVersion>1.6.0</NetEscapadesConfigurationVersion>
     <KerberosNetVersion>2.7.508.1</KerberosNetVersion>
     <GitInfoVersion>2.0.21</GitInfoVersion>
-    <PivotalServicesAspnetBootstrapExtensionsVersion>1.1.1</PivotalServicesAspnetBootstrapExtensionsVersion>
+    <PivotalServicesAspnetBootstrapExtensionsVersion>1.1.2</PivotalServicesAspnetBootstrapExtensionsVersion>
     <TargetFrameworkGeneral>net461</TargetFrameworkGeneral>
     <TargetFrameworkRedisSession>net462</TargetFrameworkRedisSession>
   </PropertyGroup>
