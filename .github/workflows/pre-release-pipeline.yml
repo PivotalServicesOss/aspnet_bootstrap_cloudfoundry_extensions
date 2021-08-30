@@ -10,6 +10,8 @@ jobs:
     steps:
       # Checks-out repository
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       # Execute psake build script
       - name: Execute psake build with argument (CiPublish2Myget)
         shell: cmd
