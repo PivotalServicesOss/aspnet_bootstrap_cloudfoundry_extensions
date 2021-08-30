@@ -44,9 +44,7 @@ Build | Configuration | Logging | Actuators | Redis.Session |
  
 ### Steps - High level
 - Install the nuget package based on your need
-- Modify `App_Start` and `App_End` in Global.ascx (by following the steps in appropriate sections - [Configuration](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#externalizing-configuration), [Session](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#persist-session-to-redis), [Actuators](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#enabling-cloud-foundry-actuators-and-metrics-forwarders), [Logging](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#enable-cloud-native-logging), 
-[Base(IoC)](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions/#base-features-ioc), 
-[Base(Dynamic Handlers)](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions/#base-feature-dynamic-handlers))
+- Modify `App_Start` and `App_End` in Global.ascx (by following the steps in appropriate sections - [Configuration](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#externalizing-configuration), [Session](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#persist-session-to-redis), [Actuators](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#enabling-cloud-foundry-actuators-and-metrics-forwarders), [Logging](https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#enable-cloud-native-logging)
 - Compile and push the application to Pivotal Platform (PAS)
 
 ### Prerequisites
