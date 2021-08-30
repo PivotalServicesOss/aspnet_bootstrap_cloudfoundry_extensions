@@ -15,18 +15,6 @@ Build | Configuration | Logging | Actuators | Redis.Session |
 --- | --- | --- | --- |--- |
 [![Nuget (Prod Release)](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions/actions/workflows/prod-release-pipeline.yml/badge.svg)](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions/actions/workflows/prod-release-pipeline.yml) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Configuration) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Logging.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Logging) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Actuators.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Actuators) | [![NuGet](https://img.shields.io/nuget/v/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Redis.Session.svg?style=flat-square)](http://www.nuget.org/packages/PivotalServices.AspNet.Bootstrap.Extensions.Cf.Redis.Session) 
 
-### Quick Links
-- [Supported ASP.NET apps](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#supported-aspnet-apps)
-- [Salient features](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#salient-features)
-- [Packages](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#packages)
-- [Steps - High level](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#steps---high-level)
-- [Prerequisites](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#prerequisites)
-- [Externalizing Configuration](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#externalizing-configuration)
-- [Persist Session to Redis](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#persist-session-to-redis)
-- [Enabling Cloud Foundry Actuators and Metrics Forwarders](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#enabling-cloud-foundry-actuators-and-metrics-forwarders)
-- [Enable Cloud Native Logging](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#enable-cloud-native-logging)
-- [Sample Implementations](https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions/tree/master/samples) 
-
 ### Supported ASP.NET apps
 - WebAPI
 - MVC
