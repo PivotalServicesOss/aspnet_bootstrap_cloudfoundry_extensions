@@ -7,8 +7,8 @@ Below are the important developer instructions, to follow after installation of 
 ============================================================================================================================================
 
 Please follow the instructions provided in the links below 
-https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#prerequisites
-https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions#externalizing-configuration
+https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#prerequisites
+https://alfusinigoj.github.io/pivotal_aspnet_bootstrap_cloudfoundry_extensions#externalizing-configuration
 
 Please find the samples at https://github.com/alfusinigoj/pivotal_aspnet_bootstrap_cloudfoundry_extensions/tree/master/samples
 

@@ -1,7 +1,0 @@
-﻿---
-applications:
-- name: logging_webapi_sample
-  memory: 1024M
-  stack: windows
-  buildpacks:
-   - hwc_buildpack

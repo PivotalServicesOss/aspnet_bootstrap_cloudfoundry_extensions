@@ -1,7 +1,11 @@
-#### 1.0.0
+#### 1.1.3
+- Updated to use Steeltoe version 2.5.4, except for management/actuators to 2.5.1
+- Microsoft dependencies updated to latest supporting ASP.NET full framework (< 5.0)
+
+#### 1.1.1
 - Consumed base 1.1.1 on safe error handling
 
-#### 1.0.0
+#### 1.1.0
 - Upgraded to use Steeltoe version 2.4.4
 - Upgraded to use MicrosoftExtensions version 3.1.7 (LTS)
 
@@ -12,7 +16,7 @@
 #### Reference/Usage Guide
 https://www.initpals.com/pcf/move-your-asp-net-workloads-to-pivotal-platform-pas-cloudfoundry/
 
-### Deprecated Packages & Versions (PivotalServices.AspNet.Replatform.Cf.*) below
+### Deprecated Packages & Versions (PivotalServices.AspNet.Replatform.Cf.*) below - Unlisted as on 09/1/2021
 
 #### 2.2.0
 - A package for Windows Authentication using Kerberos is added, including a sample. https://www.nuget.org/packages/PivotalServices.AspNet.Replatform.Cf.WinAuth

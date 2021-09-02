@@ -1,9 +1,0 @@
-﻿---
-applications:
-- name: actuator_sample
-  memory: 1024M
-  stack: windows
-  buildpacks:
-   - hwc_buildpack
-  env:
-    ASPNETCORE_ENVIRONMENT: dev
