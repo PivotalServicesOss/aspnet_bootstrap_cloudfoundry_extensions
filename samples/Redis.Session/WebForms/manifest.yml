@@ -1,9 +1,0 @@
-﻿---
-applications:
-- name: redis_session_webform_sample
-  memory: 1024M
-  stack: windows
-  buildpacks:
-   - hwc_buildpack
-  services:
-   - redis_service

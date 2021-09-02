@@ -1,0 +1,14 @@
+﻿---
+applications:
+- name: pcf_bootstrap_all_sample
+  memory: 1024M
+  stack: windows
+  buildpacks:
+   - hwc_buildpack
+  services:
+   - ConfigServer
+   - CredHub
+   - redis_service
+  env:
+    ASPNETCORE_ENVIRONMENT: dev
+    #"connectionStrings:conn1": "conn1 value coming from environment variables"

@@ -1,7 +1,0 @@
----
-#This configuration will be pulled if ASPNETCORE_ENVIRONMENT=local
-ConnectionStrings:
-  conn2: conn2 value from appsettings.local.yaml
-  conn4: conn4 value from appsettings.local.yaml
-Providers:
-  conn2: conn2 provider from appsettings.local.yaml

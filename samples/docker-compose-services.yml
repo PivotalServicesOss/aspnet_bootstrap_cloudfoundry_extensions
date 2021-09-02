@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  redis:
+    image: steeltoeoss/redis
+    container_name: all-in-one-sample-redis
+    ports:
+    - 6379:6379
